@@ -43,7 +43,7 @@
     "cover": "/Img/Music Covers/Everything.jpg"
   },{
     "id": 8,
-    "sampleLocation": "../Audio/Audio/Diamond Eyes - Flutter [NCS Release].mp3",
+    "sampleLocation": "../Audio/Diamond Eyes - Flutter [NCS Release].mp3",
     "artistName": "Diamond Eyes",
     "album": "Flutter",
     "cover": "/Img/Music Covers/Flutter.jpg"
@@ -67,7 +67,7 @@
     "cover": "/Img/Music Covers/Lies.jpg"
   },{
     "id": 12,
-    "sampleLocation": "../Audio/Diamond Eyes - Devil [NCS Release].mp3",
+    "sampleLocation": "../Audio/Diamond Eyes – Devil [NCS Release].mp3",
     "artistName": "Diamond Eyes",
     "album": "Devil",
     "cover": "/Img/Music Covers/Devil.jpg"
@@ -76,13 +76,13 @@
     "sampleLocation": "../Audio/Egzod & Maestro Chives - Royalty (Don Diablo Remix) [NCS Release].mp3",
     "artistName": "Egzod & Maestro Chives",
     "album": "Royalty(Don Diablo Remix)",
-    "cover": "/Img/Music Covers/Devil-VIP.jpg"
+    "cover": "/Img/Music Covers/Royalty.jpg"
   },{
     "id": 14,
     "sampleLocation": "../Audio/Hyri - Nocturnal [NCS Release].mp3",
     "artistName": "Hyri",
     "album": "Nocturnal",
-    "cover": "/Img/Music Covers/Obey.jpg"
+    "cover": "/Img/Music Covers/Nocturnal.jpg"
   },{
     "id": 15,
     "sampleLocation": "../Audio/IntoAlter x Too Martian x Peter Piffen - When We Leavin [NCS Release].mp3",
@@ -130,13 +130,13 @@
     "sampleLocation": "../Audio/Rameses B - There For You [NCS Release].mp3",
     "artistName": "Rameses B",
     "album": "There For You",
-    "cover": "/Img/Music Covers/Obey.jpg"
+    "cover": "/Img/Music Covers/There For You.jpg"
   },{
     "id": 23,
     "sampleLocation": "../Audio/RYVN - Avatar [NCS Release].mp3",
     "artistName": "RYVN",
     "album": "Avatar",
-    "cover": "/Img/Music Covers/Devil-VIP.jpg"
+    "cover": "/Img/Music Covers/Avatar.png"
   },{
     "id": 24,
     "sampleLocation": "../Audio/Shiah Maisel & Clarx - Everything I Got [NCS Release].mp3",
@@ -148,6 +148,6 @@
     "sampleLocation": "../Audio/TWISTED - BUSSIN' [NCS Release].mp3",
     "artistName": "TWISTED",
     "album": "BUSSIN'",
-    "cover": "/Img/Music Covers/Obey.jpg"
+    "cover": "/Img/Music Covers/BUSSIN'.jpg"
   }
 ]

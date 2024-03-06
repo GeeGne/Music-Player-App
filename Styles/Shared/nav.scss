@@ -61,7 +61,6 @@ nav .title::before {
 }
 
 nav .title img {
-  // margin-right: 0.3em;
   width: 1em;
   height: auto;
 
@@ -73,12 +72,19 @@ nav .title img {
 // }
 
 .home-section,
-.listen-section,
-.personal-section {
+.listen-section {
   display: flex;
   flex-direction: column;
   padding: 0px 0px 1em 0px;
   height: 15em;
+  font-size: 1rem;
+}
+
+.personal-section {
+  display: flex;
+  flex-direction: column;
+  // padding: 0px 0px 1em 0px;
+  height: 8em;
   font-size: 1rem;
 }
 
@@ -140,9 +146,50 @@ nav .title img {
   padding-right: 0.5em;
   opacity: 0.7;
   width: 2em;
-
 }
 
+.new-playlist-section {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  min-height: 5em;
+  // max-height: 8em;
+}
+
+.new-playlist-section button {
+  display: flex;
+  flex-shrink: 0;
+  overflow: hidden;
+  width: 85%;
+  height: 2.3em;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0);
+  white-space: nowrap;
+  font-size: inherit;
+  font-weight: 500;
+  outline: solid 2px #000000a2;
+  border: none;
+  border-radius: 20px;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: filter ease-in 0.15s, background-color ease-in 0.15s, outline ease-in 0.15s;
+  // color: white;
+  // font-family: 'Poppins', sans-serif;
+}
+
+.new-playlist-section button img {
+  margin-right: 0.3em;
+  min-width: 1.5rem;
+  opacity: 0.8;
+}
+
+.new-playlist-section button:hover {
+  background-color: #ffffffa2;
+  outline: solid 2px #ffffffa2;
+  // color: #ffffffa2;
+  filter: invert(100%);
+}
 
 nav .sample-section {
   display: flex;
@@ -207,7 +254,7 @@ nav::-webkit-scrollbar-track {
 }
 
 
-@media (max-height: 615px) {
+@media (max-height: 500px) {
   nav {
   overflow-y: scroll;
   }
@@ -223,6 +270,25 @@ nav::-webkit-scrollbar-track {
   .listen-section,
   .personal-section {
     font-size: 0.8rem;
+ 
   }
 
+  .new-playlist-section {
+    font-size: 0.7rem;
+  }
+  .new-playlist-section button img {
+    min-width: 1.05rem;
+    max-width: 1.05rem;
+  }
+
+}
+
+@media (min-width: 820px) and (max-height: 680px) {
+  nav {
+    overflow-y: scroll;
+  }
+
+  nav .outline-blur {
+    display: none;
+  }
 }

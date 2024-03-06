@@ -290,11 +290,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  white-space: nowrap;
   // background-color: #99cb82ec;
 }
 
 .right-side .bottom-section .name-section h2:last-child {
-  margin-right: 3em;
+  // margin-right: 3em;
   filter: drop-shadow(0 0 2px white);
   transition: opacity ease-out 0.15s;
 }
