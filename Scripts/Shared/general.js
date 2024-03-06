@@ -202,11 +202,11 @@ export function userAction(action, element, other) {
     }
 
     audioState.playLists.forEach(list => list.id === playListId && (matchedPlaylist = list.playList))
-    playList = matchedPlaylist
+    audioState.playList = matchedPlaylist
 
     audioState.screen === 'playlists' && currentPlaylistToggle('update current playlist HTML');
-    playList.list.length !== 0 && playFromBeginning();
-    playList.list.length !== 0 && currentPlaylistToggle('change icon');
+    audioState.playList.list.length !== 0 && playFromBeginning();
+    audioState.playList.list.length !== 0 && currentPlaylistToggle('change icon');
   }
 
   if (action ==='play' || action === 'play next' || action === 'play previous') {
