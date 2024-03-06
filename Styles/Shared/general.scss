@@ -1,0 +1,77 @@
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+  // height: -webkit-fill-available;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  font-family: 'Poppins', sans-serif;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+
+body {
+  display: flex;
+  flex-direction: row;
+  // height: -webkit-fill-available;
+  height: 100vh;
+  min-width: calc(100vw + 15em);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#90909071), to(#391f3cce)), url('../../Img/Background/pexels-thiago-matos.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-clip: border-box;
+  backdrop-filter: blur(1px);
+  //backdrop-filter: brightness(75%) blur(1px);
+  overflow: hidden;
+  transform: translateX(-15em);
+}
+
+h1 {
+  font-family: 'Protest Guerrilla', sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+h2 {
+  font-family: "Roboto", cursive;
+  font-size: 2em;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1em;
+  font-family: "Roboto", cursive;
+  font-weight: 600;
+}
+
+@media (min-height: 321px) and (max-height: 451px){
+  body {
+    font-size: 12px;
+  }
+}
+
+@media (min-width:820px) and (max-width: 1130px) {
+  body {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 819px) {
+  body {
+    font-size: 8px;
+  }
+}
+
+
+
+@media (max-height: 320px) {
+  body {
+    font-size: 8px;
+  }
+}

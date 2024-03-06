@@ -1,0 +1,188 @@
+.animate {
+  animation-duration: 0.5s;
+}
+
+.animate--08s {
+  animation-duration: 0.8s;
+}
+
+.animate .animate--reverse {
+  animation-direction: reverse;
+}
+
+@keyframes slideOutNav {
+  from {
+    // transform: translateX(0);
+    min-width: 30.5em;
+  }
+  to {
+    // transform: translateX(230px);
+    min-width: 16.5em;
+  }
+}
+
+@keyframes slideInNav {
+  from {
+    // transform: translateX(0);
+    min-width: 16.5em;
+  }
+  to {
+    // transform: lateX(230px);
+    min-width: 30.5em;
+  }
+}
+
+@keyframes rotate180deg {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rotate180degReversed {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(2em);
+  }
+  to {
+    opacity: auto;
+    transfrom: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 0;
+    transform: translateX(-2em);
+  }
+  to {
+    opacity: auto;
+    transfrom: translateX(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(1em);
+  }
+  to {
+    opacity: auto;
+    transfrom: translateX(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-1em);
+  }
+  to {
+    opacity: auto;
+    transfrom: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes next--playNchill {
+  from {
+    transform: translateX(auto);
+  }
+  to {
+    transform: translateX(calc(-16em));
+  }
+}
+
+@keyframes previous--playNchill {
+  from {
+    transform: translateX(auto);
+  }
+  to {
+    transform: translateX(calc(+16rem));
+  }
+}
+
+.slideOutNav {
+  animation-name: slideOutNav;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.slideInNav {
+  animation-name: slideInNav;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.rotate180deg {
+  animation-name: rotate180deg;
+  animation-timing-function: ease-in;
+  animation-fill-mode: both;
+}
+
+.rotate180degReversed {
+  animation-name: rotate180degReversed;
+  animation-timing-function: ease-in;
+  animation-fill-mode: both;
+}
+
+.slideIn {
+  animation-name: slideIn;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.slideUp {
+  animation-name: slideUp;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.slideOut {
+  animation-name: slideOuts;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.slideDown {
+  animation-name: slideDown;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.next--playNchill {
+  animation-name: next--playNchill;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.previous--playNchill {
+  animation-name: prevoius--playNchill;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+
+}
+.fadeIn {
+  animation-name: fadeIn;
+  animation-timing-function: ease-in;
+  animation-fill-mode: both;
+}

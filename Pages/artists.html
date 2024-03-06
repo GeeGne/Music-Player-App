@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> 
+      Artists
+    </title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <link rel="icon" href="/Img/Icons/airwave.svg" color="red">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Montserrat&family=Poppins:wght@300;400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Rubik+Maps&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/Styles/Shared/general.css">
+    <link rel="stylesheet" href="/Styles/Shared/animation.css">
+    <link rel="stylesheet" href="/Styles/Shared/nav.css">
+    <link rel="stylesheet" href="/Styles/Shared/header.css">
+    <link rel="stylesheet" href="/Styles/artists.css">
+  </head>
+  <body>
+    
+    <section class="nav-container js-nav-container">
+      <nav class="blur-border">
+        <h1 class="title">
+          <img src="/Img/Icons/airwave.svg">
+          Music Player
+        </h1>
+
+        <section class="home-section"
+          data-page-name="Home"
+        >
+          <h2 
+            class="js-nav-button"
+            data-page-name="Home"
+          >
+            Home
+          </h2>
+        </section>
+
+        <section class="listen-section"> 
+          <h3>
+            _Listen
+          </h3>
+          <ul type="none">
+            <li 
+              class="js-nav-button"
+              data-page-name="All Songs"
+            >
+              <img src="/Img/Icons/genres.svg">
+              All Songs
+            </li>
+            <li 
+              class="js-nav-button"
+              data-page-name="Albums"
+            >
+              <img src="/Img/Icons/album.svg">
+              Albums
+            </li>
+            <li 
+              class="clicked js-nav-button"
+              data-page-name="Artists"
+            >
+              <img src="/Img/Icons/artist.svg">
+              Artists
+              <div class="mark-line"></div>
+            </li>
+            <div class="nav-selected"></div>
+          </ul>
+        </section>
+
+        <section class="personal-section">
+          <h3>
+            _Personal
+          </h3>
+          <ul type="none">
+            <li 
+              class="js-nav-button"
+              data-page-name="Favourites"
+            >
+              <img src="/Img/Icons/favorite.svg">
+              Favourites
+            </li>
+            <li 
+              class="js-nav-button"
+              data-page-name="Playlists"
+            >
+              <img src="/Img/Icons/list.svg">
+              Playlists
+            </li>
+          </ul>
+        </section>
+
+        <div class="outline-blur">
+        </div>
+      </nav>
+    </section>
+
+    <div class="right-side">
+      <header>
+        <div class="nav-toggle js-nav-toggle">
+          <img class="js-nav-toggle-arrow" src="/Img/Icons/line_end_arrow.svg">
+        </div>
+
+        <div class="search-container">
+          <input 
+            class="js-search-input"
+            type="text" 
+            placeholder="Search for Album, Song.."
+          >
+          <div class="search-icon">
+            <img src="/Img/Icons/search.svg">
+          </div>
+        </div>
+
+        <div class="section-name">
+          <h2 class="animate--08s slideIn">
+            Artists
+            <div class="triangle animate slideUp"></div>
+          </h2>
+        </div>
+
+        <div class="settings js-settings">
+          <img src="/Img/Icons/settings.svg">
+        </div>
+      </header>
+  
+      <main>
+
+        <section class="top-section">
+          <div>
+            <h2>
+              Play-n-Chill
+            </h2>
+            <img src="/Img/Icons/chevron_left.svg">
+            <img src="/Img/Icons/navigate_next.svg">
+          </div>
+          <div>
+            <img>
+         </div>
+        </section>
+
+        <section class="bottom-section">
+          <div class="left-section">
+            <div>
+              <h2>
+                Albums
+              </h2>
+              <img src="/Img/Icons/chevron_left.svg">
+              <img src="/Img/Icons/navigate_next.svg">
+            </div>
+            <div>
+              <img>
+            </div>
+          </div>
+
+          <div class="right-section">
+            <div>
+              <h2>
+                Artists
+              </h2>
+              <img src="/Img/Icons/chevron_left.svg">
+              <img src="/Img/Icons/navigate_next.svg">
+            </div>
+            <div>
+              <img>
+            </div>
+          </div>
+        </section>
+      </main>
+  
+      <footer>
+        footer
+      </footer>
+    </div>
+
+  
+
+    <script type="module" src="/Scripts/artists.js"></script>
+  </body>
+</html>

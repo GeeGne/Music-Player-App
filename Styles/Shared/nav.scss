@@ -1,0 +1,228 @@
+.nav-container {
+  display: flex;
+  font-size: inherit;
+  min-height: 100vh;
+  // flex: 1;
+  min-width: 30.5em;
+  justify-content: end;  
+  transition: transform ease-out 0.25s;
+  // transition: max-width ease-in 0.15s;
+}
+
+.shift--right {
+  transform: translateX(1em);
+  // max-width: 31.5em;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  max-width: 15em;
+  margin-left: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  background-color: rgba(255, 255, 255, 0.601);
+  backdrop-filter: brightness(200%);
+  z-index: 100;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+nav .outline-blur {
+  position: absolute;
+  top: -0.1em;
+  bottom: -0.1em;
+  right: -0.4em;
+  border: 0.5em solid rgba(0, 0, 0, 0.144);
+  filter: blur(5px);
+}
+
+nav .title {
+  position: relative;
+  display: flex;
+  padding: 0.5em 0;
+  align-items: center;
+  justify-content: space-evenly;
+  font-weight: 400;
+  font-size: 2em;
+}
+
+nav .title::before {
+  content: "";
+  position: absolute;
+  top: -14.9em;
+  left: -70%;
+  width: 16em;
+  height: 16em;
+  background: inherit;
+  backdrop-filter: invert(100%);
+  transform: rotate(73deg);
+}
+
+nav .title img {
+  // margin-right: 0.3em;
+  width: 1em;
+  height: auto;
+
+}
+
+// nav .title:hover {
+//   filter: invert(100%);
+//   cursor: pointer;
+// }
+
+.home-section,
+.listen-section,
+.personal-section {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 0px 1em 0px;
+  height: 15em;
+  font-size: 1rem;
+}
+
+.home-section {
+  display: flex;
+  height: 7em;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.home-section h2 {
+  position: relative;
+  display: flex;
+  height: 1.5em;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  color: rgb(63, 63, 63);
+  transition: filter ease-in 0.15s, background-color ease-in 0.15s;
+  font-size: 1.5em;
+}
+
+.listen-section h2,
+.personal-section h2 {
+  display: flex;
+  justify-content: start;
+  color: rgba(43, 43, 43, 0.521);
+}
+
+.listen-section ul,
+.personal-section ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em 0;
+}
+
+.listen-section li,
+.personal-section li {
+  display: flex;
+  background-color: #ffffff00;
+  color: rgb(63, 63, 63);
+  align-items: center;
+  padding: 0 0 0 1.2em;
+  min-height: 2.3em;
+  cursor: pointer;
+  transition: filter ease-in 0.15s, background-color ease-in 0.15s;
+}
+
+.listen-section li:hover,
+.personal-section li:hover,
+.home-section h2:hover {
+  background-color: #ffffffa2;
+  filter: invert(100%);
+}
+
+.listen-section li img,
+.personal-section li img {
+  padding-right: 0.5em;
+  opacity: 0.7;
+  width: 2em;
+
+}
+
+
+nav .sample-section {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+
+nav .sample-section .timer {
+  display: flex;
+  justify-content: center;
+  transition: opacity ease-in 0.50s;
+}
+
+nav .sample-section .album-cover {
+  display: flex;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/Img/Music Covers/Clockwork.jpg');
+  background-size: 85%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: opacity ease-in 0.15s;
+  // margin: 1em;
+  // min-height: 13em;/
+}
+
+.clicked {
+  position: relative;
+  color: black;
+  font-weight: bold;
+}
+
+.clicked .mark-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0.3em;
+  background-color: rgba(12, 12, 12, 0.952);
+}
+
+nav::-webkit-scrollbar {
+  width: 10px;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background-color: rgba(50, 50, 50, 0.4);
+  // border-radius: 10px;
+  transition: background-color 0.15s;
+}
+
+nav::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(50, 50, 50, 0.6);
+}
+
+nav::-webkit-scrollbar-track {
+  background-color: rgba(42, 42, 42, 0);
+}
+
+
+@media (max-height: 615px) {
+  nav {
+  overflow-y: scroll;
+  }
+
+  
+  nav .outline-blur {
+    display: none;
+  }
+}
+
+@media (max-width: 820px) {
+  .home-section,
+  .listen-section,
+  .personal-section {
+    font-size: 0.8rem;
+  }
+
+}

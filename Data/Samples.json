@@ -1,0 +1,153 @@
+[
+  {
+  "id": 1,
+  "sampleLocation": "../Audio/Barren Gates - Devil (VIP) [NCS Release].mp3",
+  "artistName": "Barren Gates",
+  "album": "Devil (VIP)",
+  "cover": "/Img/Music Covers/Devil-VIP.jpg"
+  },{
+    "id": 2,
+    "sampleLocation": "../Audio/Barren Gates - Obey [NCS Release].mp3",
+    "artistName": "Barren Gates",
+    "album": "Obey",
+    "cover": "/Img/Music Covers/Obey.jpg"
+  },{
+    "id": 3,
+    "sampleLocation": "../Audio/Barren Gates - Slow Down [NCS Release].mp3",
+    "artistName": "Barren Gates",
+    "album": "Slow Down",
+    "cover": "/Img/Music Covers/Slow Down.jpg"
+  },{
+    "id": 4,
+    "sampleLocation": "../Audio/Barren Gates - You Made A Monster [NCS Release].mp3",
+    "artistName": "Barren Gates",
+    "album": "You Made A Monster",
+    "cover": "/Img/Music Covers/You Made A Monster.jpg"
+  },{
+    "id": 5,
+    "sampleLocation": "../Audio/Clarx & Shiah Maisel - Give Up [NCS Release].mp3",
+    "artistName": "Clatx & Shiah Maisel",
+    "album": "Give Up",
+    "cover": "/Img/Music Covers/Give Up.jpg"
+  },{
+    "id": 6,
+    "sampleLocation": "../Audio/Clarx & Shiah Maisel - Pull Me In (feat. M.I.M.E) [NCS Release].mp3",
+    "artistName": "Clatx & Shiah Maisel",
+    "album": "Pull Me In (feat. M.I.ME)",
+    "cover": "/Img/Music Covers/Pull Me In.jpg"
+  },{
+    "id": 7,
+    "sampleLocation": "../Audio/Diamond Eyes - Everything [NCS Release].mp3",
+    "artistName": "Diamon Eyes",
+    "album": "Everything",
+    "cover": "/Img/Music Covers/Everything.jpg"
+  },{
+    "id": 8,
+    "sampleLocation": "../Audio/Audio/Diamond Eyes - Flutter [NCS Release].mp3",
+    "artistName": "Diamond Eyes",
+    "album": "Flutter",
+    "cover": "/Img/Music Covers/Flutter.jpg"
+  },{
+    "id": 9,
+    "sampleLocation": "../Audio/Diamond Eyes - Gravity [NCS Release].mp3",
+    "artistName": "Diamond Eyes",
+    "album": "Gravity",
+    "cover": "/Img/Music Covers/Gavity.jpg"
+  },{
+    "id": 10,
+    "sampleLocation": "../Audio/Diamond Eyes - Hold On [NCS Release].mp3",
+    "artistName": "Diamond Eyes",
+    "album": "Hold On",
+    "cover": "/Img/Music Covers/Hold On.jpg"
+  },{
+    "id": 11,
+    "sampleLocation": "../Audio/Diamond Eyes - Lies [NCS Release].mp3",
+    "artistName": "Diamond Eyes",
+    "album": "Lies",
+    "cover": "/Img/Music Covers/Lies.jpg"
+  },{
+    "id": 12,
+    "sampleLocation": "../Audio/Diamond Eyes - Devil [NCS Release].mp3",
+    "artistName": "Diamond Eyes",
+    "album": "Devil",
+    "cover": "/Img/Music Covers/Devil.jpg"
+  },{
+    "id": 13,
+    "sampleLocation": "../Audio/Egzod & Maestro Chives - Royalty (Don Diablo Remix) [NCS Release].mp3",
+    "artistName": "Egzod & Maestro Chives",
+    "album": "Royalty(Don Diablo Remix)",
+    "cover": "/Img/Music Covers/Devil-VIP.jpg"
+  },{
+    "id": 14,
+    "sampleLocation": "../Audio/Hyri - Nocturnal [NCS Release].mp3",
+    "artistName": "Hyri",
+    "album": "Nocturnal",
+    "cover": "/Img/Music Covers/Obey.jpg"
+  },{
+    "id": 15,
+    "sampleLocation": "../Audio/IntoAlter x Too Martian x Peter Piffen - When We Leavin [NCS Release].mp3",
+    "artistName": "IntoAlter x Too Martian x Peter Piffen",
+    "album": "When We Leavin",
+    "cover": "/Img/Music Covers/When We Leavin.jpg"
+  },{
+    "id": 16,
+    "sampleLocation": "../Audio/JNATHYN x Bryan Andrew Medina - Clockwork [NCS Release].mp3",
+    "artistName": "JNATHYN x Bryan Andrew Medina",
+    "album": "Clockwork",
+    "cover": "/Img/Music Covers/Clockwork.jpg"
+  },{
+    "id": 17,
+    "sampleLocation": "../Audio/Rameses B - Can't Let You Go (feat. Florenza) [NCS Release].mp3",
+    "artistName": "Rameses B",
+    "album": "Can't Let You Go (feat. Florenza)",
+    "cover": "/Img/Music Covers/Can't Let You Go.jpg"
+  },{
+    "id": 18,
+    "sampleLocation": "../Audio/Rameses B - Hardwired [NCS Release].mp3",
+    "artistName": "Rameses B",
+    "album": "Hardwired",
+    "cover": "/Img/Music Covers/Hardwired.jpg"
+  },{
+    "id": 19,
+    "sampleLocation": "../Audio/Rameses B - Keep You [NCS Release].mp3",
+    "artistName": "Rameses B",
+    "album": "Keep You",
+    "cover": "/Img/Music Covers/Keep You.jpg"
+  },{
+    "id": 20,
+    "sampleLocation": "../Audio/Rameses B - Morning Drift [NCS Release].mp3",
+    "artistName": "Rameses B",
+    "album": "Morning Drif",
+    "cover": "/Img/Music Covers/Morning Drift.jpg"
+  },{
+    "id": 21,
+    "sampleLocation": "../Audio/Rameses B - Story [NCS Release].mp3",
+    "artistName": "Rameses B",
+    "album": "Story",
+    "cover": "/Img/Music Covers/Story.jpg"
+  },{
+    "id": 22,
+    "sampleLocation": "../Audio/Rameses B - There For You [NCS Release].mp3",
+    "artistName": "Rameses B",
+    "album": "There For You",
+    "cover": "/Img/Music Covers/Obey.jpg"
+  },{
+    "id": 23,
+    "sampleLocation": "../Audio/RYVN - Avatar [NCS Release].mp3",
+    "artistName": "RYVN",
+    "album": "Avatar",
+    "cover": "/Img/Music Covers/Devil-VIP.jpg"
+  },{
+    "id": 24,
+    "sampleLocation": "../Audio/Shiah Maisel & Clarx - Everything I Got [NCS Release].mp3",
+    "artistName": "Shiah Maisel & Clarx",
+    "album": "Everything I Got",
+    "cover": "/Img/Music Covers/Everything I Got.jpg"
+  },{
+    "id": 25,
+    "sampleLocation": "../Audio/TWISTED - BUSSIN' [NCS Release].mp3",
+    "artistName": "TWISTED",
+    "album": "BUSSIN'",
+    "cover": "/Img/Music Covers/Obey.jpg"
+  }
+]
