@@ -7,7 +7,6 @@ import {
 import {updatePlayerTape, updateAudioTimeTape} from './player-tape.js';
 import {getSample} from '../Utils/sample.js';
 import {getSampleDuration, startTimer, pauseTimer, resetTimer, currentTime, updateSampleDuration} from '../Utils/timer.js';
-// import playerTapeSummary from './player-tape.js';
 
 export let toggleButton = true;
 
@@ -15,13 +14,8 @@ function navSummary() {
 
   navButtonElements.forEach(button => {
     button.addEventListener('click', () => {
-      const pageName = button.dataset.pageName;
-      pageName === "Home" && (window.location.href = 'home.html');
-      pageName === "All Songs" && (window.location.href = 'all-songs.html');
-      pageName === "Albums" && (window.location.href = 'albums.html');
-      pageName === "Artists" && (window.location.href = 'artists.html');
-      pageName === "Favourites" && (window.location.href = 'favourites.html');
-      pageName === "Playlists" && (window.location.href = 'play-lists.html');
+      const {pageName} = button.dataset;
+      window.location.href.includes(pageName) || ( window.location.href = pageName);
     });
   });
 
@@ -84,7 +78,9 @@ export function pageSelectUpdate () {
 
 
 export function updateNavCover(type) {
-  if (type === 'list empty' && navCoverElement.style.backgroundImage === `url("/Img/Default/Playlist-emtpy-default.jpg")`) {
+  const {backgroundImage} = navCoverElement.style;
+
+  if (type === 'list empty' && backgroundImage.includes('Playlist-emtpy-default.jpg')) {
     return;
   } 
   
