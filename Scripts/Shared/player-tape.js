@@ -153,6 +153,15 @@ export function updatePlayerTape (type, other) {
       }
     }
   }
+
+  if (type === 'list empty') {
+    
+    songTitle.innerHTML = `
+      <h3 class="animate slideOut">--</h3> 
+      <h3 class="animate slideOut">--</h3>
+    `;
+
+  }
 }
 
 let timerId;

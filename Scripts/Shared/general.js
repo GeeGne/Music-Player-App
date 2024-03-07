@@ -118,10 +118,39 @@ export function userAction(action, element, other) {
     }
   }
 
+  const listIsEmpty = () => {
+    audioState.audio.pause();
+    updateTimer('list empty');
+    updateNavCover('list empty');
+    updatePlayerTape('list empty');
+  }
+
+  if (action === 'switch playlist') {
+    let {shuffle} = audioState.playListSettings;
+    let {playList} = audioState;
+    const playListId = other;
+    let matchedPlaylist;
+
+    if (shuffle) {
+      audioState.playListSettings.shuffle = !audioState.playListSettings.shuffle;
+      playList.sortList();
+      updatePlayerTape('shuffle', shuffle);
+    }
+
+    audioState.playLists.forEach(list => list.id === playListId && (matchedPlaylist = list.playList))
+    audioState.playList = matchedPlaylist
+
+    audioState.screen === 'playlists' && currentPlaylistToggle('update current playlist HTML');
+    audioState.playList.list.length !== 0 && playFromBeginning();
+    audioState.playList.list.length !== 0 && currentPlaylistToggle('change icon');
+  }
+
+  if (audioState.playList.list.length === 0) {
+    listIsEmpty();
+    return;
+  }
+
   if (action === 'play') {
-    // if (audioState.section !== 'playNchill') {
-    //   audioState.section = 'playNchill';
-    // }
 
     if (audioState.state === 'pause') {
 
@@ -187,26 +216,6 @@ export function userAction(action, element, other) {
     favouritesPlaylist.updatePlaylist('list', audioState.sampleId);
     updatePlayerTape(action, 'motion');
     audioState.screen === 'playlists' && currentPlaylistToggle('update favourite list')
-  }
-
-  if (action === 'switch playlist') {
-    let {shuffle} = audioState.playListSettings;
-    let {playList} = audioState;
-    const playListId = other;
-    let matchedPlaylist;
-
-    if (shuffle) {
-      audioState.playListSettings.shuffle = !audioState.playListSettings.shuffle;
-      playList.sortList();
-      updatePlayerTape('shuffle', shuffle);
-    }
-
-    audioState.playLists.forEach(list => list.id === playListId && (matchedPlaylist = list.playList))
-    audioState.playList = matchedPlaylist
-
-    audioState.screen === 'playlists' && currentPlaylistToggle('update current playlist HTML');
-    audioState.playList.list.length !== 0 && playFromBeginning();
-    audioState.playList.list.length !== 0 && currentPlaylistToggle('change icon');
   }
 
   if (action ==='play' || action === 'play next' || action === 'play previous') {

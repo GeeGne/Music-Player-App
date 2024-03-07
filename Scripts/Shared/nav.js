@@ -83,18 +83,34 @@ export function pageSelectUpdate () {
 }
 
 
-export function updateNavCover() {
-  if (getSample()) {
+export function updateNavCover(type) {
+  if (type === 'list empty') {
+    navCoverElement.style.opacity = '0';
+    setTimeout(() => {
+      navCoverElement.style.opacity = '1';
+      navCoverElement.style.backgroundImage = `url('/Img/Default/Playlist-emtpy-default.jpg')`;
+    }, 150);
+  } else {
     navCoverElement.style.opacity = '0';
     setTimeout(() => {
       navCoverElement.style.opacity = '1';
       navCoverElement.style.backgroundImage = `url('${getSample().cover}')`;
     }, 150);
-  } 
+  }
 }
 
 let timerId;
 export function updateTimer (type) {
+  if (type === 'list empty') {
+    clearInterval(timerId);
+    pauseTimer();
+    resetTimer();
+    timerElement.innerText = `
+      -- : -- / -- : --
+    `;
+    return
+  }
+
   type === 'new audio' && resetTimer();
   type === 're audio' && resetTimer();
   audioState.state === 'pause' && pauseTimer();  
@@ -117,12 +133,15 @@ export function updateTimer (type) {
       clearInterval(timerId);
       userAction('audio finished');
     } 
-    getSampleDuration().seconds < 10 && (timerElement.innerText = `
-    ${currentTime.minutes} : ${currentTime.secondsLeft}${currentTime.secondsRight} / ${getSampleDuration().minutes} : 0${getSampleDuration().seconds}
-    `);
-    getSampleDuration().seconds >= 10 && (timerElement.innerText = `
+    // getSampleDuration().seconds < 10 && (timerElement.innerText = `
+    // ${currentTime.minutes} : ${currentTime.secondsLeft}${currentTime.secondsRight} / ${getSampleDuration().minutes} : 0${getSampleDuration().seconds}
+    // `);
+    // getSampleDuration().seconds >= 10 && (timerElement.innerText = `
+    // ${currentTime.minutes} : ${currentTime.secondsLeft}${currentTime.secondsRight} / ${getSampleDuration().minutes} : ${getSampleDuration().seconds}
+    // `);
+    timerElement.innerText = `
     ${currentTime.minutes} : ${currentTime.secondsLeft}${currentTime.secondsRight} / ${getSampleDuration().minutes} : ${getSampleDuration().seconds}
-    `);
+    `;
   }, 500);
 
   setTimeout(() => 

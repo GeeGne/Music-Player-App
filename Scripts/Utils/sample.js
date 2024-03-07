@@ -36,10 +36,7 @@ export function getSampleID (type, element) {
   );
 
   type === 'play from beginning' && (sampleId = list[0]);
-   
-    
-  
-  
   !type && (sampleId = list[0]);
+
   return sampleId;
 }
