@@ -155,7 +155,17 @@ export function updatePlayerTape (type, other) {
   }
 
   if (type === 'list empty') {
-    
+
+    if (pausePlayElement.src.includes("play_arrow.svg")) {
+     
+    } else {
+      pausePlayElement.style.opacity = '0';
+      setTimeout(() => {
+        pausePlayElement.style.opacity = '1';
+        pausePlayElement.src = '/Img/Icons/play_arrow.svg';
+      }, 200);
+    }
+
     songTitle.innerHTML = `
       <h3 class="animate slideOut">--</h3> 
       <h3 class="animate slideOut">--</h3>

@@ -138,11 +138,20 @@ export function userAction(action, element, other) {
     }
 
     audioState.playLists.forEach(list => list.id === playListId && (matchedPlaylist = list.playList))
-    audioState.playList = matchedPlaylist
-
-    audioState.screen === 'playlists' && currentPlaylistToggle('update current playlist HTML');
+    
+    if (audioState.playList !== matchedPlaylist) {
+      audioState.playList = matchedPlaylist
+  
+      audioState.screen === 'playlists' && currentPlaylistToggle('update current playlist HTML');
+    }
     audioState.playList.list.length !== 0 && playFromBeginning();
     audioState.playList.list.length !== 0 && currentPlaylistToggle('change icon');
+  }
+
+  if (action === 'favourite' && audioState.playList.list.length !== 0) {
+    favouritesPlaylist.updatePlaylist('list', audioState.sampleId);
+    updatePlayerTape(action, 'motion');
+    audioState.screen === 'playlists' && currentPlaylistToggle('update favourite list')
   }
 
   if (audioState.playList.list.length === 0) {
@@ -210,12 +219,6 @@ export function userAction(action, element, other) {
     }
 
     updatePlayerTape(action, shuffle);
-  }
-
-  if (action === 'favourite') {
-    favouritesPlaylist.updatePlaylist('list', audioState.sampleId);
-    updatePlayerTape(action, 'motion');
-    audioState.screen === 'playlists' && currentPlaylistToggle('update favourite list')
   }
 
   if (action ==='play' || action === 'play next' || action === 'play previous') {
