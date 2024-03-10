@@ -105,9 +105,7 @@ export function updatePlayerTape (type, other) {
   if (type === 'shuffle') {
 
     const shuffle = other;
-
-    if (!shuffle) {
-
+    if (shuffle) {
       shuffleElement.style.setProperty('--set-opacity', '0');
       setTimeout(() => {
         shuffleElement.style.setProperty('--set-opacity', '1');

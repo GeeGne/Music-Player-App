@@ -90,6 +90,10 @@ function createList (type, section) {
     section === 'favourites' && (
       sampleList = []
     );
+
+    section === 'all-songs' && (
+      sampleList = samples.map(sample => sample.id)
+    );
   }
   
   return sampleList;
@@ -105,5 +109,6 @@ function createLists (name, section) {
 
 export const playNchillPlaylist = createLists('Play-N-Chill','playNchill');
 export let favouritesPlaylist = createLists('Favourites','favourites');
+export let allSongsPlaylist = createLists('All Songs','all-songs');
 let albumsPlaylist;
 let artistsPlaylist;

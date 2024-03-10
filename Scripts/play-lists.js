@@ -25,7 +25,7 @@ import {
 import {playNchillPlaylist} from './Utils/playlists.js';
 
 //  Current Screen
-const currentPage = window.location.pathname;
+const currentPage = window.location.href;
 
 //  CSS Styles
 let generalSyle;
@@ -50,7 +50,7 @@ let favouritesTitleElement;
 
 
 function playListSettings () {
-  audioState.screen = 'playlists';
+  audioState.screen = 'Playlists';
   audioState.section === "" && (audioState.section = 'playNchill');
   audioState.playList = playNchillPlaylist;
   audioState.sampleId = getSampleID();
@@ -304,6 +304,7 @@ export function currentPlaylistToggle (action, element) {
 }
       
 async function updateSummary() {
+  console.log('test')
   updateSelectors();
   await addStyleSheets();
   playListSettings();
@@ -318,5 +319,5 @@ async function updateSummary() {
   playerTapeSummary();
 }
 
-currentPage === '/Pages/play-lists.html' && updateSummary();
+currentPage.includes('play-lists') && updateSummary();
 

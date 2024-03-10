@@ -8,7 +8,7 @@ import {updatePlayerTape} from './player-tape.js';
 
 import {currentTime} from '../Utils/timer.js';
 import {getSample, getSampleID} from '../Utils/sample.js';
-import {playNchillPlaylist, favouritesPlaylist} from '../Utils/playlists.js';
+import {playNchillPlaylist, favouritesPlaylist, allSongsPlaylist} from '../Utils/playlists.js';
 
 //  Nav Elements
 export const navContainerElement = document.querySelector('.js-nav-container');
@@ -142,7 +142,7 @@ export function userAction(action, element, other) {
     if (audioState.playList !== matchedPlaylist) {
       audioState.playList = matchedPlaylist
   
-      audioState.screen === 'playlists' && currentPlaylistToggle('update current playlist HTML');
+      audioState.screen === 'Playlists' && currentPlaylistToggle('update current playlist HTML');
     }
     audioState.playList.list.length !== 0 && playFromBeginning();
     audioState.playList.list.length !== 0 && currentPlaylistToggle('change icon');
@@ -151,7 +151,7 @@ export function userAction(action, element, other) {
   if (action === 'favourite' && audioState.playList.list.length !== 0) {
     favouritesPlaylist.updatePlaylist('list', audioState.sampleId);
     updatePlayerTape(action, 'motion');
-    audioState.screen === 'playlists' && currentPlaylistToggle('update favourite list')
+    audioState.screen === 'Playlists' && currentPlaylistToggle('update favourite list')
   }
 
   if (audioState.playList.list.length === 0) {
@@ -206,24 +206,28 @@ export function userAction(action, element, other) {
   }
   
   if (action === 'shuffle') {
-
     let {shuffle} = audioState.playListSettings;
     let {playList} = audioState;
 
-    if (!shuffle) {
-      audioState.playListSettings.shuffle = !audioState.playListSettings.shuffle;
+    if (other === 'button') {
+      const {sectionId} = element.dataset;
+      sectionId === 'all-songs' && updateAudioState(sectionId, 'new section');
+      audioState.playListSettings.shuffle = true;
       playList.shuffleList();
-    } else {
-      audioState.playListSettings.shuffle = !audioState.playListSettings.shuffle;
-      playList.sortList();
+      updatePlayerTape(action, true);
+      setTimeout(playFromBeginning, 500);
+      return;
     }
 
-    updatePlayerTape(action, shuffle);
+    audioState.playListSettings.shuffle = !audioState.playListSettings.shuffle;
+    shuffle ? playList.sortList() : playList.shuffleList();
+    
+    updatePlayerTape(action, !shuffle);
   }
 
   if (action ==='play' || action === 'play next' || action === 'play previous') {
-    audioState.screen === 'home' && playChillToggle ('change icon');  
-    audioState.screen === 'playlists' && currentPlaylistToggle('change icon');
+    audioState.screen === 'Home' && playChillToggle ('change icon');  
+    audioState.screen === 'Playlists' && currentPlaylistToggle('change icon');
   }
 }
 
@@ -241,7 +245,13 @@ export function calAndConvTotalWidthToEM (element) {
 }
 
 export function updateAudioState (type, action, element) {
-  if (action === 'new audio' || action === 're audio') {
+  
+  if (action === 'new section') {
+    if (type ==='all songs') {
+      audioState.section = 'all-songs';
+      audioState.playList = allSongsPlaylist; 
+    } 
+  } else if (action === 'new audio' || action === 're audio') {
     audioState.audio.pause();
     if (element) {
       audioState.sampleId = getSampleID('element', element)

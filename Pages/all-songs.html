@@ -12,13 +12,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Montserrat&family=Poppins:wght@300;400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Rubik+Maps&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Montserrat&family=Poppins:wght@300;400;500;600;700&family=Protest+Guerrilla&family=Rajdhani:wght@300;400;500;600;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Rubik+Maps&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/Styles/Shared/general.css">
-    <link rel="stylesheet" href="/Styles/Shared/animation.css">
-    <link rel="stylesheet" href="/Styles/Shared/nav.css">
-    <link rel="stylesheet" href="/Styles/Shared/header.css">
-    <link rel="stylesheet" href="/Styles/all-songs.css">
   </head>
   <body>
     
@@ -30,11 +25,10 @@
         </h1>
 
         <section class="home-section"
-          data-page-name="Home"
         >
           <h2 
             class="js-nav-button"
-            data-page-name="Home"
+            data-page-name="home.html"
           >
             Home
           </h2>
@@ -47,7 +41,7 @@
           <ul type="none">
             <li 
               class="clicked js-nav-button"
-              data-page-name="All Songs"
+              data-page-name="all-songs.html"
             >
               <img src="/Img/Icons/genres.svg">
               All Songs
@@ -55,14 +49,14 @@
             </li>
             <li 
               class="js-nav-button"
-              data-page-name="Albums"
+              data-page-name="albums.html"
             >
               <img src="/Img/Icons/album.svg">
               Albums
             </li>
             <li 
               class="js-nav-button"
-              data-page-name="Artists"
+              data-page-name="artists.html"
             >
               <img src="/Img/Icons/artist.svg">
               Artists
@@ -78,27 +72,42 @@
           <ul type="none">
             <li 
               class="js-nav-button"
-              data-page-name="Favourites"
+              data-page-name="favourites.html"
             >
-              <img src="/Img/Icons/favorite.svg">
+              <img src="/Img/Icons/favourite.svg">
               Favourites
             </li>
             <li 
               class="js-nav-button"
-              data-page-name="Playlists"
+              data-page-name="play-lists.html"
             >
               <img src="/Img/Icons/list.svg">
               Playlists
             </li>
           </ul>
         </section>
+        
+        <section class='new-playlist-section'>
+          <button class='new-playlist-button'>
+            <img src="/Img/Icons/add-icon.svg"> New playlist
+          </button>
+        </section>
+
+        <section class="sample-section">
+          <div class="timer js-timer">
+            00 : 00 / 00 : 00
+          </div>
+          <div class="album-cover js-album-cover">
+          </div>
+        <section>
 
         <div class="outline-blur">
         </div>
       </nav>
     </section>
 
-    <div class="right-side">
+    <div class="right-side js-right-side">
+
       <header>
         <div class="nav-toggle js-nav-toggle">
           <img class="js-nav-toggle-arrow" src="/Img/Icons/line_end_arrow.svg">
@@ -129,54 +138,117 @@
   
       <main>
 
-        <section class="top-section">
-          <div>
-            <h2>
-              Play-n-Chill
-            </h2>
-            <img src="/Img/Icons/chevron_left.svg">
-            <img src="/Img/Icons/navigate_next.svg">
+        <section class="top-section js-top-section">
+          <div class="left-box">
+            <img src="/Img/Default/all-songs-screen-default.jpg">
           </div>
-          <div>
-            <img>
-         </div>
+          <div class="right-box">
+            <h2>
+              All Songs
+            </h2>
+            <h3 class="js-total-songs">
+              545 songs
+            </h3>
+          </div>
+          <button 
+            class="shuffle-button js-shuffle-button"
+            data-section-id="all-songs"
+          >
+            <img src="/Img/Icons/shuffle.svg">
+            Shuffle
+          </button>
         </section>
 
         <section class="bottom-section">
-          <div class="left-section">
-            <div>
-              <h2>
-                Albums
-              </h2>
-              <img src="/Img/Icons/chevron_left.svg">
-              <img src="/Img/Icons/navigate_next.svg">
-            </div>
-            <div>
-              <img>
-            </div>
-          </div>
-
-          <div class="right-section">
-            <div>
-              <h2>
-                Artists
-              </h2>
-              <img src="/Img/Icons/chevron_left.svg">
-              <img src="/Img/Icons/navigate_next.svg">
-            </div>
-            <div>
-              <img>
-            </div>
-          </div>
+          <ul class="list-container js-list-container">
+            <li class="list">
+              <div class="cover-container">
+                <img src="/Img/Default/all-songs-screen-default.jpg">
+              </div>
+              <h3>Artist Name - Song Name</h3>
+            </li>
+            <li class="list">
+              <div class="cover-container">
+                <img src="/Img/Default/all-songs-screen-default.jpg">
+              </div>
+              <h3>Artist Name - Song Name</h3>
+            </li>
+            <li class="list">
+              <div class="cover-container">
+                <img src="/Img/Default/all-songs-screen-default.jpg">
+              </div>
+              <h3>Artist Name - Song Name</h3>
+            </li>
+            <li class="list">
+              <div class="cover-container">
+                <img src="/Img/Default/all-songs-screen-default.jpg">
+              </div>
+              <h3>Artist Name - Song Name</h3>
+            </li>
+            <li class="list">
+              <div class="cover-container">
+                <img src="/Img/Default/all-songs-screen-default.jpg">
+              </div>
+              <h3>Artist Name - Song Name</h3>
+            </li>
+            <li class="list">
+              <div class="cover-container">
+                <img src="/Img/Default/all-songs-screen-default.jpg">
+              </div>
+              <h3>Artist Name - Song Name</h3>
+            </li>
+            <li class="list">
+              <div class="cover-container">
+                <img src="/Img/Default/all-songs-screen-default.jpg">
+              </div>
+              <h3>Artist Name - Song Name</h3>
+            </li>
+            <li class="list">
+              <div class="cover-container">
+                <img src="/Img/Default/all-songs-screen-default.jpg">
+              </div>
+              <h3>Artist Name - Song Name</h3>
+            </li>
+            <li class="list">
+              <div class="cover-container">
+                <img src="/Img/Default/all-songs-screen-default.jpg">
+              </div>
+              <h3>Artist Name - Song Name</h3>
+            </li>
+            <li class="list">
+              <div class="cover-container">
+                <img src="/Img/Default/all-songs-screen-default.jpg">
+              </div>
+              <h3>Artist Name - Song Name</h3>
+            </li>
+          </ul>
         </section>
-      </main>
-  
-      <footer>
-        footer
-      </footer>
-    </div>
 
-  
+      </main>
+      
+    </div>
+ 
+      <footer class="player-tape expanded js-player-tape ">
+        
+        <section class="left js-song-title">
+          <h3>Artist name</h3>
+          <h3>Song name</h3>
+        </section>
+        <section class="middle">
+          <img src="/Img/Icons/skip_previous.svg" class="play-previous js-play-previous">
+          <img class="pause-play js-pause-play">
+          <img src="/Img/Icons/skip_next.svg" class="play-next js-play-next">
+        </section>
+        <section class="right">
+          <img class="js-repeat-icon" src="/Img/Icons/repeat.svg">       
+          <img class="js-shuffle-icon" src="/Img/Icons/shuffle.svg">
+          <img class="js-favourite-icon" src="/Img/Icons/favourite.svg">
+        </section>
+    
+        <img class="expand-arrow js-expand-arrow" src="/Img/Icons/expand.svg">
+        <div class="audio-time-tape js-audio-time-tape"></div>
+
+      </footer>
 
     <script type="module" src="/Scripts/all-songs.js"></script>
   </body>

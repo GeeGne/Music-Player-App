@@ -24,7 +24,7 @@ import {
 import {playNchillPlaylist} from './Utils/playlists.js';
 
 //  Current Screen
-const currentPage = window.location.pathname;
+const currentPage = window.location.href;
 
 //  CSS Styles
 let generalSyle;
@@ -171,4 +171,4 @@ function updateSummary() {
   playerTapeSummary();
 }
 
-currentPage === '/Pages/home.html' && updateSummary();
+currentPage.includes('home') && updateSummary();
