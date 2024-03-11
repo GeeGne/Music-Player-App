@@ -240,20 +240,14 @@ export function currentPlaylistToggle (action, element) {
     });
   }
 
-  const styleWhenPlay = sample => {
-    if (sample) {
-      sample.style.setProperty('--before-opacity', '1');
-      sample.style.setProperty('--text-color', 'white');
-      sample.style.setProperty('--background-change', 'linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(48, 48, 48) 50%, rgba(255, 255, 255, 0) 100%)');
-    } else if (!sample) {
-      currentPlaylistLists.forEach(sample => {
-        if (getSampleID('element', sample) === audioState.sampleId) {
-          sample.style.setProperty('--before-opacity', '1');
-          sample.style.setProperty('--text-color', 'white');
-          sample.style.setProperty('--background-change', 'linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(48, 48, 48) 50%, rgba(255, 255, 255, 0) 100%)');
-        }  
-      });
-    }
+  const styleWhenPlay = () => {
+    currentPlaylistLists.forEach(sample => {
+      if (getSampleID('element', sample) === audioState.sampleId) {
+        sample.style.setProperty('--before-opacity', '1');
+        sample.style.setProperty('--text-color', 'white');
+        sample.style.setProperty('--background-change', 'linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(48, 48, 48) 50%, rgba(255, 255, 255, 0) 100%)'); 
+      } 
+    });
   }
 
   if (action === 'change icon') {
@@ -262,12 +256,7 @@ export function currentPlaylistToggle (action, element) {
       styleWhenPause();
     } else if (audioState.state === 'play') {   
       styleWhenPause();
-
-      element ? 
-      styleWhenPlay(element) : 
-      currentPlaylistLists.forEach(sample => 
-        getSampleID('element', sample) === audioState.sampleId && styleWhenPlay(sample)
-      );
+      styleWhenPlay();
     }  
   }
 

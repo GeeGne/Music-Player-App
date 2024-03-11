@@ -58,7 +58,7 @@ function updateEventListeners () {
 }
 
 function homeSettings () {
-  audioState.screen = 'home';
+  audioState.screen = 'Home';
   audioState.section === "" && (audioState.section = 'playNchill');
   audioState.playList = playNchillPlaylist;
   audioState.sampleId = getSampleID();

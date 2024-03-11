@@ -31,15 +31,42 @@ main section > h2 {
 }
 
 .top-section .left-box {
+  position: relative;
   display: flex;
+  background-image: url('/Img/Default/all-songs-screen-default-full.jpg');
+  // background-size: 86%;
+  background-size: 22em;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 90px;
+  filter: drop-shadow(8px 8px 5px rgba(41, 41, 41, 0.878));
+  transition: transform 1s ease-out;
+
 }
+
+// .top-section .left-box:hover {
+//   transform: rotate(-90deg);
+// }
+
+//  Shadow effect
+.top-section .left-box::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.812);
+  border-radius: 200px;
+}
+
 
 .top-section .left-box img {
   margin: 24px;
   height: 22em;
   object-fit: cover;
-  filter: drop-shadow(8px 8px 6px rgb(50, 50, 50));
   border-radius: 200px;
+  cursor: pointer;
 }
 
 .top-section .right-box {
@@ -107,6 +134,9 @@ main section > h2 {
   align-items: center;
   padding: 0 24px;
   width: 100%;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  background-color: var(--background-change, rgba(0, 0, 0, 0));
+  color: var(--text-color, black);
 }
 
 .bottom-section .list-container .list::before {
@@ -119,6 +149,7 @@ main section > h2 {
 }
 
 .bottom-section .list-container .list:hover {
+
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
 }
@@ -129,9 +160,10 @@ main section > h2 {
   height: 8em;
   flex-shrink: 0;
   margin: 6px 0 7px 0;
+
 }
 
-.bottom-section .list-container .list:hover .cover-container::before {
+.bottom-section .list-container .list .cover-container::before {
   content: "";
   position: absolute;
   top: 0;
@@ -144,6 +176,12 @@ main section > h2 {
   background-position: center;
   background-repeat: no-repeat;
   filter: invert(100%);
+  opacity: var(--before-opacity, 0);
+  transition: opacity 0.15s ease;
+}
+
+.bottom-section .list-container .list:hover .cover-container::before {
+  opacity: 1;
 }
 
 .bottom-section .list-container .list img {

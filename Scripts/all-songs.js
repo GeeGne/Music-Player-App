@@ -7,21 +7,12 @@ import navSummary from './Shared/nav.js';
 import playerTapeSummary from './Shared/player-tape.js';
 
 //  SHARED
-import {audioState, userAction,
-  calAndConvTotalWidthToEM, 
-  rightSideElement, updateAudioState
-} from './Shared/general.js';
+import {audioState, userAction} from './Shared/general.js';
 import {updatePlayerTape} from './Shared/player-tape.js';
-import {
-  pageSelectUpdate, 
-  updateNavCover, updateTimer
-} from './Shared/nav.js';
+import {pageSelectUpdate, updateNavCover, updateTimer} from './Shared/nav.js';
 
 //  UTILS
-import {
-  getSampleID, 
-  getSample
-} from './Utils/sample.js';
+import {getSampleID, getSample} from './Utils/sample.js';
 import {allSongsPlaylist} from './Utils/playlists.js';
 
 //  Current Screen
@@ -37,10 +28,12 @@ let allSognsStyle;
 
 //  All Songs Elements Section
 let topSectionElement;
+let allSongsImageElement;
 let totalSongsElement;
 let shuffleButton;
 let playListElement;
 let allSongsListsElements;
+let AllSongsCoversElements;
 
 
 function allSongsSettings () {
@@ -68,14 +61,18 @@ async function addStyleSheets () {
 
 function updateSelectors () {
   topSectionElement = document.querySelector('.js-top-section');
+  allSongsImageElement = document.querySelector('.js-all-songs-image');
   totalSongsElement = document.querySelector('.js-total-songs');
   shuffleButton = document.querySelector('.js-shuffle-button');
   playListElement = document.querySelector('.js-list-container');
-
 }
+
 function updateListeners () {
   shuffleButton.addEventListener('click', () => userAction('shuffle', shuffleButton, 'button'));
+  allSongsImageElement.addEventListener('click', () => userAction('play', 'pause play button'));
+  // allSongsImageElement.addEventListener('click', () => console.log('working'));
 }
+
 function addAllSongsSelectors() {
   allSongsListsElements = document.querySelectorAll('.js-list');
   allSongsListsElements.forEach(
@@ -83,6 +80,8 @@ function addAllSongsSelectors() {
       'click', () => userAction('play', sample)
     )
   );
+
+  AllSongsCoversElements = document.querySelectorAll('.js-cover-container');
 }
 
 function allSongsHTML () {
@@ -103,10 +102,13 @@ function allSongsHTML () {
       html += 
       `
         <li class="list js-list" data-sample-id="${matchedSample.id}">
-          <div class="cover-container">
+          <div 
+            class="cover-container js-cover-container" 
+            data-sample-id="${matchedSample.id}"
+          >
             <img src="${matchedSample.cover}">
           </div>
-          <h3>${matchedSample.artistName} - ${matchedSample.artistName}</h3>
+          <h3>${matchedSample.artistName} - ${matchedSample.album}</h3>
         </li>
       `
     );  
@@ -115,11 +117,11 @@ function allSongsHTML () {
   length === 0 && (
     html =
     `
-      <li class="list js-list data-sample-id="${matchedSample.id}">
+      <li class="list">
         <div class="cover-container">
           <img src="/Img/Default/Playlist-emtpy-default.jpg">
         </div>
-        <h3>There's No Songs added</h3>
+        <h3>No Songs are currently added</h3>
       </li>
     `
   );
@@ -128,46 +130,34 @@ function allSongsHTML () {
   totalSongs();
 }
 
-function cardSpread (list, playlistId, action) {
-  if (action === 'out') {
-    list.style.setProperty('--before-transform', 'translateX(0.3em)');
-    playListCoverElement.forEach(cover => {
-      const {coverId} = cover.dataset;
-      coverId === playlistId && (cover.style.transform = 'translateX(-0.3em)');
-    });
-  } else {
-    list.style.setProperty('--before-transform', 'translateX(0)');
-    playListCoverElement.forEach(cover => {
-      const {coverId} = cover.dataset;
-      coverId === playlistId && (cover.style.transform = 'translateX(0)');
-    });
-  }
-}
-
-export function currentPlaylistToggle (action, element) {
-
+export function allSongsToggle (action, element) {
   const styleWhenPause = () => {
-    currentPlaylistLists.forEach(sample => {
-      sample.style.setProperty('--before-opacity', '0');
+    allSongsListsElements.forEach(sample => {
+      sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0');
       sample.style.setProperty('--text-color', 'black');
-      sample.style.setProperty('--background-change', 'linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(191, 191, 191) 50%, rgba(255, 255, 255, 0) 100%)');
     });
+
+    AllSongsCoversElements.forEach(sample => 
+      sample.style.setProperty('--before-opacity', '0')
+    );
+
+    allSongsImageElement.classList.add('paused');
   }
 
-  const styleWhenPlay = sample => {
-    if (sample) {
-      sample.style.setProperty('--before-opacity', '1');
-      sample.style.setProperty('--text-color', 'white');
-      sample.style.setProperty('--background-change', 'linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(48, 48, 48) 50%, rgba(255, 255, 255, 0) 100%)');
-    } else if (!sample) {
-      currentPlaylistLists.forEach(sample => {
-        if (getSampleID('element', sample) === audioState.sampleId) {
-          sample.style.setProperty('--before-opacity', '1');
-          sample.style.setProperty('--text-color', 'white');
-          sample.style.setProperty('--background-change', 'linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(48, 48, 48) 50%, rgba(255, 255, 255, 0) 100%)');
-        }  
-      });
-    }
+  const styleWhenPlay = () => {
+    allSongsListsElements.forEach(sample => {
+      if (getSampleID('element', sample) === audioState.sampleId) {
+        sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0.6');
+        sample.style.setProperty('--text-color', 'white')
+      } 
+    });
+
+    AllSongsCoversElements.forEach(cover =>
+      getSampleID('element', cover) === audioState.sampleId && 
+      cover.style.setProperty('--before-opacity', '1')
+    );
+
+    allSongsImageElement.classList.remove('paused');
   }
 
   if (action === 'change icon') {
@@ -176,44 +166,8 @@ export function currentPlaylistToggle (action, element) {
       styleWhenPause();
     } else if (audioState.state === 'play') {   
       styleWhenPause();
-
-      element ? 
-      styleWhenPlay(element) : 
-      currentPlaylistLists.forEach(sample => 
-        getSampleID('element', sample) === audioState.sampleId && styleWhenPlay(sample)
-      );
+      styleWhenPlay()
     }  
-  }
-
-  if (action === 'update favourite list') {
-    const {playList} = audioState.playLists[0];
-    let cover1;
-    let cover2;
-    let cover3;
-
-    playList.list.forEach((id, i) => {
-      i === 0 && samples.forEach(sample => sample.id === id && (cover1 = sample.cover));
-      i === 1 && samples.forEach(sample => sample.id === id && (cover2 = sample.cover));
-      i === 2 && samples.forEach(sample => sample.id === id && (cover3 = sample.cover));
-    });
-
-    favouritesCoverElement.src = cover1 || '/Img/Default/playlist-default.jpg' ;
-    favouritesListElement.style.setProperty('--playList-cover-2', `url('${cover2 || ''}')`);
-    favouritesListElement.style.setProperty('--playList-cover-3', `url('${cover3 || ''}')`);
-    favouritesTitleElement.innerHTML = ` 
-      <h3>${playList.name}</h3>
-      <h3>(${playList.totalTracks} tracks)</h3>
-    `;
-
-    if (audioState.playList.name === 'Favourites') {
-      currentListHTML();
-      addCurrentListsSelectors();
-    }
-  }
-
-  if (action === 'update current playlist HTML') {
-    currentListHTML();
-    addCurrentListsSelectors();
   }
 }
       

@@ -10,25 +10,39 @@
   animation-direction: reverse;
 }
 
+.animate--infinite {
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+}
+
+.paused {
+  animation-play-state: paused;
+}
+
 @keyframes slideOutNav {
   from {
-    // transform: translateX(0);
     min-width: 30.5em;
   }
   to {
-    // transform: translateX(230px);
     min-width: 16.5em;
   }
 }
 
 @keyframes slideInNav {
   from {
-    // transform: translateX(0);
     min-width: 16.5em;
   }
   to {
-    // transform: lateX(230px);
     min-width: 30.5em;
+  }
+}
+
+@keyframes rotate360deg {
+  from {
+    transform: rotate(auto);
+  }
+  to {
+    transform: rotate(+360deg);
   }
 }
 
@@ -130,6 +144,12 @@
 .slideInNav {
   animation-name: slideInNav;
   animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.rotate360deg {
+  animation-name: rotate360deg;
+  animation-timing-function: linear;
   animation-fill-mode: both;
 }
 

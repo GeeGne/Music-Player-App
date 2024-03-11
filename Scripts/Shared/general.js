@@ -2,6 +2,8 @@ import {currentPlaylistToggle} from '../play-lists.js';
 
 import {playChillToggle} from '../home.js';
 
+import {allSongsToggle} from '../all-songs.js';
+
 import {updateTimer, updateNavCover} from './nav.js';
 
 import {updatePlayerTape} from './player-tape.js';
@@ -79,11 +81,13 @@ export function userAction(action, element, other) {
     updateAudioState();
     updateTimer();
     updatePlayerTape(audioState.state);
+    updateIcon();
   }
 
   const playNewAudio = action => {
     updateAudioState(action, 'new audio', element);
     updateTimer('new audio');
+    updateIcon();
     updateNavCover();
     updatePlayerTape('songTitle');
     updatePlayerTape(audioState.state);
@@ -99,6 +103,7 @@ export function userAction(action, element, other) {
   const playFromBeginning = () => {
     updateAudioState('play from beginning', 'new audio');
     updateTimer('new audio');
+    updateIcon();
     updateNavCover();
     updatePlayerTape('songTitle');
     updatePlayerTape(audioState.state);
@@ -123,6 +128,12 @@ export function userAction(action, element, other) {
     updateTimer('list empty');
     updateNavCover('list empty');
     updatePlayerTape('list empty');
+  }
+
+  const updateIcon = () => {
+    audioState.screen === 'Home' && playChillToggle ('change icon');  
+    audioState.screen === 'Playlists' && currentPlaylistToggle('change icon');
+    audioState.screen === 'All Songs' && allSongsToggle('change icon');
   }
 
   if (action === 'switch playlist') {
@@ -211,24 +222,22 @@ export function userAction(action, element, other) {
 
     if (other === 'button') {
       const {sectionId} = element.dataset;
+
       sectionId === 'all-songs' && updateAudioState(sectionId, 'new section');
       audioState.playListSettings.shuffle = true;
       playList.shuffleList();
       updatePlayerTape(action, true);
       setTimeout(playFromBeginning, 500);
-      return;
+    } else {
+      audioState.playListSettings.shuffle = !audioState.playListSettings.shuffle;
+      shuffle ? playList.sortList() : playList.shuffleList();
+      updatePlayerTape(action, !shuffle);
     }
-
-    audioState.playListSettings.shuffle = !audioState.playListSettings.shuffle;
-    shuffle ? playList.sortList() : playList.shuffleList();
-    
-    updatePlayerTape(action, !shuffle);
   }
 
-  if (action ==='play' || action === 'play next' || action === 'play previous') {
-    audioState.screen === 'Home' && playChillToggle ('change icon');  
-    audioState.screen === 'Playlists' && currentPlaylistToggle('change icon');
-  }
+  // if (action ==='play' || action === 'play next' || action === 'play previous' || (action === 'shuffle' && element)) {
+  //   updateIcon();
+  // }
 }
 
 function arrowToggle (direction, element) {
