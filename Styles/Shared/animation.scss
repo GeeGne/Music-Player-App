@@ -62,6 +62,17 @@
   to {
     transform: rotate(0);
   }
+
+}
+@keyframes rotate180degReversedWf {
+  from {
+    opacity: 0;
+    transform: rotate(180deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0);
+  }
 }
 
 @keyframes slideIn {
@@ -161,6 +172,12 @@
 
 .rotate180degReversed {
   animation-name: rotate180degReversed;
+  animation-timing-function: ease-in;
+  animation-fill-mode: both;
+
+}
+.rotate180degReversedWf {
+  animation-name: rotate180degReversedWf;
   animation-timing-function: ease-in;
   animation-fill-mode: both;
 }

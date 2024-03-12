@@ -70,7 +70,6 @@ function updateSelectors () {
 function updateListeners () {
   shuffleButton.addEventListener('click', () => userAction('shuffle', shuffleButton, 'button'));
   allSongsImageElement.addEventListener('click', () => userAction('play', 'pause play button'));
-  // allSongsImageElement.addEventListener('click', () => console.log('working'));
 }
 
 function addAllSongsSelectors() {
@@ -101,7 +100,7 @@ function allSongsHTML () {
     matchedSample && (
       html += 
       `
-        <li class="list js-list" data-sample-id="${matchedSample.id}">
+        <li class="list animate slideDown js-list" data-sample-id="${matchedSample.id}">
           <div 
             class="cover-container js-cover-container" 
             data-sample-id="${matchedSample.id}"
@@ -117,7 +116,7 @@ function allSongsHTML () {
   length === 0 && (
     html =
     `
-      <li class="list">
+      <li class="list animate fadeIn">
         <div class="cover-container">
           <img src="/Img/Default/Playlist-emtpy-default.jpg">
         </div>

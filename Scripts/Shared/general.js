@@ -4,6 +4,8 @@ import {playChillToggle} from '../home.js';
 
 import {allSongsToggle} from '../all-songs.js';
 
+import {favouritesToggle} from '../favourites.js';
+
 import {updateTimer, updateNavCover} from './nav.js';
 
 import {updatePlayerTape} from './player-tape.js';
@@ -134,6 +136,7 @@ export function userAction(action, element, other) {
     audioState.screen === 'Home' && playChillToggle ('change icon');  
     audioState.screen === 'Playlists' && currentPlaylistToggle('change icon');
     audioState.screen === 'All Songs' && allSongsToggle('change icon');
+    audioState.screen === 'Favourites' && favouritesToggle('change icon');
   }
 
   if (action === 'switch playlist') {
@@ -226,7 +229,7 @@ export function userAction(action, element, other) {
       sectionId === 'all-songs' && updateAudioState(sectionId, 'new section');
       audioState.playListSettings.shuffle = true;
       playList.shuffleList();
-      updatePlayerTape(action, true);
+      !shuffle && updatePlayerTape(action, true);
       setTimeout(playFromBeginning, 500);
     } else {
       audioState.playListSettings.shuffle = !audioState.playListSettings.shuffle;
@@ -234,10 +237,6 @@ export function userAction(action, element, other) {
       updatePlayerTape(action, !shuffle);
     }
   }
-
-  // if (action ==='play' || action === 'play next' || action === 'play previous' || (action === 'shuffle' && element)) {
-  //   updateIcon();
-  // }
 }
 
 function arrowToggle (direction, element) {
