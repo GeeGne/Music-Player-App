@@ -61,6 +61,7 @@ function playListSettings () {
   updatePlayerTape('songTitle');
   updatePlayerTape('expand');
   updatePlayerTape('pause');
+  updatePlayerTape('favourite');
 }
 
 async function addStyleSheets() {

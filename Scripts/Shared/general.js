@@ -126,7 +126,7 @@ export function userAction(action, element, other) {
   }
 
   const listIsEmpty = () => {
-    audioState.audio.pause();
+    audioState.audio && audioState.audio.pause();
     updateTimer('list empty');
     updateNavCover('list empty');
     updatePlayerTape('list empty');
@@ -165,7 +165,8 @@ export function userAction(action, element, other) {
   if (action === 'favourite' && audioState.playList.list.length !== 0) {
     favouritesPlaylist.updatePlaylist('list', audioState.sampleId);
     updatePlayerTape(action, 'motion');
-    audioState.screen === 'Playlists' && currentPlaylistToggle('update favourite list')
+    audioState.screen === 'Playlists' && currentPlaylistToggle('update favourite list');
+    audioState.screen === 'Favourites' && favouritesToggle('update favourite list');
   }
 
   if (audioState.playList.list.length === 0) {
@@ -260,7 +261,7 @@ export function updateAudioState (type, action, element) {
       audioState.playList = allSongsPlaylist; 
     } 
   } else if (action === 'new audio' || action === 're audio') {
-    audioState.audio.pause();
+    audioState.audio && audioState.audio.pause();
     if (element) {
       audioState.sampleId = getSampleID('element', element)
     } else if ((type === 'play next') || (type === 'play previous' && currentTime.totalTime <= 5) || (type === 'play from beginning')) {

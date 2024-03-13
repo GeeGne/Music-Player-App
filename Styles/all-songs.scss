@@ -137,6 +137,7 @@ main section > h2 {
   transition: background-color 0.15s ease, color 0.15s ease;
   background-color: var(--background-change, rgba(0, 0, 0, 0));
   color: var(--text-color, black);
+  cursor: pointer;
 }
 
 .bottom-section .list-container .list::before {

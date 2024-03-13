@@ -13,7 +13,6 @@
   flex-direction: column;
   width: 100%;
   flex: 1;
-  // background-color: #51c919bf;
   padding: 12px 24px;
 }
 
@@ -25,7 +24,7 @@ main section > h2 {
   position: relative;
   display: flex;
   flex-direction: row;
-  width: 100%;
+  min-width: 100%;
   height: auto;
   background-color: #c3c7c897;
   transition: background-color 0.5s ease;
@@ -38,8 +37,7 @@ main section > h2 {
 .top-section .left-box {
   position: relative;
   display: flex;
-  background-image: url('/Img/Default/all-songs-screen-default-full.jpg');
-  // background-size: 86%;
+  // background-image: url('/Img/Default/all-songs-screen-default-full.jpg');
   background-size: 22em;
   background-position: center;
   background-repeat: no-repeat;
@@ -48,32 +46,9 @@ main section > h2 {
 }
 
 .top-section.add .left-box {
-  position: relative;
-  display: flex;
   background-image: url('');
-  // background-size: 86%;
-  background-size: 22em;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 90px;
-  filter: drop-shadow(8px 8px 5px rgba(41, 41, 41, 0.878));
+  width: 100%;
 }
-
-.top-section.add .left-box::before {
-  content: "Add to Favourites Playlist";
-  position: absolute;
-  color: white;
-  font-size: 2.5em;
-  font-weight: 500;
-  opacity: 1;
-  text-wrap: nowrap;
-}
-
-
-
-// .top-section.add .left-box {
-//   display: none;
-// }
 
 //  Shadow effect
 .top-section .left-box::before {
@@ -85,12 +60,21 @@ main section > h2 {
   right: 24px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.812);
   border-radius: 200px;
+  color: rgba(255, 255, 255, 0);
 }
 
 .top-section.add .left-box::before {
+  content: "Add to Favourites Playlist";
+  position: static;
+  color: white;
+  font-size: 2.5em;
+  font-weight: 500;
+  margin: 24px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0);
+  opacity: 1;
+  text-wrap: nowrap;
+  transition: color 1s ease;
 }
-
 
 .top-section .left-box img {
   margin: 24px;
@@ -102,6 +86,9 @@ main section > h2 {
 
 .top-section.add .left-box img {
   visibility: hidden;
+  height: 0em;
+  opacity: 0;
+  transition: height 1s ease-in;
 }
 
 .top-section .right-box {
@@ -110,29 +97,13 @@ main section > h2 {
   justify-content: center;
   padding: 18px 18px;
   flex: 1;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.5s ease-in;
 }
 
 .top-section.add .right-box {
   visibility: hidden;
   opacity: 0;
 }
-
-// .top-section .right-box::after {
-//   position: absolute;
-//   content: "";
-//   opacity: 0; 
-//   transition: opacity 1.5s ease; 
-// }
-
-// .top-section.add .right-box::after {
-//   position: absolute;
-//   content: "Add to Favourites Playlist";
-//   color: white;
-//   font-size: 2.5em;
-//   font-weight: 500;
-//   opacity: 1;
-// }
 
 .top-section .right-box > h2 {
   font-size: 2.5em;
@@ -198,8 +169,8 @@ main section > h2 {
 
 .top-section .add-fav-button:hover {
   filter: invert(100%);
-
 }
+
 .top-section .add-fav-button:hover::before {
   visibility: visible;
   opacity: 1;
@@ -219,7 +190,7 @@ main section > h2 {
   cursor: pointer;
   font-size: 1.5em;
   font-weight: 500;
-  transition: opacity 0.25s ease-in;
+  transition: opacity 0.5s ease-in;
 }
 
 .top-section.add .shuffle-button {
@@ -261,13 +232,13 @@ main section > h2 {
   align-items: center;
   padding: 0 24px;
   width: 100%;
-  transition: background-color 0.15s ease, color 0.15s ease;
   background-color: var(--background-change, rgba(0, 0, 0, 0));
   color: var(--text-color, rgb(0, 0, 0));
-  transition: color 0.5s ease;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  cursor: pointer;
 }
 
-.bottom-section .list-container.add .list{
+.bottom-section .list-container.add .list {
   background-color: var(--background-change, rgba(0, 0, 0, 0));
   color: var(--text-color, rgb(255, 255, 255));
 }
@@ -286,9 +257,57 @@ main section > h2 {
   border: solid 1px rgb(255, 255, 255);
 }
 
+.bottom-section .list-container.add .list::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 24px;
+  background-image: url('/Img/Icons/playlist-add-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  width: 3em;
+  height: 3em;
+
+}
+
+.bottom-section .list-container .list.empty::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 24px;
+  background-image: url('/Img/Icons/playlist-add-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  width: 3em;
+  height: 3em;
+  filter: invert(100%);
+}
+
+.bottom-section .list-container .list.empty:hover:after {
+  filter: invert(0%);
+}
+
+.bottom-section .list-container .list.checked::after {
+  background-image: url('/Img/Icons/playlist_add_check_icon.svg');
+}
+
 .bottom-section .list-container .list:hover {
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
+  transition: background-color 0.15s ease;
+}
+
+.bottom-section .list-container.add .list:hover {
+  background-color: rgba(255, 57, 57, 0.6);
+  transition: background-color 0.5s ease;
+}
+
+.bottom-section .list-container .list.checked:hover {
+  background-color: rgba(59, 255, 42, 0.6);
 }
 
 
@@ -316,6 +335,18 @@ main section > h2 {
   transition: opacity 0.15s ease;
 }
 
+.bottom-section .list-container .list.empty .cover-container::before {
+  background-image: url('/Img/Icons/add-icon.svg');
+}
+
+.bottom-section .list-container.add .list .cover-container::before {
+  background-image: url('/Img/Icons/add-icon.svg');
+}
+
+.bottom-section .list-container.add .list.checked .cover-container::before {
+  background-image: url('/Img/Icons/check_icon.svg');
+}
+
 .bottom-section .list-container .list:hover .cover-container::before {
   opacity: 1;
 }
@@ -330,22 +361,27 @@ main section > h2 {
 }
 
 @media (max-width: 545px) {
+
   .right-side .top-section {
     flex-direction: column;
     align-items: center;
-
   }
-
-  // .right-side .top-section.add {
-  //   flex-direction: row;
-  // }
 
   .right-side .top-section .right-box {
     align-items: center;
   }
 
-  .right-side .top-section.add .right-box {
-    align-items: start;
+  .right-side .top-section.add .left-box {
+    align-items: end;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 22em;
+    margin: 24px;
+  }
+
+  .right-side .top-section.add .left-box::before {
+    text-wrap: nowrap;
+    flex-shrink: 0;
   }
 
   .top-section .right-box > h2 {
@@ -353,10 +389,13 @@ main section > h2 {
     margin-bottom: 6px;
   }
 
+  .top-section.add .left-box img {
+    display: none;
+  }
+
   .top-section .shuffle-button {
     position: static;
     margin-bottom: 18px;
-
   }
 
   .top-section .add-fav-button {

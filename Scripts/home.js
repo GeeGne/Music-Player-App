@@ -70,6 +70,7 @@ function homeSettings () {
   updatePlayerTape('songTitle');
   updatePlayerTape('expand');
   updatePlayerTape('pause');
+  updatePlayerTape('favourite');
 }
 
 function updateNewLists() {
@@ -118,12 +119,6 @@ export function playChillToggle (type, element) {
   if (type === 'next' || type === 'previous') {
     playNchillLists.forEach((element, i) => slideCalulate(type, element, i));
   }
-
-  // if (type === 'play') {
-  //   if (audioState.section !== 'playNchill') {
-  //     audioState.section = 'playNchill';
-  //     createList('default');
-  // }
 
   if (type ==='change icon') {
 

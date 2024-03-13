@@ -43,18 +43,27 @@ let favouritesCoversElements;
 function favouritesSettings () {
   audioState.screen = 'Favourites';
   audioState.section === "" && (audioState.section = 'favourites');
-  favouritesPlaylist.updatePlaylist('list', 20);
-  favouritesPlaylist.updatePlaylist('list', 7);
-  favouritesPlaylist.updatePlaylist('list', 14);
+  // favouritesPlaylist.updatePlaylist('list', 20);
+  // favouritesPlaylist.updatePlaylist('list', 7);
+  // favouritesPlaylist.updatePlaylist('list', 14);
   audioState.playList = favouritesPlaylist;
-  audioState.sampleId = getSampleID();
-  audioState.state = 'pause';
-  audioState.audio = new Audio(getSample().sampleLocation);
-  updateTimer('new audio');
-  updateNavCover();
-  updatePlayerTape('songTitle');
-  updatePlayerTape('expand');
-  updatePlayerTape('pause');
+  if (audioState.playList.list.length !== 0) {
+    audioState.sampleId = getSampleID();
+    audioState.state = 'pause';
+    audioState.audio = new Audio(getSample().sampleLocation);
+    updateTimer('new audio');
+    updateNavCover();
+    updatePlayerTape('songTitle');
+    updatePlayerTape('expand');
+    updatePlayerTape('pause');
+    updatePlayerTape('favourite');
+  } else {
+    audioState.state = 'pause';
+    updatePlayerTape('expand');
+    updateTimer('list empty');
+    updateNavCover('list empty');
+    updatePlayerTape('list empty');
+  }
 }
 
 async function addStyleSheets () {
@@ -81,11 +90,11 @@ function updateListeners () {
   favouritesImageElement.addEventListener('click', () => userAction('play', 'pause play button'));
 }
 
-function addAllSongsSelectors() {
+function addFavouritesSelectors() {
   favouritesListsElements = document.querySelectorAll('.js-list');
   favouritesListsElements.forEach(
     sample => sample.addEventListener(
-      'click', () => userAction('play', sample)
+      'click', () => listType(sample)
     )
   );
 
@@ -99,9 +108,18 @@ function favouritesHTML () {
 
   if (addButton) {
     samples.forEach(sample => {
+      let matchedID;
+      list.forEach((id) => 
+        id === sample.id && (matchedID = true)
+      )
+      
       html +=
       `
-        <li class="list js-list animate slideUp" data-sample-id="${sample.id}">
+        <li 
+          class="list ${matchedID && 'checked'} js-list"
+          data-list-type="add"
+          data-sample-id="${sample.id}"
+        >
           <div 
             class="cover-container js-cover-container" 
             data-sample-id="${sample.id}"
@@ -129,7 +147,11 @@ function favouritesHTML () {
     matchedSample && (
       html += 
       `
-        <li class="list js-list animate slideUp" data-sample-id="${matchedSample.id}">
+        <li 
+          class="list js-list animate slideDown"
+          data-list-type="play"
+          data-sample-id="${matchedSample.id}"
+          >
           <div 
             class="cover-container js-cover-container" 
             data-sample-id="${matchedSample.id}"
@@ -145,7 +167,10 @@ function favouritesHTML () {
   length === 0 && (
     html =
     `
-      <li class="list animate slideUp">
+      <li 
+        class="list js-list empty animate slideUp"
+        data-list-type="empty"
+      >
         <div class="cover-container">
           <img src="/Img/Default/Playlist-emtpy-default.jpg">
         </div>
@@ -210,6 +235,26 @@ export function favouritesToggle (action, element) {
     timerID = setTimeout(() => addFavButtonElement.style.setProperty('--set-display', 'initial'), 500);
 
     favouritesHTML();
+    addFavouritesSelectors();
+  }
+
+  if (action === 'update favourite list') {
+    favouritesHTML();
+    addFavouritesSelectors();
+  }
+}
+
+function listType(list) {
+  const {listType} = list.dataset;
+  const sampleId = Number(list.dataset.sampleId);
+
+  if (listType === 'play') {
+    userAction('play', list);
+  } else if (listType === 'add') {
+    favouritesPlaylist.updatePlaylist('list',sampleId);
+    list.classList.toggle('checked');
+  } else if (listType === 'empty') {
+    favouritesToggle('add')
   }
 }
       
@@ -219,7 +264,7 @@ async function updateSummary() {
   favouritesSettings();
   updateListeners();
   favouritesHTML();
-  addAllSongsSelectors();;
+  addFavouritesSelectors();;
   generalSummary();
   navSummary();
   pageSelectUpdate();

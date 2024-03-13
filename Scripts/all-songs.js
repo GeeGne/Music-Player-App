@@ -48,6 +48,7 @@ function allSongsSettings () {
   updatePlayerTape('songTitle');
   updatePlayerTape('expand');
   updatePlayerTape('pause');
+  updatePlayerTape('favourite');
 }
 
 async function addStyleSheets () {
@@ -100,7 +101,7 @@ function allSongsHTML () {
     matchedSample && (
       html += 
       `
-        <li class="list animate slideDown js-list" data-sample-id="${matchedSample.id}">
+        <li class="list js-list" data-sample-id="${matchedSample.id}">
           <div 
             class="cover-container js-cover-container" 
             data-sample-id="${matchedSample.id}"
@@ -116,7 +117,7 @@ function allSongsHTML () {
   length === 0 && (
     html =
     `
-      <li class="list animate fadeIn">
+      <li class="list">
         <div class="cover-container">
           <img src="/Img/Default/Playlist-emtpy-default.jpg">
         </div>
