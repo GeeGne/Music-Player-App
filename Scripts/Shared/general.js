@@ -129,10 +129,11 @@ export function userAction(action, element, other) {
   }
 
   const listIsEmpty = () => {
-    audioState.audio && audioState.audio.pause();
+    updateAudioState('list empty');
     updateTimer('list empty');
     updateNavCover('list empty');
     updatePlayerTape('list empty');
+    updateIcon();
   }
 
   const updateIcon = () => {
@@ -165,13 +166,13 @@ export function userAction(action, element, other) {
     audioState.playList.list.length !== 0 && currentPlaylistToggle('change icon');
   }
 
-  if (action === 'favourite' && audioState.playList.list.length !== 0) {
+  if (action === 'favourite' && audioState.playList.list.length !== 0 && audioState.sampleId !== "") {
     favouritesPlaylist.updatePlaylist('list', audioState.sampleId);
     updatePlayerTape(action, 'motion');
     audioState.screen === 'Playlists' && currentPlaylistToggle('update favourite list');
     audioState.screen === 'Favourites' && favouritesToggle('update favourite list');
   }
-
+  
   if (audioState.playList.list.length === 0) {
     listIsEmpty();
     return;
@@ -183,7 +184,7 @@ export function userAction(action, element, other) {
 
       if (element !== 'pause play button' && audioState.sampleId === getSampleID('element', element) || element === 'pause play button') {
         audioState.sampleId === "" ? playFromBeginning() : pauseOrPlay();
-        // pauseOrPlay();
+        
       } else {
         playNewAudio(action, element);
       }
@@ -258,9 +259,13 @@ export function calAndConvTotalWidthToEM (element) {
 }
 
 export function updateAudioState (type, action, element) {
-
-  if (action === 'new section') {
-    if (type ==='all songs') {
+ 
+  if (type === 'list empty') {
+    audioState.sampleId = "";
+    audioState.state = 'pause';
+    audioState.audio && audioState.audio.pause();
+  } else if (action === 'new section') {
+    if (type === 'all songs') {
       audioState.section = 'all-songs';
       audioState.playList = allSongsPlaylist; 
     } 
