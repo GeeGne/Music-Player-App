@@ -49,7 +49,7 @@ export function updatePlayerTape (type, other) {
       pausePlayElement.style.opacity = '1';
       pausePlayElement.src = '/Img/Icons/play_arrow.svg';
     }, 200);
-  } else if (type === 'play') {
+  } else if (type === 'play' && pausePlayElement.src.includes('play')) {
     pausePlayElement.style.opacity = '0';
     setTimeout(() => {
       pausePlayElement.style.opacity = '1';
@@ -65,7 +65,7 @@ export function updatePlayerTape (type, other) {
     }
   }
 
-  if (type === 'songTitle') {
+   if ( type === 'songTitle') {
     getSample() && 
     (songTitle.innerHTML = `
       <h3 class="animate slideOut">${getSample().album}</h3> 

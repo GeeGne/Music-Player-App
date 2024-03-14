@@ -82,8 +82,11 @@ export function userAction(action, element, other) {
   const pauseOrPlay = () => {
     updateAudioState();
     updateTimer();
-    updatePlayerTape(audioState.state);
     updateIcon();
+    updateNavCover();
+    updatePlayerTape(audioState.state);
+    updatePlayerTape('songTitle');
+    updatePlayerTape('favourite');
   }
 
   const playNewAudio = action => {
@@ -179,7 +182,8 @@ export function userAction(action, element, other) {
     if (audioState.state === 'pause') {
 
       if (element !== 'pause play button' && audioState.sampleId === getSampleID('element', element) || element === 'pause play button') {
-        pauseOrPlay();
+        audioState.sampleId === "" ? playFromBeginning() : pauseOrPlay();
+        // pauseOrPlay();
       } else {
         playNewAudio(action, element);
       }
@@ -254,11 +258,6 @@ export function calAndConvTotalWidthToEM (element) {
 }
 
 export function updateAudioState (type, action, element) {
-  
-  if (audioState.sampleId === "") {
-    audioState.sampleId = getSampleID('play from beginning', false);
-    audioState.audio = new Audio(getSample().sampleLocation)
-  }
 
   if (action === 'new section') {
     if (type ==='all songs') {

@@ -93,6 +93,10 @@ export function updateNavCover(type) {
     return;
   }  
 
+  if (navCoverElement.style.backgroundImage.includes(getSample().cover)) {
+    return;
+  }
+
   navCoverElement.style.opacity = '0';
   setTimeout(() => {
     navCoverElement.style.opacity = '1';
