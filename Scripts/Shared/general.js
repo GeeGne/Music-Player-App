@@ -255,6 +255,11 @@ export function calAndConvTotalWidthToEM (element) {
 
 export function updateAudioState (type, action, element) {
   
+  if (audioState.sampleId === "") {
+    audioState.sampleId = getSampleID('play from beginning', false);
+    audioState.audio = new Audio(getSample().sampleLocation)
+  }
+
   if (action === 'new section') {
     if (type ==='all songs') {
       audioState.section = 'all-songs';
