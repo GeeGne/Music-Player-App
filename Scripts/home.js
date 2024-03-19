@@ -5,6 +5,7 @@ import samples from '../Data/Samples.json';
 import playerTapeSummary from './Shared/player-tape.js';
 import generalSummary from './Shared/general.js';
 import navSummary from './Shared/nav.js';
+import playlistAddNewSummary from './Shared/playlist-add-new.js';
 
 //  Shared
 import {
@@ -29,6 +30,9 @@ const currentPage = window.location.href;
 //  CSS Styles
 let generalSyle;
 let animationStyle;
+let sharedPlaylistStyle;
+let addToPlaylistStyle;
+let newPlaylistStyle;
 let navStyle;
 let headerStyle;
 let playerTapeStyle;
@@ -43,6 +47,9 @@ let topSectionContainer;
 async function addStyleSheets() {
   generalSyle = await import('../Styles/Shared/general.scss');
   animationStyle = await import('../Styles/Shared/animation.scss');
+  addToPlaylistStyle = await import('../Styles/Shared/playlist-add-new/add-to-playlist.scss');
+  newPlaylistStyle = await import('../Styles/Shared/playlist-add-new/new-playlist.scss');
+  sharedPlaylistStyle = await import('../Styles/Shared/playlist-add-new/shared.scss');
   navStyle = await import('../Styles/Shared/nav.scss');
   headerStyle = await import('../Styles/Shared/header.scss');
   playerTapeStyle = await import('../Styles/Shared/player-tape.scss');
@@ -164,6 +171,7 @@ function updateSummary() {
   navSummary();
   pageSelectUpdate();
   playerTapeSummary();
+  playlistAddNewSummary();
 }
 
 currentPage.includes('home') && updateSummary();

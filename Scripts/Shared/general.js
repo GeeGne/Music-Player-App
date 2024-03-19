@@ -19,6 +19,7 @@ export const navContainerElement = document.querySelector('.js-nav-container');
 export const navButtonElements = document.querySelectorAll('.js-nav-button');
 export const navCoverElement = document.querySelector('.js-album-cover');
 export const timerElement = document.querySelector('.js-timer');
+export const newPlaylistButtonElement = document.querySelector('.js-new-playlist-button');
 
 //  Header Elements
 export const toggleButtonElement = document.querySelector('.js-nav-toggle');
@@ -31,7 +32,7 @@ export const rightArrowElement = document.querySelectorAll('.js-right-arrow');
 export const leftArrowElement = document.querySelectorAll('.js-left-arrow');
 export const rightSideElement = document.querySelector('.js-right-side')
 
-//  Player-tape Element
+//  Player-tape Elements
 export const playerTapeElement = document.querySelector('.js-player-tape');
 export const expandArrowElement = document.querySelector('.js-expand-arrow');
 export const pausePlayElement = document.querySelector('.js-pause-play');
@@ -42,6 +43,12 @@ export const audioTimeTapeElement = document.querySelector('.js-audio-time-tape'
 export const repeatElement = document.querySelector('.js-repeat-icon');
 export const shuffleElement = document.querySelector('.js-shuffle-icon');
 export const favouriteElement = document.querySelector('.js-favourite-icon');
+
+//  Playlist add + new Elements
+export const addNewPlaylistContainerElement = document.querySelector('.js-add-new-playlist-container');
+export const addToPlaylistToggleElement = document.querySelectorAll('.js-add-to-playlist-toggle');
+export const newPlaylistToggleElement = document.querySelectorAll('.js-new-playlist-toggle');
+export const addNewPlaylistExitButtonElement = document.querySelector('.js-exit-button');
 
 export let audioState = {
   state: '',

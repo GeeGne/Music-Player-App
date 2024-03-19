@@ -65,7 +65,7 @@ export function updatePlayerTape (type, other) {
     }
   }
 
-   if ( type === 'songTitle') {
+  if ( type === 'songTitle') {
     getSample() && 
     (songTitle.innerHTML = `
       <h3 class="animate slideOut">${getSample().album}</h3> 

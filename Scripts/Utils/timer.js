@@ -29,7 +29,7 @@ export function startTimer () {
     currentTime.secondsRight += 1;
     if (currentTime.secondsRight === 10) {
       currentTime.secondsRight = 0;
-      currentTime.secondsLeft += 1
+      currentTime.secondsLeft += 1;
     }
     if (currentTime.secondsLeft === 6) {
       currentTime.secondsLeft = 0

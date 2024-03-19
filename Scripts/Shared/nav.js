@@ -2,12 +2,16 @@ import {
   navButtonElements, toggleButtonElement, 
   navContainerElement, toggleButtonArrowElement,
   navCoverElement, audioState, timerElement,
-  userAction
+  userAction, newPlaylistButtonElement
 } from './general.js';
+
 import {updatePlayerTape, updateAudioTimeTape} from './player-tape.js';
+
+import {playlistAddNewToggle} from './playlist-add-new.js';
+
 import {getSample} from '../Utils/sample.js';
 import {getSampleDuration, startTimer, pauseTimer, resetTimer, currentTime, updateSampleDuration} from '../Utils/timer.js';
-
+import padZero from '../Utils/padZero.js';
 export let toggleButton = true;
 
 function navSummary() {
@@ -28,7 +32,9 @@ function navSummary() {
   });
 
   toggleButtonElement.addEventListener('click', toggleButtonUpdate);
+  
 
+  newPlaylistButtonElement && newPlaylistButtonElement.addEventListener('click', () => playlistAddNewToggle('open-new'));
 }
 
 export default navSummary;
@@ -139,8 +145,9 @@ export function updateTimer (type) {
       clearInterval(timerId);
       userAction('audio finished');
     } 
-    timerElement.innerText = `
-    ${currentTime.minutes} : ${currentTime.secondsLeft}${currentTime.secondsRight} / ${getSampleDuration().minutes} : ${getSampleDuration().seconds}
+    timerElement.innerText = 
+    `
+      ${currentTime.minutes} : ${currentTime.secondsLeft}${currentTime.secondsRight} / ${getSampleDuration().minutes} : ${padZero(getSampleDuration().seconds)}
     `;
   }, 500);
 
