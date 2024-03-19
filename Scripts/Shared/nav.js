@@ -33,8 +33,7 @@ function navSummary() {
 
   toggleButtonElement.addEventListener('click', toggleButtonUpdate);
   
-
-  newPlaylistButtonElement && newPlaylistButtonElement.addEventListener('click', () => playlistAddNewToggle('open-new'));
+  newPlaylistButtonElement.addEventListener('click', () => playlistAddNewToggle('open-new'));
 }
 
 export default navSummary;

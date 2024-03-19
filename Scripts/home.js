@@ -30,12 +30,12 @@ const currentPage = window.location.href;
 //  CSS Styles
 let generalSyle;
 let animationStyle;
-let sharedPlaylistStyle;
-let addToPlaylistStyle;
-let newPlaylistStyle;
 let navStyle;
 let headerStyle;
 let playerTapeStyle;
+let addToPlaylistStyle;
+let newPlaylistStyle;
+let sharedPlaylistStyle;
 let homeStyle;
 
 
@@ -47,12 +47,12 @@ let topSectionContainer;
 async function addStyleSheets() {
   generalSyle = await import('../Styles/Shared/general.scss');
   animationStyle = await import('../Styles/Shared/animation.scss');
-  addToPlaylistStyle = await import('../Styles/Shared/playlist-add-new/add-to-playlist.scss');
-  newPlaylistStyle = await import('../Styles/Shared/playlist-add-new/new-playlist.scss');
-  sharedPlaylistStyle = await import('../Styles/Shared/playlist-add-new/shared.scss');
   navStyle = await import('../Styles/Shared/nav.scss');
   headerStyle = await import('../Styles/Shared/header.scss');
   playerTapeStyle = await import('../Styles/Shared/player-tape.scss');
+  addToPlaylistStyle = await import('../Styles/Shared/playlist-add-new/add-to-playlist.scss');
+  newPlaylistStyle = await import('../Styles/Shared/playlist-add-new/new-playlist.scss');
+  sharedPlaylistStyle = await import('../Styles/Shared/playlist-add-new/shared.scss');
   homeStyle = await import('../Styles/home.scss');
 }
 

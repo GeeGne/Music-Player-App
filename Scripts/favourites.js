@@ -5,6 +5,7 @@ import samples from '../Data/Samples.json';
 import generalSummary from './Shared/general.js';
 import navSummary from './Shared/nav.js';
 import playerTapeSummary from './Shared/player-tape.js';
+import playlistAddNewSummary from './Shared/playlist-add-new.js';
 
 // //  SHARED
 import {audioState, userAction} from './Shared/general.js';
@@ -27,6 +28,9 @@ let animationStyle;
 let navStyle;
 let headerStyle;
 let playerTapeStyle;
+let addToPlaylistStyle;
+let newPlaylistStyle;
+let sharedPlaylistStyle;
 let favourites;
 
 //  Favourites Elements Section
@@ -72,6 +76,9 @@ async function addStyleSheets () {
   navStyle = await import('../Styles/Shared/nav.scss');
   headerStyle = await import('../Styles/Shared/header.scss');
   playerTapeStyle = await import('../Styles/Shared/player-tape.scss');
+  addToPlaylistStyle = await import('../Styles/Shared/playlist-add-new/add-to-playlist.scss');
+  newPlaylistStyle = await import('../Styles/Shared/playlist-add-new/new-playlist.scss');
+  sharedPlaylistStyle = await import('../Styles/Shared/playlist-add-new/shared.scss');
   favourites = await import('../Styles/favourites.scss');
 }
 
@@ -269,6 +276,7 @@ async function updateSummary() {
   navSummary();
   pageSelectUpdate();
   playerTapeSummary();
+  playlistAddNewSummary();
 }
 
 currentPage.includes('favourites') && updateSummary();
