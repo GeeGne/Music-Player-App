@@ -116,9 +116,7 @@ export function updateTimer (type) {
     clearInterval(timerId);
     pauseTimer();
     resetTimer();
-    timerElement.innerText = `
-      -- : -- / -- : --
-    `;
+    timerElement.innerText = `-- : -- / -- : --`;
     return
   }
 
@@ -145,9 +143,7 @@ export function updateTimer (type) {
       userAction('audio finished');
     } 
     timerElement.innerText = 
-    `
-      ${currentTime.minutes} : ${currentTime.secondsLeft}${currentTime.secondsRight} / ${getSampleDuration().minutes} : ${padZero(getSampleDuration().seconds)}
-    `;
+    `${currentTime.minutes} : ${currentTime.secondsLeft}${currentTime.secondsRight} / ${getSampleDuration().minutes} : ${padZero(getSampleDuration().seconds)}`;
   }, 500);
 
   setTimeout(() => 

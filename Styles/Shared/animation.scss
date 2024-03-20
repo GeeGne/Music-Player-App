@@ -64,6 +64,15 @@
   }
 }
 
+@keyframes popIn {
+  from {
+    transform: scale(0.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -163,7 +172,12 @@
   animation-name: rotate180degReversed;
   animation-timing-function: ease-in;
   animation-fill-mode: both;
+}
 
+.popIn {
+  animation-name: popIn;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
 }
 
 .slideIn {

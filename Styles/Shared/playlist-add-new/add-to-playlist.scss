@@ -3,7 +3,8 @@
 // }
 
 .add-new-playlist-container.add-clicked .add-list-box {
-  display: flex;
+  // display: flex;
+  visibility: visible;
 }
 
 .add-list-box .toggle-section {
