@@ -19,12 +19,9 @@ import {
 } from './Shared/nav.js';
 
 //  UTILS
-import {
-  getSampleID, 
-  getSample
-} from './Utils/sample.js';
+import {getSampleID, getSample} from './Utils/sample.js';
 import {playNchillPlaylist} from './Utils/playlists.js';
-
+import calAndConvTotalWidthToEM from './Utils/lenghtCal.js';
 //  Current Screen
 const currentPage = window.location.href;
 
@@ -238,6 +235,25 @@ function cardSpread (list, playlistId, action) {
   }
 }
 
+let currentIndex = 0;
+function slideCalulate (direction, element, i) {  
+  if (direction === 'next') {
+    i === 0 && (currentIndex -= 37.2);
+
+    currentIndex < 
+    (-1 * calAndConvTotalWidthToEM(playListElement) + 
+    calAndConvTotalWidthToEM(topSectionContainer)) && 
+    (currentIndex = -1 * calAndConvTotalWidthToEM(playListElement) + 
+    calAndConvTotalWidthToEM(topSectionContainer));
+
+    element.style.transform = `translateX(${currentIndex}em)`;
+  } else {
+    i === 0 && (currentIndex += 37.2);
+    currentIndex > 0 && (currentIndex = 0);
+    element.style.transform = `translateX(${currentIndex}em)`;
+  }
+}
+
 export function currentPlaylistToggle (action, element) {
 
   const styleWhenPause = () => {
@@ -256,6 +272,10 @@ export function currentPlaylistToggle (action, element) {
         sample.style.setProperty('--background-change', 'linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(48, 48, 48) 50%, rgba(255, 255, 255, 0) 100%)'); 
       } 
     });
+  }
+
+  if (action === 'next' || action === 'previous') {
+    playListLists.forEach((element, i) => slideCalulate(action, element, i));
   }
 
   if (action === 'change icon') {

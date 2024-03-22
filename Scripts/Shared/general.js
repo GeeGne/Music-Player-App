@@ -262,16 +262,18 @@ export function userAction(action, element, other) {
 
 function arrowToggle (direction, element) {
   const {sectionInfo} = element.dataset;
+  console.log('test');
   sectionInfo === 'play-n-chill' && playChillToggle(direction, element);
+  sectionInfo === 'play-list' && currentPlaylistToggle(direction, element);
 }
 
-export function calAndConvTotalWidthToEM (element) {
-  const computedStyle = window.getComputedStyle(element);
-  const fontSize = parseFloat(computedStyle.fontSize);
-  const elementTotalWidthPX = element.scrollWidth;
-  const elementTotalWidthEM = elementTotalWidthPX /fontSize;
-  return elementTotalWidthEM;
-}
+// export function calAndConvTotalWidthToEM (element) {
+//   const computedStyle = window.getComputedStyle(element);
+//   const fontSize = parseFloat(computedStyle.fontSize);
+//   const elementTotalWidthPX = element.scrollWidth;
+//   const elementTotalWidthEM = elementTotalWidthPX /fontSize;
+//   return elementTotalWidthEM;
+// }
 
 export function updateAudioState (type, action, element) {
 

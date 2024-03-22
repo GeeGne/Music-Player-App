@@ -9,7 +9,6 @@ import playlistAddNewSummary from './Shared/playlist-add-new.js';
 
 //  Shared
 import {
-  calAndConvTotalWidthToEM, 
   rightSideElement, audioState,
   updateAudioState, userAction
 } from './Shared/general.js';
@@ -18,11 +17,9 @@ import {pageSelectUpdate, updateNavCover, updateTimer} from './Shared/nav.js';
 
 //  Utils
 import {currentTime} from './Utils/timer.js';
-import {
-  getSampleID, 
-  getSample
-} from './Utils/sample.js';
+import {getSampleID, getSample} from './Utils/sample.js';
 import {playNchillPlaylist} from './Utils/playlists.js';
+import calAndConvTotalWidthToEM from './Utils/lenghtCal.js';
 
 //  Current Screen
 const currentPage = window.location.href;
