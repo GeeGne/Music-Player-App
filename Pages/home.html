@@ -14,12 +14,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Montserrat&family=Poppins:wght@300;400;500;600;700&family=Protest+Guerrilla&family=Rajdhani:wght@300;400;500;600;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Rubik+Maps&display=swap" rel="stylesheet">
 
-    <!-- <link rel="stylesheet" href="/Styles/Shared/general.css">
-    <link rel="stylesheet" href="/Styles/Shared/animation.css">
-    <link rel="stylesheet" href="/Styles/Shared/nav.css">
-    <link rel="stylesheet" href="/Styles/Shared/header.css">
-    <link rel="stylesheet" href="/Styles/Shared/player-tape.css">
-    <link rel="stylesheet" href="/Styles/home.css"> -->
   </head>
   <body>
     
@@ -29,11 +23,12 @@
           <h2 class="add-to-playlist-toggle js-add-to-playlist-toggle" data-toggle-section="new-list">Add To Playlist</h2>
           <h2 class="new-playlist-toggle js-new-playlist-toggle" data-toggle-section="new-list">New Playlist</h2>
         </section>
-        <section class="create-list-section">
-          <input type="text" placeholder="Playlist Title">
-          <button>
+        <section class="create-list-section js-create-list-section">
+          <input type="text" placeholder="Playlist Title" class="js-new-playlist-input">
+          <button class="js-create-button">
             Create
           </button>
+          <div class="message-alert js-message-alert"></div>
         </section>
         <section class="selected-samples-section js-selected-samples-section">
           <h2></h2>

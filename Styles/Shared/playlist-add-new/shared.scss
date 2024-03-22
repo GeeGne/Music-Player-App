@@ -147,7 +147,8 @@
 .add-list-box .selected-samples-section .add-sample-button::before,
 .new-list-box .selected-samples-section .add-sample-button::before {
   content:"Add Songs to the Selected list";
-  visibility: var(--set-visibility, hidden);
+  display: var(--set-display, initial);
+  visibility: hidden;
   opacity: 0;
   position: absolute;
   font-size: 0.8em;
@@ -173,7 +174,7 @@
 
 .add-list-box .selected-samples-section .add-sample-button:hover::before,
 .new-list-box .selected-samples-section .add-sample-button:hover::before {
-  visibility: var(--set-visibility, visible);
+  visibility: visible;
   opacity: 1;
 }
 

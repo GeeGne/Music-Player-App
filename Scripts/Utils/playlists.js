@@ -3,8 +3,9 @@ import samples from '../../Data/Samples.json';
 let timerId;
 
 export class Playlist {
-  constructor (name, list, totalTracks) {
+  constructor (name, type, list, totalTracks) {
     this.name = name;
+    this.type = type;
     this.list = list;
     this.totalTracks = totalTracks;
   }
@@ -82,7 +83,7 @@ export class Playlist {
 
 function createList (type, section) {
   let sampleList;
-  if (type === 'default') {
+  if (type === 'system') {
     section === 'playNchill' && (
       sampleList = samples.map(sample => sample.id)
     );
@@ -95,20 +96,24 @@ function createList (type, section) {
       sampleList = samples.map(sample => sample.id)
     );
   }
+
+  if (type === 'personal') {
+    sampleList = section;
+  }
   
   return sampleList;
 }
 
-function createLists (name, section) {
-  const list = [...createList('default', section)];
+export function createLists (name, type, section) {
+  const list = [...createList(type, section)];
   let totalTracks = 0; 
   list.forEach(() => totalTracks ++);
   
-  return new Playlist(name, list, totalTracks); 
+  return new Playlist(name, type, list, totalTracks); 
 }
 
-export const playNchillPlaylist = createLists('Play-N-Chill','playNchill');
-export let favouritesPlaylist = createLists('Favourites','favourites');
-export let allSongsPlaylist = createLists('All Songs','all-songs');
+export const playNchillPlaylist = createLists('Play-N-Chill', 'system', 'playNchill');
+export let favouritesPlaylist = createLists('Favourites', 'system', 'favourites');
+export let allSongsPlaylist = createLists('All Songs', 'system', 'all-songs');
 let albumsPlaylist;
 let artistsPlaylist;

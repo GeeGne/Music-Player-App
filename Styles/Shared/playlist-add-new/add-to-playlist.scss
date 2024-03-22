@@ -117,6 +117,12 @@
   border-radius: 7px;
   background-color: rgb(210, 210, 210);
   border: none;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.add-list-box .add-to-playlist-section li button:hover {
+  filter: invert(100%);
 }
 
 // .add-list-box .selected-samples-section {

@@ -209,7 +209,7 @@ export function favouritesToggle (action, element) {
     favouritesListsElements.forEach(sample => {
       if (getSampleID('element', sample) === audioState.sampleId) {
         sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0.6');
-        sample.style.setProperty('--text-color', 'white')
+        sample.style.setProperty('--text-color', 'white');
       } 
     });
 

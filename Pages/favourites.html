@@ -23,11 +23,12 @@
           <h2 class="add-to-playlist-toggle js-add-to-playlist-toggle" data-toggle-section="new-list">Add To Playlist</h2>
           <h2 class="new-playlist-toggle js-new-playlist-toggle" data-toggle-section="new-list">New Playlist</h2>
         </section>
-        <section class="create-list-section">
-          <input type="text" placeholder="Playlist Title">
-          <button>
+        <section class="create-list-section js-create-list-section">
+          <input type="text" placeholder="Playlist Title" class="js-new-playlist-input">
+          <button class="js-create-button">
             Create
           </button>
+          <div class="message-alert js-message-alert"></div>
         </section>
         <section class="selected-samples-section js-selected-samples-section">
           <h2></h2>
@@ -141,7 +142,7 @@
 
       <button class="exit-button js-exit-button"></button>
     </section>
-
+    
     <section class="nav-container js-nav-container">
       <nav class="blur-border">
         <h1 class="title">

@@ -142,7 +142,7 @@ function playListsHTML () {
   audioState.playLists.forEach(list => {
     const {playList} = list;
     let cover1;
-
+  
     playList.list.forEach((id, i) => {
       i === 0 && samples.forEach(sample => sample.id === id && (cover1 = sample.cover));
     })
@@ -298,10 +298,15 @@ export function currentPlaylistToggle (action, element) {
     currentListHTML();
     addCurrentListsSelectors();
   }
+
+  if (action === 'update playlists HTML') {
+    playListsHTML();
+    addPlayListsSelectors();
+    addPlayListsCovers();
+  }
 }
       
 async function updateSummary() {
-  console.log('test')
   updateSelectors();
   await addStyleSheets();
   playListSettings();

@@ -47,11 +47,15 @@ export const favouriteElement = document.querySelector('.js-favourite-icon');
 //  Playlist add + new Elements
 export const addNewPlaylistContainerElement = document.querySelector('.js-add-new-playlist-container');
 export const newListBoxElement = document.querySelector('.js-new-list-box');
+export const createListSectionElement = document.querySelector('.js-create-list-section');
+export const messageAlertTextElement = document.querySelector('.js-message-alert');
+export const newPlaylistInputElement = document.querySelector('.js-new-playlist-input');
+export const createButtonElement = document.querySelector('.js-create-button');
 export const addListBoxElement = document.querySelector('.js-add-list-box');
 export const addToPlaylistToggleElement = document.querySelectorAll('.js-add-to-playlist-toggle');
 export const newPlaylistToggleElement = document.querySelectorAll('.js-new-playlist-toggle');
 export const addNewPlaylistExitButtonElement = document.querySelector('.js-exit-button');
-export const selectedSamplesSection = document.querySelectorAll('.js-selected-samples-section')
+export const selectedSamplesSection = document.querySelectorAll('.js-selected-samples-section');
 export const addSampleButtonElement = document.querySelectorAll('.js-add-sample-button');
 
 export let audioState = {
@@ -270,8 +274,14 @@ export function calAndConvTotalWidthToEM (element) {
 }
 
 export function updateAudioState (type, action, element) {
- 
-  if (type === 'list empty') {
+
+  if (type === 'new playlist') {
+    const playList = action;
+    const {length} = audioState.playLists;
+    const id = length + 1;
+
+    audioState.playLists = [...audioState.playLists, {id, playList}];
+  } else if (type === 'list empty') {
     audioState.sampleId = "";
     audioState.state = 'pause';
     audioState.audio && audioState.audio.pause();
@@ -298,4 +308,3 @@ export function updateAudioState (type, action, element) {
     audioState.audio.play();
   }
 }
-
