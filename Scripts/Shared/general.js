@@ -57,6 +57,7 @@ export const newPlaylistToggleElement = document.querySelectorAll('.js-new-playl
 export const addNewPlaylistExitButtonElement = document.querySelector('.js-exit-button');
 export const selectedSamplesSection = document.querySelectorAll('.js-selected-samples-section');
 export const addSampleButtonElement = document.querySelectorAll('.js-add-sample-button');
+export const selectedSamplesContainer = document.querySelector('.js-selected-samples-container');
 
 export let audioState = {
   state: '',
