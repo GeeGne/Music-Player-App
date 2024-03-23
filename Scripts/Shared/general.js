@@ -57,7 +57,7 @@ export const newPlaylistToggleElement = document.querySelectorAll('.js-new-playl
 export const addNewPlaylistExitButtonElement = document.querySelector('.js-exit-button');
 export const selectedSamplesSection = document.querySelectorAll('.js-selected-samples-section');
 export const addSampleButtonElement = document.querySelectorAll('.js-add-sample-button');
-export const selectedSamplesContainer = document.querySelector('.js-selected-samples-container');
+export const selectedSamplesContainer = document.querySelectorAll('.js-selected-samples-container');
 
 export let audioState = {
   state: '',
@@ -263,18 +263,10 @@ export function userAction(action, element, other) {
 
 function arrowToggle (direction, element) {
   const {sectionInfo} = element.dataset;
-  console.log('test');
+
   sectionInfo === 'play-n-chill' && playChillToggle(direction, element);
   sectionInfo === 'play-list' && currentPlaylistToggle(direction, element);
 }
-
-// export function calAndConvTotalWidthToEM (element) {
-//   const computedStyle = window.getComputedStyle(element);
-//   const fontSize = parseFloat(computedStyle.fontSize);
-//   const elementTotalWidthPX = element.scrollWidth;
-//   const elementTotalWidthEM = elementTotalWidthPX /fontSize;
-//   return elementTotalWidthEM;
-// }
 
 export function updateAudioState (type, action, element) {
 

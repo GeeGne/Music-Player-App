@@ -43,7 +43,7 @@ let selectedSamplesId = [];
 let addList = [];
 export function playlistAddNewToggle (action, element) {
   
-  const renderSongsHTML = type => {
+  const renderSongsHTML = (type, listName) => {
     let html = '';
     
     if (type === 'select') {
@@ -65,11 +65,16 @@ export function playlistAddNewToggle (action, element) {
       })
 
       if (addList.length === 0) {
-        emptySamplesHTML();
+        emptySamplesHTML(type);
         return;
       }
 
-      selectedSamplesContainer.innerHTML = html;
+      // selectedSamplesContainer.forEach(element => {
+      //   const matchedName = element.dataset.listName;
+      //   listName === matchedName && (element.innerHTML = html);
+      // })
+      selectedSamplesContainer.forEach(element => (element.innerHTML = html));
+
       addList.length !== 0 && updateSelectedSamplesListeners();
     }
 
@@ -93,11 +98,16 @@ export function playlistAddNewToggle (action, element) {
       })
       
       if (selectedSamplesId.length === 0) {
-        emptySamplesHTML();
+        emptySamplesHTML(type);
         return;
       }
       
-      selectedSamplesContainer.innerHTML = html;
+      // selectedSamplesContainer.forEach(element => {
+      //   const matchedName = element.dataset.listname;
+      //   listName === matchedName && (element.innerHTML = html);
+      // });
+      selectedSamplesContainer.forEach(element => (element.innerHTML = html));
+
       selectedSamplesId.length !== 0 && updateSelectedSamplesListeners();
     }
   }
@@ -119,7 +129,7 @@ export function playlistAddNewToggle (action, element) {
       return sample.id !== matchedItem;
     });
 
-    addList.length === 0 && emptySamplesHTML();
+    addList.length === 0 && emptySamplesHTML('select');
     console.log({addList});
   }
 
@@ -133,27 +143,57 @@ export function playlistAddNewToggle (action, element) {
     song.style.transform = 'scaleX(0.1)';
     setTimeout(() => song.style.display = 'none', 500);
     
-    selectedSamplesId.length === 0 && emptySamplesHTML();
+    selectedSamplesId.length === 0 && emptySamplesHTML('selected');
     console.log(selectedSamplesId);
   }
 
-  const emptySamplesHTML = () => {
-    selectedSamplesContainer.innerHTML = 
-    `
-      <li class="empty" data-samples-type="add">
-        
-        <h3>No Songs available to select</h3>
-        
-      </li>
-    `
+  const emptySamplesHTML = type => {
+    // const {listName} = element.dataset;
+    selectedSamplesContainer.forEach(element => {
+      // const {matchedName} = element.dataset;
+      // listName === matchedName && (
+      //   element.innerHTML = 
+      //   `
+      //     <li class="empty" data-samples-type="add">
+            
+      //       <h3>No Songs available to select</h3>
+            
+      //     </li>
+      //   `);
+
+      console.log(type);
+      type === 'select' && (element.innerHTML = 
+        `
+          <li class="empty" data-samples-type="add">
+            <h3>No Songs available to select</h3>
+          </li>
+        `
+      );
+
+      type === 'selected' && (element.innerHTML = 
+        `
+          <li class="empty" data-samples-type="add">
+            <h3>No Songs are selected</h3>
+          </li>
+        `
+      );
+    });
   }
 
   if (action === 'add to playlist toggle') {
+    selectedSamplesSection.forEach(element => 
+        element.classList.contains('clicked') ? 
+        renderSongsHTML ('select') : renderSongsHTML ('selected')
+    );
     addNewPlaylistContainerElement.classList.remove('new-clicked');
     addNewPlaylistContainerElement.classList.add('add-clicked');
   }
   
   if (action === 'new playlist toggle') {
+    selectedSamplesSection.forEach(element => 
+      element.classList.contains('clicked') ? 
+      renderSongsHTML ('select') : renderSongsHTML ('selected')
+    );
     addNewPlaylistContainerElement.classList.remove('add-clicked');
     addNewPlaylistContainerElement.classList.add('new-clicked');
   }
@@ -161,7 +201,6 @@ export function playlistAddNewToggle (action, element) {
   if (action === 'close') {
     // selectedSamplesId = [];
     selectedSamplesSection.forEach(element => element.classList.remove('clicked'));
-
     addNewPlaylistContainerElement.classList.remove('new-clicked');
     addNewPlaylistContainerElement.classList.remove('add-clicked');
     newListBoxElement.style.transform = 'translateX(-50%) scale(0.7)';
@@ -199,7 +238,7 @@ export function playlistAddNewToggle (action, element) {
     selectedSamplesSection.forEach(element => {
       const matchedName = element.dataset.listName;
       if (listName === matchedName) {
-        element.classList.contains('clicked') ? renderSongsHTML ('select') : renderSongsHTML ('selected')
+        element.classList.contains('clicked') ? renderSongsHTML ('select', listName) : renderSongsHTML ('selected', listName)
       }
     });
   }
@@ -209,35 +248,38 @@ export function playlistAddNewToggle (action, element) {
     
     if (name === '') {
       messageAlertTextElement.innerHTML = 
-      `<p><span style="color: red">ERROR</span><p>
-      <p>
-        <span style="color:red">
-        *input is 
-          <span style="font-weight: 500">empty</span>
-        </span>
-      </p>
+      `
+        <p><span style="color: red">ERROR</span><p>
+        <p>
+          <span style="color:red">
+          *input is 
+            <span style="font-weight: 500">empty</span>
+          </span>
+        </p>
       `
     } else if (name.includes(' ')) {
       messageAlertTextElement.innerHTML = 
-      `<p><span style="color: red">ERROR</span><p>
-      <p>
-        <span style="color:red">
-          *no 
-          <span style="font-weight: 500;">SPACE</span> 
-          is allowed
-        </span>
-      </p>
+      `
+        <p><span style="color: red">ERROR</span><p>
+        <p>
+          <span style="color:red">
+            *no 
+            <span style="font-weight: 500;">SPACE</span> 
+            is allowed
+          </span>
+        </p>
       `
     } else if (name.length > 16) {
       messageAlertTextElement.innerHTML = 
-      `<p><span style="color: red">ERROR</span><p>
-      <p>
-        <span style="color:red">
-          *more than 
-          <span style="font-weight: 500;">16 characters</span>
-          is forbidden
-        </span>
-      </p>
+      `
+        <p><span style="color: red">ERROR</span><p>
+        <p>
+          <span style="color:red">
+            *more than 
+            <span style="font-weight: 500;">16 characters</span>
+            is forbidden
+          </span>
+        </p>
       `
     } else {
       const currentPage = window.location.href;
@@ -245,6 +287,10 @@ export function playlistAddNewToggle (action, element) {
       messageAlertTextElement.innerHTML = `*<span style="font-weight: 500;">${name}</span> Playlist is created`;
 
       currentPage.includes('play-lists') && currentPlaylistToggle('update playlists HTML');
+
+      selectedSamplesId = [];
+      renderSongsHTML('selected');
+      selectedSamplesSection.forEach(element => element.classList.remove('clicked'));
     }
     
     newPlaylistInputElement.value = '';
