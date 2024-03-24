@@ -21,7 +21,7 @@ body {
   // height: -webkit-fill-available;
   height: 100vh;
   min-width: calc(100vw + 15em);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#90909071), to(#391f3cce)), url('../../Img/Background/pexels-thiago-matos.jpg');
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#90909071), to(#391f3cce)), url('../../Img/Background/pexels-edward-jenner.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -67,8 +67,6 @@ h3 {
     font-size: 8px;
   }
 }
-
-
 
 @media (max-height: 320px) {
   body {

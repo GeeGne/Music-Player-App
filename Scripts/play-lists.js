@@ -8,20 +8,19 @@ import playerTapeSummary from './Shared/player-tape.js';
 import playlistAddNewSummary from './Shared/playlist-add-new.js';
 
 //  SHARED
-import {audioState, userAction,
-  // calAndConvTotalWidthToEM, 
-  // rightSideElement, updateAudioState
-} from './Shared/general.js';
+import {audioState, userAction} from './Shared/general.js';
 import {updatePlayerTape} from './Shared/player-tape.js';
 import {
   pageSelectUpdate, 
   updateNavCover, updateTimer
 } from './Shared/nav.js';
+import {playlistAddNewToggle} from './Shared/playlist-add-new.js';
 
 //  UTILS
 import {getSampleID, getSample} from './Utils/sample.js';
 import {playNchillPlaylist} from './Utils/playlists.js';
 import calAndConvTotalWidthToEM from './Utils/lenghtCal.js';
+
 //  Current Screen
 const currentPage = window.location.href;
 
@@ -38,6 +37,7 @@ let playListStyle;
 
 //  Playlist Elements Section
 let topSectionContainer;
+let addPlaylistButtonElement;
 let playListElement;
 let playListLists;
 let playListCoverElement;
@@ -79,6 +79,8 @@ async function addStyleSheets() {
 
 function updateSelectors() {
   topSectionContainer = document.querySelector('.js-top-section');
+  addPlaylistButtonElement = document.querySelector('.js-plus-icon');
+  addPlaylistButtonElement.addEventListener('click', () => playlistAddNewToggle('open-new'));
   playListElement = document.querySelector('.js-music-list-container');
   currentPlaylistNameElement = document.querySelector('.js-current-playlist-name');
   currentPlaylistContainer = document.querySelector('.js-list-selection');
@@ -87,12 +89,15 @@ function updateSelectors() {
 function addPlayListsSelectors () {
   playListLists = document.querySelectorAll('.js-music-list');
   playListCoverElement = document.querySelectorAll('.js-cover');
-  playListLists.forEach((list) => {
+  playListLists.forEach(list => {
     const {playlistId} = list.dataset;
 
+    playlistId === 'add' ? 
+    list.addEventListener('click', () => playlistAddNewToggle('open-new')) : 
     list.addEventListener('click', () => userAction('switch playlist', false, Number(playlistId) ));
     list.addEventListener('mouseenter', () => cardSpread(list, playlistId, 'out'));
     list.addEventListener('mouseleave', () => cardSpread(list, playlistId, 'in'));
+
   });
 
   favouritesListElement = document.querySelector('.js-music-list-favourites');
@@ -117,8 +122,6 @@ function addPlayListsCovers () {
         element.style.setProperty('--playList-cover-2', `url('${cover2 || '' }')`);
         element.style.setProperty('--playList-cover-3', `url('${cover3 || '' }')`);
       } 
-
-      
     })  
   })
 }
@@ -162,6 +165,15 @@ function playListsHTML () {
       </li>
     `;
   })
+
+  html += 
+  `
+    <li 
+    class="js-music-list add"
+    data-playlist-id="add"
+    >
+    </li>
+  `;
   
   playListElement.innerHTML = html;
 }
