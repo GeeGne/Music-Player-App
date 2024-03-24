@@ -96,7 +96,7 @@ position: absolute;
   border-width: 0 0 1px 0;
   background-color: rgba(255, 255, 255, 0.531);
   backdrop-filter: blur(4px);
-  // transition: transform 0.20s ease-out;
+  transition: transform 0.20s ease-out;
 }
 
 .new-list-box .create-list-section input:focus {
