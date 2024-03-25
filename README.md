@@ -19,7 +19,6 @@
   <li>Artist tab</li>
   <li>Album tab</li>
   <li>User Data will not store (everything Refresh when toggling between the screens)</li>
-  <li>Playlists tab</li>
 </ol>
 
 <h2>Project Setup</h2>
