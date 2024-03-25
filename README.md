@@ -6,7 +6,7 @@
 
 <h3>What's working:</h3>
 <ol>
-  <li>Home tab (50% funished)</li>
+  <li>Home tab (50% finished)</li>
   <li>All Songs tab</li>
   <li>Favourites tab</li>
   <li>Playlists tab</li>
