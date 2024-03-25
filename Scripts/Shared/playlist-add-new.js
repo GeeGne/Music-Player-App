@@ -1,11 +1,12 @@
 import samples from '../../Data/Samples.json'
 
-import {addNewPlaylistContainerElement, addToPlaylistToggleElement, 
+import {audioState, addNewPlaylistContainerElement, addToPlaylistToggleElement, 
   newPlaylistToggleElement, addNewPlaylistExitButtonElement,
   addSampleButtonElement, selectedSamplesSection, 
   newListBoxElement, addListBoxElement, 
   createButtonElement, newPlaylistInputElement,
-updateAudioState, createListSectionElement, messageAlertTextElement, selectedSamplesContainer} from './general.js';
+  updateAudioState, createListSectionElement, 
+  messageAlertTextElement, selectedSamplesContainer, addToPlaylistContainerElement} from './general.js';
 
 import {currentPlaylistToggle} from '../play-lists.js';
 
@@ -29,12 +30,18 @@ function playlistAddNewSummary () {
 
 export default playlistAddNewSummary;
 
-function updateSelectedSamplesListeners() {
+function updateSelectedSamplesListeners () {
   const pickSonglistsElement = document.querySelectorAll('.js-add-selected-samples');
   pickSonglistsElement.forEach(element => {
     element.addEventListener('click', () => playlistAddNewToggle('song clicked', element))
   })
-  
+}
+
+function updateChooseAPlaylistListeners () {
+  const addToPlaylistButtonElement = document.querySelectorAll('.js-add-playlist-button');
+  addToPlaylistButtonElement.forEach(element => 
+    element.addEventListener('click', () => playlistAddNewToggle('choose a Playlist Add Button clicked', element))
+  );
 }
 
 let timerIds = [];
@@ -43,7 +50,7 @@ let selectedSamplesId = [];
 let addList = [];
 export function playlistAddNewToggle (action, element) {
   
-  const renderSongsHTML = (type) => {
+  const renderSongsHTML = type => {
     let html = '';
     
     if (type === 'select') {
@@ -64,11 +71,11 @@ export function playlistAddNewToggle (action, element) {
           `
       })
 
-      if (addList.length === 0) {
-        emptySamplesHTML(type);
-        return;
-      }
-
+      // if (addList.length === 0) {
+      //   emptySamplesHTML(type);
+      //   return;
+      // }
+      addList.length === 0 && (html = emptySamplesHTML(type));
       selectedSamplesContainer.forEach(element => (element.innerHTML = html));
       addList.length !== 0 && updateSelectedSamplesListeners();
     }
@@ -92,14 +99,48 @@ export function playlistAddNewToggle (action, element) {
         )
       })
       
-      if (selectedSamplesId.length === 0) {
-        emptySamplesHTML(type);
-        return;
-      }
-      
+      // if (selectedSamplesId.length === 0) {
+      //   emptySamplesHTML(type);
+      //   return;
+      // }
+      selectedSamplesId.length === 0 && (html = emptySamplesHTML(type));
       selectedSamplesContainer.forEach(element => (element.innerHTML = html));
+
       selectedSamplesId.length !== 0 && updateSelectedSamplesListeners();
     }
+  }
+
+  const renderPlaylistsHTML = () => {
+    let html ='';
+    let playlists = [];
+    const {playLists} = audioState;
+    playlists = playLists.filter(list => list.playList.type.includes('personal'));
+    playlists.forEach(list => {
+      let matchedItem;
+      samples.forEach(sample => sample.id === list.playList.list[0] && (matchedItem = sample));
+
+      html +=
+      `
+        <li>
+          <img src="${list.playList.list.length === 0 ? '/Img/Default/playlist-default.jpg' : matchedItem.cover}">
+            <h3>${list.playList.name}</h3>
+          <button class="js-add-playlist-button" data-playlist-id="${list.id}"></button>
+        </li>
+      `;
+    });
+
+    playlists.length === 0 && (html = 
+      `
+        <li class ="empty">
+          
+            <h3>No Playlists are added</h3>
+          
+        </li>
+      `
+      ); 
+
+    addToPlaylistContainerElement.innerHTML = html;
+    updateChooseAPlaylistListeners();
   }
 
   const songAdded = element => {
@@ -119,8 +160,8 @@ export function playlistAddNewToggle (action, element) {
       return sample.id !== matchedItem;
     });
 
-    addList.length === 0 && emptySamplesHTML('select', true);
-    console.log({addList});
+    // addList.length === 0 && emptySamplesHTML('select', true);
+    addList.length === 0 && selectedSamplesContainer.forEach(element => element.innerHTML = emptySamplesHTML('select', true));
   }
 
   const songRemoved = element => {
@@ -133,28 +174,47 @@ export function playlistAddNewToggle (action, element) {
     song.style.transform = 'scaleX(0.1)';
     setTimeout(() => song.style.display = 'none', 500);
     
-    selectedSamplesId.length === 0 && emptySamplesHTML('selected', true);
+    // selectedSamplesId.length === 0 && emptySamplesHTML('selected', true);
+    selectedSamplesId.length === 0 && selectedSamplesContainer.forEach(element => element.innerHTML = emptySamplesHTML('select', true));
     console.log(selectedSamplesId);
   }
 
   const emptySamplesHTML = (type, animate) => {
-    selectedSamplesContainer.forEach(element => {
-      type === 'select' && (element.innerHTML = 
+    // selectedSamplesContainer.forEach(element => {
+    //   type === 'select' && (element.innerHTML = 
+    //     `
+    //       <li class="empty ${animate && 'animate popInWFade'}" data-samples-type="add">
+    //         <h3>No Songs available to select</h3>
+    //       </li>
+    //     `
+    //   );
+
+    //   type === 'selected' && (element.innerHTML = 
+    //     `
+    //       <li class="empty ${animate && 'animate popInWFade'}" data-samples-type="add">
+    //         <h3>No Songs are selected</h3>
+    //       </li>
+    //     `
+    //   );
+    // });
+
+    if (type === 'select') {
+      return (
         `
           <li class="empty ${animate && 'animate popInWFade'}" data-samples-type="add">
             <h3>No Songs available to select</h3>
           </li>
         `
       );
-
-      type === 'selected' && (element.innerHTML = 
+    } else if (type === 'selected') {
+      return (
         `
           <li class="empty ${animate && 'animate popInWFade'}" data-samples-type="add">
-            <h3>No Songs are selected</h3>
+           <h3>No Songs are selected</h3>
           </li>
         `
       );
-    });
+    }
   }
 
   if (action === 'add to playlist toggle') {
@@ -164,6 +224,8 @@ export function playlistAddNewToggle (action, element) {
     );
     addNewPlaylistContainerElement.classList.remove('new-clicked');
     addNewPlaylistContainerElement.classList.add('add-clicked');
+
+    renderPlaylistsHTML();
   }
   
   if (action === 'new playlist toggle') {
@@ -269,5 +331,47 @@ export function playlistAddNewToggle (action, element) {
   if (action === 'song clicked') {
     const {samplesType} = element.dataset;
     samplesType === "select" ? songAdded(element) : songRemoved(element);
+  }
+
+  if (action === 'choose a Playlist Add Button clicked') {
+    if (element.classList.contains('clicked')) {
+      return;
+    }
+
+    if (selectedSamplesId.length === 0) {
+      return;
+    }
+
+    const playlistId = Number(element.dataset.playlistId);
+    const {playLists} = audioState;
+    const currentPage = window.location.href;
+
+    let matchedList;
+    playLists.forEach(list => list.id === playlistId && (matchedList = list.playList.list));
+  
+    let updatedPlaylist = matchedList;
+
+    selectedSamplesId.forEach(sampleId => {
+      let matchedId;
+      matchedList.forEach(id => id === sampleId && (matchedId = id));
+      matchedId || (updatedPlaylist = [...updatedPlaylist, sampleId]);
+    });
+
+    matchedList.length === 0 && (updatedPlaylist = selectedSamplesId);
+    
+    let newList;
+    playLists.forEach(list => list.id === playlistId && (newList = list.playList));
+    newList.list = updatedPlaylist;
+    newList.totalTracks = updatedPlaylist.length;
+    
+    audioState.playLists.forEach((list, i) => list.id === playlistId && (list[i] = newList));
+
+    selectedSamplesId = [];
+    renderSongsHTML('selected');
+    selectedSamplesSection.forEach(element => element.classList.remove('clicked'));;
+
+    element.classList.add('clicked');
+    currentPage.includes('play-lists') && currentPlaylistToggle('update playlists HTML');
+    currentPage.includes('play-lists') && currentPlaylistToggle('update current playlist HTML');
   }
 }

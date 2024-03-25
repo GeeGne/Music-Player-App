@@ -231,6 +231,10 @@ export function favouritesToggle (action, element) {
     }  
   }
 
+  if (action === 'list empty') {
+    favouritesImageElement.classList.add('paused');
+  }
+
   if (action === 'add') {
     addButton = !addButton;
 

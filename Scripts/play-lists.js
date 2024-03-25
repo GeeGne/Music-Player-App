@@ -8,7 +8,7 @@ import playerTapeSummary from './Shared/player-tape.js';
 import playlistAddNewSummary from './Shared/playlist-add-new.js';
 
 //  SHARED
-import {audioState, userAction} from './Shared/general.js';
+import {audioState, userAction, updateAudioState} from './Shared/general.js';
 import {updatePlayerTape} from './Shared/player-tape.js';
 import {
   pageSelectUpdate, 
@@ -18,7 +18,7 @@ import {playlistAddNewToggle} from './Shared/playlist-add-new.js';
 
 //  UTILS
 import {getSampleID, getSample} from './Utils/sample.js';
-import {playNchillPlaylist} from './Utils/playlists.js';
+import {playNchillPlaylist, favouritesPlaylist} from './Utils/playlists.js';
 import calAndConvTotalWidthToEM from './Utils/lenghtCal.js';
 
 //  Current Screen
@@ -53,16 +53,24 @@ let favouritesTitleElement;
 function playListSettings () {
   audioState.screen = 'Playlists';
   audioState.section === "" && (audioState.section = 'playNchill');
-  audioState.playList = playNchillPlaylist;
+  audioState.playList = favouritesPlaylist;
   audioState.sampleId = getSampleID();
   audioState.state = 'pause';
-  audioState.audio = new Audio(getSample().sampleLocation);
-  updateTimer('new audio');
-  updateNavCover();
-  updatePlayerTape('songTitle');
-  updatePlayerTape('expand');
-  updatePlayerTape('pause');
-  updatePlayerTape('favourite');
+  if (audioState.playList.list.length === 0) {
+    updateAudioState('list empty');
+    updateTimer('list empty');
+    updateNavCover('list empty');
+    updatePlayerTape('list empty');
+    updatePlayerTape('expand');
+  } else {
+    audioState.audio = new Audio(getSample().sampleLocation);
+    updateTimer('new audio');
+    updateNavCover();
+    updatePlayerTape('songTitle');
+    updatePlayerTape('expand');
+    updatePlayerTape('pause');
+    updatePlayerTape('favourite');
+  } 
 }
 
 async function addStyleSheets() {

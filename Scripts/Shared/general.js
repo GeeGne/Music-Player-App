@@ -52,6 +52,7 @@ export const messageAlertTextElement = document.querySelector('.js-message-alert
 export const newPlaylistInputElement = document.querySelector('.js-new-playlist-input');
 export const createButtonElement = document.querySelector('.js-create-button');
 export const addListBoxElement = document.querySelector('.js-add-list-box');
+export const addToPlaylistContainerElement = document.querySelector('.js-add-to-playlist-container');
 export const addToPlaylistToggleElement = document.querySelectorAll('.js-add-to-playlist-toggle');
 export const newPlaylistToggleElement = document.querySelectorAll('.js-new-playlist-toggle');
 export const addNewPlaylistExitButtonElement = document.querySelector('.js-exit-button');
@@ -98,7 +99,7 @@ export function userAction(action, element, other) {
   const pauseOrPlay = () => {
     updateAudioState();
     updateTimer();
-    updateIcon();
+    updateIcon('change icon');
     updateNavCover();
     updatePlayerTape(audioState.state);
     updatePlayerTape('songTitle');
@@ -108,7 +109,7 @@ export function userAction(action, element, other) {
   const playNewAudio = action => {
     updateAudioState(action, 'new audio', element);
     updateTimer('new audio');
-    updateIcon();
+    updateIcon('change icon');
     updateNavCover();
     updatePlayerTape('songTitle');
     updatePlayerTape(audioState.state);
@@ -124,7 +125,7 @@ export function userAction(action, element, other) {
   const playFromBeginning = () => {
     updateAudioState('play from beginning', 'new audio');
     updateTimer('new audio');
-    updateIcon();
+    updateIcon('change icon');
     updateNavCover();
     updatePlayerTape('songTitle');
     updatePlayerTape(audioState.state);
@@ -149,14 +150,14 @@ export function userAction(action, element, other) {
     updateTimer('list empty');
     updateNavCover('list empty');
     updatePlayerTape('list empty');
-    updateIcon();
+    updateIcon('list empty');
   }
 
-  const updateIcon = () => {
-    audioState.screen === 'Home' && playChillToggle ('change icon');  
-    audioState.screen === 'Playlists' && currentPlaylistToggle('change icon');
-    audioState.screen === 'All Songs' && allSongsToggle('change icon');
-    audioState.screen === 'Favourites' && favouritesToggle('change icon');
+  const updateIcon = type => {
+    audioState.screen === 'Home' && playChillToggle (type);  
+    audioState.screen === 'Playlists' && currentPlaylistToggle(type);
+    audioState.screen === 'All Songs' && allSongsToggle(type);
+    audioState.screen === 'Favourites' && favouritesToggle(type);
   }
 
   if (action === 'switch playlist') {
