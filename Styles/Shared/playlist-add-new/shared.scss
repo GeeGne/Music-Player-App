@@ -263,11 +263,6 @@
   transition: opacity 0.5s ease-out , transform 0.5s ease-out;
 }
 
-.add-list-box .selected-samples-section li.move,
-.new-list-box .selected-samples-section li.move {
-  transition: opacity 0.5s ease-out , transform 0.5s ease-out;
-}
-
 .add-list-box .selected-samples-section li.empty,
 .new-list-box .selected-samples-section li.empty {
   width: 100%;

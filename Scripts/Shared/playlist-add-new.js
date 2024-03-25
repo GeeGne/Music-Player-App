@@ -52,9 +52,10 @@ function updateChooseAPlaylistListeners () {
 
 let currentIndex = 0;
 function slideCalculate (direction, element, i) {  
+  const width = document.body.scrollWidth;
   
   if (direction === 'next') {
-    i === 0 && (currentIndex -= 25.5);
+    i === 0 && (currentIndex -= width > 750 ? 25.5 : 18);
 
     currentIndex < 
     (-1 * calAndConvTotalWidthToEM(selectedSamplesContainer[0]) + 
@@ -62,7 +63,7 @@ function slideCalculate (direction, element, i) {
     (currentIndex = -1 * calAndConvTotalWidthToEM(selectedSamplesContainer[0]) + 
     calAndConvTotalWidthToEM(newListBoxElement) + 5);
   } else {
-    i === 0 && (currentIndex += 25.5);
+    i === 0 && (currentIndex += width > 750 ? 25.5 : 18);
     currentIndex > 0 && (currentIndex = 0);
   }
 
@@ -379,6 +380,6 @@ export function playlistAddNewToggle (action, element) {
   }
 
   if (action === 'next' || action === 'previous') {
-    pickSonglistsElement.forEach((element, i) => slideCalculate(action, element, i));
+    pickSonglistsElement && pickSonglistsElement.forEach((element, i) => slideCalculate(action, element, i));
   }
 }
