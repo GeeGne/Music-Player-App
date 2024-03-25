@@ -10,6 +10,8 @@ import {updateTimer, updateNavCover} from './nav.js';
 
 import {updatePlayerTape} from './player-tape.js';
 
+import {playlistAddNewToggle} from './playlist-add-new.js';
+
 import {currentTime} from '../Utils/timer.js';
 import {getSample, getSampleID} from '../Utils/sample.js';
 import {playNchillPlaylist, favouritesPlaylist, allSongsPlaylist} from '../Utils/playlists.js';
@@ -267,6 +269,7 @@ function arrowToggle (direction, element) {
 
   sectionInfo === 'play-n-chill' && playChillToggle(direction, element);
   sectionInfo === 'play-list' && currentPlaylistToggle(direction, element);
+  sectionInfo === 'playlist-add-new' && playlistAddNewToggle(direction, element);
 }
 
 export function updateAudioState (type, action, element) {

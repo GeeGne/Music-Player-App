@@ -73,6 +73,15 @@
   }
 }
 
+@keyframes popOut {
+  from {
+    transfrom: scale(1);
+  }
+  to {
+    transform: scale(0.5);
+  }
+}
+
 @keyframes popInWFade {
   from {
     opacity: 0;
@@ -187,6 +196,12 @@
 
 .popIn {
   animation-name: popIn;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.popOut {
+  animation-name: popOut;
   animation-timing-function: ease-out;
   animation-fill-mode: both;
 }

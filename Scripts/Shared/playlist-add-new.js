@@ -6,13 +6,19 @@ import {audioState, addNewPlaylistContainerElement, addToPlaylistToggleElement,
   newListBoxElement, addListBoxElement, 
   createButtonElement, newPlaylistInputElement,
   updateAudioState, createListSectionElement, 
-  messageAlertTextElement, selectedSamplesContainer, addToPlaylistContainerElement} from './general.js';
+  messageAlertTextElement, selectedSamplesContainer, 
+addToPlaylistContainerElement} from './general.js';
 
 import {currentPlaylistToggle} from '../play-lists.js';
 
 import {createLists} from '../Utils/playlists.js';
 
 import countWords from '../Utils/countWords.js';
+import calAndConvTotalWidthToEM from '../Utils/lenghtCal.js';
+
+let pickSonglistsElement;
+let addToPlaylistButtonElement;
+
 
 function playlistAddNewSummary () {
   addToPlaylistToggleElement.forEach(element => 
@@ -31,17 +37,36 @@ function playlistAddNewSummary () {
 export default playlistAddNewSummary;
 
 function updateSelectedSamplesListeners () {
-  const pickSonglistsElement = document.querySelectorAll('.js-add-selected-samples');
+  pickSonglistsElement = document.querySelectorAll('.js-add-selected-samples');
   pickSonglistsElement.forEach(element => {
     element.addEventListener('click', () => playlistAddNewToggle('song clicked', element))
   })
 }
 
 function updateChooseAPlaylistListeners () {
-  const addToPlaylistButtonElement = document.querySelectorAll('.js-add-playlist-button');
+  addToPlaylistButtonElement = document.querySelectorAll('.js-add-playlist-button');
   addToPlaylistButtonElement.forEach(element => 
     element.addEventListener('click', () => playlistAddNewToggle('choose a Playlist Add Button clicked', element))
   );
+}
+
+let currentIndex = 0;
+function slideCalculate (direction, element, i) {  
+  
+  if (direction === 'next') {
+    i === 0 && (currentIndex -= 25.5);
+
+    currentIndex < 
+    (-1 * calAndConvTotalWidthToEM(selectedSamplesContainer[0]) + 
+    calAndConvTotalWidthToEM(newListBoxElement) + 5) && 
+    (currentIndex = -1 * calAndConvTotalWidthToEM(selectedSamplesContainer[0]) + 
+    calAndConvTotalWidthToEM(newListBoxElement) + 5);
+  } else {
+    i === 0 && (currentIndex += 25.5);
+    currentIndex > 0 && (currentIndex = 0);
+  }
+
+  element.style.setProperty('--set-transform', `translateX(${currentIndex}em) scaleX(1)`);
 }
 
 let timerIds = [];
@@ -71,10 +96,6 @@ export function playlistAddNewToggle (action, element) {
           `
       })
 
-      // if (addList.length === 0) {
-      //   emptySamplesHTML(type);
-      //   return;
-      // }
       addList.length === 0 && (html = emptySamplesHTML(type));
       selectedSamplesContainer.forEach(element => (element.innerHTML = html));
       addList.length !== 0 && updateSelectedSamplesListeners();
@@ -98,11 +119,7 @@ export function playlistAddNewToggle (action, element) {
           `
         )
       })
-      
-      // if (selectedSamplesId.length === 0) {
-      //   emptySamplesHTML(type);
-      //   return;
-      // }
+
       selectedSamplesId.length === 0 && (html = emptySamplesHTML(type));
       selectedSamplesContainer.forEach(element => (element.innerHTML = html));
 
@@ -140,7 +157,7 @@ export function playlistAddNewToggle (action, element) {
       ); 
 
     addToPlaylistContainerElement.innerHTML = html;
-    updateChooseAPlaylistListeners();
+    playlists.length !== 0 && updateChooseAPlaylistListeners();
   }
 
   const songAdded = element => {
@@ -151,7 +168,7 @@ export function playlistAddNewToggle (action, element) {
     matchedItem || (selectedSamplesId = [...selectedSamplesId, sampleId]);
 
     song.style.opacity = '0';
-    song.style.transform = 'scaleX(0.1)';
+    element.style.setProperty('--set-transform', `translateX(${currentIndex}em) scaleX(0.1)`);
     setTimeout(() => song.style.display = 'none', 500);
 
     addList = samples.filter(sample => {
@@ -160,7 +177,6 @@ export function playlistAddNewToggle (action, element) {
       return sample.id !== matchedItem;
     });
 
-    // addList.length === 0 && emptySamplesHTML('select', true);
     addList.length === 0 && selectedSamplesContainer.forEach(element => element.innerHTML = emptySamplesHTML('select', true));
   }
 
@@ -171,7 +187,7 @@ export function playlistAddNewToggle (action, element) {
     selectedSamplesId = newList;
 
     song.style.opacity = '0';
-    song.style.transform = 'scaleX(0.1)';
+    element.style.setProperty('--set-transform', `translateX(${currentIndex}em) scaleX(0.1)`);
     setTimeout(() => song.style.display = 'none', 500);
     
     // selectedSamplesId.length === 0 && emptySamplesHTML('selected', true);
@@ -180,24 +196,6 @@ export function playlistAddNewToggle (action, element) {
   }
 
   const emptySamplesHTML = (type, animate) => {
-    // selectedSamplesContainer.forEach(element => {
-    //   type === 'select' && (element.innerHTML = 
-    //     `
-    //       <li class="empty ${animate && 'animate popInWFade'}" data-samples-type="add">
-    //         <h3>No Songs available to select</h3>
-    //       </li>
-    //     `
-    //   );
-
-    //   type === 'selected' && (element.innerHTML = 
-    //     `
-    //       <li class="empty ${animate && 'animate popInWFade'}" data-samples-type="add">
-    //         <h3>No Songs are selected</h3>
-    //       </li>
-    //     `
-    //   );
-    // });
-
     if (type === 'select') {
       return (
         `
@@ -218,9 +216,10 @@ export function playlistAddNewToggle (action, element) {
   }
 
   if (action === 'add to playlist toggle') {
+    currentIndex = 0;
     selectedSamplesSection.forEach(element => 
-        element.classList.contains('clicked') ? 
-        renderSongsHTML ('select') : renderSongsHTML ('selected')
+      element.classList.contains('clicked') ? 
+      renderSongsHTML ('select') : renderSongsHTML ('selected')
     );
     addNewPlaylistContainerElement.classList.remove('new-clicked');
     addNewPlaylistContainerElement.classList.add('add-clicked');
@@ -229,6 +228,7 @@ export function playlistAddNewToggle (action, element) {
   }
   
   if (action === 'new playlist toggle') {
+    currentIndex = 0;
     selectedSamplesSection.forEach(element => 
       element.classList.contains('clicked') ? 
       renderSongsHTML ('select') : renderSongsHTML ('selected')
@@ -238,6 +238,7 @@ export function playlistAddNewToggle (action, element) {
   }
 
   if (action === 'close') {
+    currentIndex = 0;
     selectedSamplesSection.forEach(element => element.classList.remove('clicked'));
     addNewPlaylistContainerElement.classList.remove('new-clicked');
     addNewPlaylistContainerElement.classList.remove('add-clicked');
@@ -246,6 +247,7 @@ export function playlistAddNewToggle (action, element) {
   }
 
   if (action === 'open-new' || action === 'open-add') {
+    currentIndex = 0;
     renderSongsHTML('selected');
     action.includes('new') && addNewPlaylistContainerElement.classList.add('new-clicked')
     action.includes('add') && addNewPlaylistContainerElement.classList.add('add-clicked')
@@ -254,7 +256,7 @@ export function playlistAddNewToggle (action, element) {
   }
 
   if (action === 'toggle to pick a song') {
-    // const {listName} = element.dataset;
+    currentIndex = 0;
     timerIds.forEach(timerId => clearTimeout(timerId));
     timerIds = [];
     selectedSamplesSection.forEach(element => element.classList.toggle('clicked'));
@@ -272,6 +274,7 @@ export function playlistAddNewToggle (action, element) {
   }
 
   if (action === 'create playlist') {
+    currentIndex = 0;
     const name = newPlaylistInputElement.value
     
     if (name === '') {
@@ -373,5 +376,9 @@ export function playlistAddNewToggle (action, element) {
     element.classList.add('clicked');
     currentPage.includes('play-lists') && currentPlaylistToggle('update playlists HTML');
     currentPage.includes('play-lists') && currentPlaylistToggle('update current playlist HTML');
+  }
+
+  if (action === 'next' || action === 'previous') {
+    pickSonglistsElement.forEach((element, i) => slideCalculate(action, element, i));
   }
 }
