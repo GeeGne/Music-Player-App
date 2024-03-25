@@ -10,7 +10,7 @@
   <li>All Songs tab</li>
   <li>Favourites tab</li>
   <li>Playlists tab</li>
-  <li>Audio tap with all the functionality(Heart, Shuffle, Repeat, Pause, Play, Play next, Play previous)</li>
+  <li>Audio tap with all the functionality (Heart, Shuffle, Repeat, Pause, Play, Play next, Play previous)</li>
   <li>Create a new playlist OR Add to a playlist</li>
 </ol>
 
