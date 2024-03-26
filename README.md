@@ -3,7 +3,7 @@
 <h2>About</h2>
 <p>Project goal is to have a fully working music app.</p>
 <p>This project is yet unfinished.</p>
-
+<p>This Project is created with Pure Vinalla JS! Large project no problem! Vanilla JS Can handle anything <33</p>
 <h3>What's working:</h3>
 <ol>
   <li>Home tab (50% finished)</li>
