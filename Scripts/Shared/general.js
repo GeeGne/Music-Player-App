@@ -253,13 +253,15 @@ export function userAction(action, element, other) {
 
       sectionId === 'all-songs' && updateAudioState(sectionId, 'new section');
       audioState.playListSettings.shuffle = true;
+      shuffle = audioState.playListSettings.shuffle;
       playList.shuffleList();
-      !shuffle && updatePlayerTape(action, true);
+      shuffle && updatePlayerTape(action, true);
       setTimeout(playFromBeginning, 500);
     } else {
       audioState.playListSettings.shuffle = !audioState.playListSettings.shuffle;
-      shuffle ? playList.sortList() : playList.shuffleList();
-      updatePlayerTape(action, !shuffle);
+      shuffle = audioState.playListSettings.shuffle;
+      shuffle && playList.shuffleList();
+      updatePlayerTape(action, shuffle);
     }
   }
 }

@@ -8,6 +8,7 @@ export class Playlist {
     this.type = type;
     this.list = list;
     this.totalTracks = totalTracks;
+    this.shuffledList = [];
   }
 
   shuffleList () {
@@ -34,7 +35,8 @@ export class Playlist {
       if (shuffledPlaylist.length === this.list.length) {
         console.log('finished');
         clearInterval(timerId);
-        this.list = shuffledPlaylist;
+        this.shuffledList = shuffledPlaylist;
+        // this.list = shuffledPlaylist;
         return;
       }
       !sameVal && (shuffledPlaylist = [...shuffledPlaylist, this.list[index]]);

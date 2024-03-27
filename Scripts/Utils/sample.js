@@ -11,7 +11,9 @@ export function getSample () {
 
 export function getSampleID (type, element) {
   let sampleId;
-  const {list} = audioState.playList;
+  const {playList} = audioState;
+  const {shuffle} = audioState.playListSettings;
+  const list = shuffle ? playList.shuffledList : playList.list;
 
   if (type === 'element') {
     sampleId = Number(element.dataset.sampleId);
