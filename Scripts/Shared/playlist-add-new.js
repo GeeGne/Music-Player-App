@@ -59,9 +59,9 @@ function slideCalculate (direction, element, i) {
 
     currentIndex < 
     (-1 * calAndConvTotalWidthToEM(selectedSamplesContainer[0]) + 
-    calAndConvTotalWidthToEM(newListBoxElement) + 5) && 
+    calAndConvTotalWidthToEM(newListBoxElement) - 3.5) && 
     (currentIndex = -1 * calAndConvTotalWidthToEM(selectedSamplesContainer[0]) + 
-    calAndConvTotalWidthToEM(newListBoxElement) + 5);
+    calAndConvTotalWidthToEM(newListBoxElement) - 3.5);
   } else {
     i === 0 && (currentIndex += width > 750 ? 25.5 : 18);
     currentIndex > 0 && (currentIndex = 0);
@@ -191,7 +191,6 @@ export function playlistAddNewToggle (action, element) {
     element.style.setProperty('--set-transform', `translateX(${currentIndex}em) scaleX(0.1)`);
     setTimeout(() => song.style.display = 'none', 500);
     
-    // selectedSamplesId.length === 0 && emptySamplesHTML('selected', true);
     selectedSamplesId.length === 0 && selectedSamplesContainer.forEach(element => element.innerHTML = emptySamplesHTML('select', true));
     console.log(selectedSamplesId);
   }

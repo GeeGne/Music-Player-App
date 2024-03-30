@@ -31,7 +31,7 @@ let playerTapeStyle;
 let addToPlaylistStyle;
 let newPlaylistStyle;
 let sharedPlaylistStyle;
-let favourites;
+let favouritesStyle;
 
 //  Favourites Elements Section
 let topSectionElement;
@@ -79,7 +79,7 @@ async function addStyleSheets () {
   addToPlaylistStyle = await import('../Styles/Shared/playlist-add-new/add-to-playlist.scss');
   newPlaylistStyle = await import('../Styles/Shared/playlist-add-new/new-playlist.scss');
   sharedPlaylistStyle = await import('../Styles/Shared/playlist-add-new/shared.scss');
-  favourites = await import('../Styles/favourites.scss');
+  favouritesStyle = await import('../Styles/favourites.scss');
 }
 
 function updateSelectors () {

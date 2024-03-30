@@ -36,7 +36,6 @@ export class Playlist {
         console.log('finished');
         clearInterval(timerId);
         this.shuffledList = shuffledPlaylist;
-        // this.list = shuffledPlaylist;
         return;
       }
       !sameVal && (shuffledPlaylist = [...shuffledPlaylist, this.list[index]]);

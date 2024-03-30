@@ -169,7 +169,7 @@ export function userAction(action, element, other) {
     let matchedPlaylist;
 
     if (shuffle) {
-      audioState.playListSettings.shuffle = !audioState.playListSettings.shuffle;
+      shuffle = audioState.playListSettings.shuffle = !audioState.playListSettings.shuffle;
       playList.sortList();
       updatePlayerTape('shuffle', shuffle);
     }
@@ -252,14 +252,12 @@ export function userAction(action, element, other) {
       const {sectionId} = element.dataset;
 
       sectionId === 'all-songs' && updateAudioState(sectionId, 'new section');
-      audioState.playListSettings.shuffle = true;
-      shuffle = audioState.playListSettings.shuffle;
+      shuffle = audioState.playListSettings.shuffle = true;
       playList.shuffleList();
       shuffle && updatePlayerTape(action, true);
       setTimeout(playFromBeginning, 500);
     } else {
-      audioState.playListSettings.shuffle = !audioState.playListSettings.shuffle;
-      shuffle = audioState.playListSettings.shuffle;
+     shuffle =  audioState.playListSettings.shuffle = !audioState.playListSettings.shuffle;
       shuffle && playList.shuffleList();
       updatePlayerTape(action, shuffle);
     }
