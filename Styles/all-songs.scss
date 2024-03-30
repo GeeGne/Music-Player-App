@@ -116,7 +116,6 @@ main section > h2 {
 
 .bottom-section {
   display: flex;
-  flex: 1;
 }
 
 .bottom-section .list-container {
@@ -147,6 +146,10 @@ main section > h2 {
   left: 0;
   width: 100%;
   border: solid 1px black;
+}
+
+.bottom-section .list-container .list:last-child::before {
+  border: none;
 }
 
 .bottom-section .list-container .list:hover {

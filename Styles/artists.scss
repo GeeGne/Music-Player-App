@@ -30,8 +30,10 @@ main section > h2 {
   transition: background-color 0.5s ease;
 }
 
-.top-section ul .artist-box {
+.top-section > ul {
   display: flex;
+  // width: 100%;
+  overflow-x: scroll;
 }
 
 .top-section .artist-box {
@@ -39,13 +41,17 @@ main section > h2 {
   display: flex;
   // background-image: url('/Img/Default/all-songs-screen-default-full.jpg');
   justify-content: center;
-  // width: 100%;
+  // min-width: 50%;
+  flex-shrink: 0;
+  margin: 0 20px;
+  // background-color: red;
   border-radius: 90px;
   filter: drop-shadow(8px 8px 5px rgba(41, 41, 41, 0.878));
 }
 
 .top-section .artist-box:nth-child(1) {
-  margin-right: 100px;
+  margin-left: 100px;
+  margin-right: 20px;
 }
 
 //  Shadow effect

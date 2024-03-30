@@ -373,6 +373,10 @@
   mask-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%); 
 }
 
+.right-side .bottom-section .list-section li:last-child::before {
+  height: 0px;
+}
+
 .right-side .bottom-section .list-section li:hover {
   background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(48, 48, 48) 50%, rgba(255, 255, 255, 0) 100%);
   color: white;
