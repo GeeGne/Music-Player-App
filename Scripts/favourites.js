@@ -175,7 +175,7 @@ function favouritesHTML () {
     html =
     `
       <li 
-        class="list js-list empty animate slideUp"
+        class="list js-list empty animate slideDown"
         data-list-type="empty"
       >
         <div class="cover-container">

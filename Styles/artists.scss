@@ -32,47 +32,111 @@ main section > h2 {
 
 .top-section > ul {
   display: flex;
-  // width: 100%;
+  flex: 1;
+  margin: 0 24px;
   overflow-x: scroll;
+  -webkit-mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
+  // z-index: 10;
 }
 
 .top-section .artist-box {
   position: relative;
   display: flex;
-  // background-image: url('/Img/Default/all-songs-screen-default-full.jpg');
-  justify-content: center;
-  // min-width: 50%;
+  justify-content: start;
+  min-width: 50%;
   flex-shrink: 0;
-  margin: 0 20px;
-  // background-color: red;
-  border-radius: 90px;
+  transform-origin: left;
   filter: drop-shadow(8px 8px 5px rgba(41, 41, 41, 0.878));
+  // transform: scale(0.5);
+  background-color: lightpink;
 }
 
 .top-section .artist-box:nth-child(1) {
-  margin-left: 100px;
-  margin-right: 20px;
+  min-width: calc(50% - 11em);
+  background-color: lime;
 }
 
-//  Shadow effect
-.top-section .artist-box::before {
-  content: "";
-  position: absolute;
-  top: 24px;
-  bottom: 24px;
-  left: 24px;
-  right: 24px;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.812);
-  border-radius: 200px;
-  color: rgba(255, 255, 255, 0);
+.top-section .artist-box:last-child {
+  min-width: calc(50% + 11em);
 }
+
+.top-section .artist-box.selected {
+  transform: scale(0.4);
+}
+
+// .top-section .artist-box:nth-child(2) img {
+//   transform-origin: center;
+//   transform: scale(0.5);
+// }
 
 .top-section .artist-box img {
-  margin: 24px;
+  margin: 24px 0;
   height: 22em;
   object-fit: cover;
   border-radius: 200px;
   cursor: pointer;
+  transform-origin: center;
+}
+
+.top-section .artist-box .title-box {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  bottom: 24px;
+  left: 0;
+  width: 22em;
+  height: 22em;
+  z-index: 10;
+  border-radius: 100%;
+  // aspect-ratio: 1 / 3;
+  background-color: rgba(229, 229, 229, 0.641);
+  background: linear-gradient(to bottom, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 0) 65%, rgb(255, 255, 255, 0.5) 75%, rgb(252, 252, 252) 100%);
+}
+
+.top-section .artist-box .title-box h3 {
+  text-align: center;
+  margin: 3px 0;
+}
+
+.top-section .artist-box .title-box h3:first-child {
+  margin-top: 75%;
+}
+
+.top-section .arrow-section {
+  position: absolute;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.top-section .arrow-section .left-arrow,
+.top-section .arrow-section .right-arrow {
+  display: inline-block;
+  width: 7em;
+  height: 7em;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.top-section .arrow-section .left-arrow:hover,
+.top-section .arrow-section .right-arrow:hover {
+  filter: invert(100%);
+}
+
+.top-section .left-arrow {
+  background-image: url('/Img/Icons/chevron_left.svg');
+  // margin-left: 50%;
+  margin-right: 8em;
+}
+
+.top-section .right-arrow {
+  background-image: url('/Img/Icons/chevron_right.svg');
+  margin-left: 8em;
 }
 
 .top-section .add-fav-button {
@@ -89,6 +153,7 @@ main section > h2 {
   border: none;
   border-radius: 50%;
   cursor: pointer;
+  z-index: 20;
   transition: transform 0.5s ease-in, box-shadow 0.5s ease-in, border 0.5s ease-in;
 }
 
@@ -148,6 +213,7 @@ main section > h2 {
   cursor: pointer;
   font-size: 1.5em;
   font-weight: 500;
+  z-index: 20;
   transition: opacity 0.5s ease-in;
 }
 
