@@ -6,6 +6,8 @@ import {allSongsToggle} from '../all-songs.js';
 
 import {favouritesToggle} from '../favourites.js';
 
+import {artistsToggle} from '../artists.js';
+
 import {updateTimer, updateNavCover} from './nav.js';
 
 import {updatePlayerTape} from './player-tape.js';
@@ -266,10 +268,10 @@ export function userAction(action, element, other) {
 
 function arrowToggle (direction, element) {
   const {sectionInfo} = element.dataset;
-
   sectionInfo === 'play-n-chill' && playChillToggle(direction, element);
   sectionInfo === 'play-list' && currentPlaylistToggle(direction, element);
   sectionInfo === 'playlist-add-new' && playlistAddNewToggle(direction, element);
+  sectionInfo === 'artists' && artistsToggle(direction, element);
 }
 
 export function updateAudioState (type, action, element) {

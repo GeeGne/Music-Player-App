@@ -37,6 +37,7 @@ main section > h2 {
   overflow-x: scroll;
   -webkit-mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
+
 }
 
 .top-section .artist-box {
@@ -45,6 +46,7 @@ main section > h2 {
   justify-content: start;
   min-width: 50%;
   flex-shrink: 0;
+  transition: transform 0.5s ease-out;
 }
 
 .top-section .artist-box:nth-child(1) {
@@ -64,7 +66,7 @@ main section > h2 {
   height: 22em;
   object-fit: cover;
   border-radius: 200px;
-  transform: scale(0.5);
+  // transform: scale(0.7);
   transform-origin: center;
   filter: blur(4px);
   cursor: pointer;
@@ -117,9 +119,10 @@ main section > h2 {
 .top-section .arrow-section {
   position: absolute;
   display: flex;
-  top: 50%;
+  top: calc(24px + 8em);
+  // top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
 }
 
 .top-section .arrow-section .left-arrow,
@@ -127,7 +130,7 @@ main section > h2 {
   display: inline-block;
   width: 7em;
   height: 7em;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(255, 255, 255, 0.6);
   border-radius: 100%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -140,13 +143,12 @@ main section > h2 {
 }
 
 .top-section .left-arrow {
-  background-image: url('/Img/Icons/chevron_left_white.svg');
-  // margin-left: 50%;
+  background-image: url('/Img/Icons/chevron_left.svg');
   margin-right: 8em;
 }
 
 .top-section .right-arrow {
-  background-image: url('/Img/Icons/chevron_right_white.svg');
+  background-image: url('/Img/Icons/chevron_right.svg');
   margin-left: 8em;
 }
 

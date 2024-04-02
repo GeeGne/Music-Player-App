@@ -39,7 +39,7 @@ let homeStyle;
 //  Play-n-Chill Elements Section
 let playNchillElement;
 export let playNchillLists;
-let topSectionContainer;
+let topSectionElement;
 
 async function addStyleSheets() {
   generalSyle = await import('../Styles/Shared/general.scss');
@@ -100,15 +100,15 @@ function playNchillHTML () {
 }
 
 let currentIndex = 0;
-function slideCalulate (direction, element, i) {  
+function slideCalculate (direction, element, i) {  
   if (direction === 'next') {
     i === 0 && (currentIndex -= 35.2);
 
     currentIndex < 
     (-1 * calAndConvTotalWidthToEM(playNchillElement) + 
-    calAndConvTotalWidthToEM(topSectionContainer)) && 
+    calAndConvTotalWidthToEM(topSectionElement)) && 
     (currentIndex = -1 * calAndConvTotalWidthToEM(playNchillElement) + 
-    calAndConvTotalWidthToEM(topSectionContainer));
+    calAndConvTotalWidthToEM(topSectionElement));
 
     element.style.transform = `translateX(${currentIndex}em)`;
   } else {
@@ -121,7 +121,7 @@ function slideCalulate (direction, element, i) {
 export function playChillToggle (type, element) {
 
   if (type === 'next' || type === 'previous') {
-    playNchillLists.forEach((element, i) => slideCalulate(type, element, i));
+    playNchillLists.forEach((element, i) => slideCalculate(type, element, i));
   }
 
   if (type ==='change icon') {
@@ -158,7 +158,7 @@ export function updateMarginMain (type) {
 
 function updateSummary() {
   playNchillElement = document.querySelector('.js-music-list-container');
-  topSectionContainer = document.querySelector('.js-top-section');
+  topSectionElement = document.querySelector('.js-top-section');
   addStyleSheets();
   playNchillHTML(samples);
   updateNewLists();

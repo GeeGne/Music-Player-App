@@ -7,12 +7,13 @@ import navSummary from './Shared/nav.js';
 import playerTapeSummary from './Shared/player-tape.js';
 import playlistAddNewSummary from './Shared/playlist-add-new.js';
 
-// // //  SHARED
-// import {audioState, userAction} from './Shared/general.js';
+//  SHARED
+import {audioState, userAction} from './Shared/general.js';
 // import {updatePlayerTape} from './Shared/player-tape.js';
 import {pageSelectUpdate, updateNavCover, updateTimer} from './Shared/nav.js';
 
-// // //  UTILS
+//  UTILS
+import calAndConvTotalWidthToEM from './Utils/lenghtCal.js';
 // import {getSampleID, getSample} from './Utils/sample.js';
 // import {favouritesPlaylist} from './Utils/playlists.js';
 
@@ -33,8 +34,10 @@ let newPlaylistStyle;
 let sharedPlaylistStyle;
 let artistsStyle;
 
-//  Favourites Elements Section
+//  Artists Elements Section
 let topSectionElement;
+let artistsContainerElement;
+let artistsListsElements;
 // let favouritesImageElement;
 // let totalSongsElement;
 let shuffleButtonElement;
@@ -82,6 +85,8 @@ async function addStyleSheets () {
 
 function updateSelectors () {
   topSectionElement = document.querySelector('.js-top-section');
+  artistsContainerElement = document.querySelector('.js-artists-container');
+  artistsListsElements = document.querySelectorAll('.js-artist-box');
   // favouritesImageElement = document.querySelector('.js-favourites-image');
   shuffleButtonElement = document.querySelector('.js-shuffle-button');
 }
@@ -102,6 +107,22 @@ function updateSelectors () {
 
 //   favouritesCoversElements = document.querySelectorAll('.js-cover-container');
 // }
+
+let currentIndex = 0;
+function slideCalculate (direction) {  
+  const scrollWidth = calAndConvTotalWidthToEM(topSectionElement) / 2 - 2;
+  const topSectionWidth = calAndConvTotalWidthToEM(topSectionElement);  
+  const artistsContainerWidth = calAndConvTotalWidthToEM(artistsContainerElement);
+
+  if (direction === 'next') {
+    currentIndex -= scrollWidth;
+    currentIndex < (-1 * artistsContainerWidth + topSectionWidth) && 
+    (currentIndex = -1 * artistsContainerWidth + topSectionWidth - 4); 
+  } else {
+    currentIndex += scrollWidth;
+    currentIndex > 0 && (currentIndex = 0);
+  }
+}
 
 // function favouritesHTML () {
 //   const {list} = favouritesPlaylist;
@@ -186,69 +207,75 @@ function updateSelectors () {
 // }
 
 // let timerID;
-// export function artistsToggle (action, element) {
-//   const styleWhenPause = () => {
-//     favouritesListsElements.forEach(sample => {
-//       sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0');
-//       sample.style.setProperty('--text-color', 'black');
-//     });
+export function artistsToggle (action, element) {
+  // const styleWhenPause = () => {
+  //   favouritesListsElements.forEach(sample => {
+  //     sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0');
+  //     sample.style.setProperty('--text-color', 'black');
+  //   });
 
-//     favouritesCoversElements.forEach(sample => 
-//       sample.style.setProperty('--before-opacity', '0')
-//     );
+  //   favouritesCoversElements.forEach(sample => 
+  //     sample.style.setProperty('--before-opacity', '0')
+  //   );
 
-//     favouritesImageElement.classList.add('paused');
-//   }
+  //   favouritesImageElement.classList.add('paused');
+  // }
 
-//   const styleWhenPlay = () => {
-//     favouritesListsElements.forEach(sample => {
-//       if (getSampleID('element', sample) === audioState.sampleId) {
-//         sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0.6');
-//         sample.style.setProperty('--text-color', 'white');
-//       } 
-//     });
+  // const styleWhenPlay = () => {
+  //   favouritesListsElements.forEach(sample => {
+  //     if (getSampleID('element', sample) === audioState.sampleId) {
+  //       sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0.6');
+  //       sample.style.setProperty('--text-color', 'white');
+  //     } 
+  //   });
 
-//     favouritesCoversElements.forEach(cover =>
-//       getSampleID('element', cover) === audioState.sampleId && 
-//       cover.style.setProperty('--before-opacity', '1')
-//     );
+  //   favouritesCoversElements.forEach(cover =>
+  //     getSampleID('element', cover) === audioState.sampleId && 
+  //     cover.style.setProperty('--before-opacity', '1')
+  //   );
 
-//     favouritesImageElement.classList.remove('paused');
-//   }
+  //   favouritesImageElement.classList.remove('paused');
+  // }
 
-//   if (action === 'change icon') {
+  // if (action === 'change icon') {
 
-//     if (audioState.state === 'pause') {
-//       styleWhenPause();
-//     } else if (audioState.state === 'play') {   
-//       styleWhenPause();
-//       styleWhenPlay()
-//     }  
-//   }
+  //   if (audioState.state === 'pause') {
+  //     styleWhenPause();
+  //   } else if (audioState.state === 'play') {   
+  //     styleWhenPause();
+  //     styleWhenPlay()
+  //   }  
+  // }
 
-//   if (action === 'list empty') {
-//     favouritesImageElement.classList.add('paused');
-//   }
+  // if (action === 'list empty') {
+  //   favouritesImageElement.classList.add('paused');
+  // }
 
-//   if (action === 'add') {
-//     addButton = !addButton;
+  // if (action === 'add') {
+  //   addButton = !addButton;
 
-//     topSectionElement.classList.toggle('add');
-//     playListElement.classList.toggle('add');
+  //   topSectionElement.classList.toggle('add');
+  //   playListElement.classList.toggle('add');
 
-//     clearTimeout(timerID);
-//     addFavButtonElement.style.setProperty('--set-display', 'none');
-//     timerID = setTimeout(() => addFavButtonElement.style.setProperty('--set-display', 'initial'), 500);
+  //   clearTimeout(timerID);
+  //   addFavButtonElement.style.setProperty('--set-display', 'none');
+  //   timerID = setTimeout(() => addFavButtonElement.style.setProperty('--set-display', 'initial'), 500);
 
-//     favouritesHTML();
-//     addFavouritesSelectors();
-//   }
+  //   favouritesHTML();
+  //   addFavouritesSelectors();
+  // }
 
-//   if (action === 'update favourite list') {
-//     favouritesHTML();
-//     addFavouritesSelectors();
-//   }
-// }
+  // if (action === 'update favourite list') {
+  //   favouritesHTML();
+  //   addFavouritesSelectors();
+  // }
+
+  if (action === 'next' || action === 'previous') {
+    console.log('test');
+    slideCalculate(action);
+    artistsListsElements.forEach(element => element.style.transform = `translateX(${currentIndex}em)`);
+  }
+}
 
 // function listType(list) {
 //   const {listType} = list.dataset;
