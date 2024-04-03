@@ -109,17 +109,19 @@ function updateSelectors () {
 // }
 
 let currentIndex = 0;
-function slideCalculate (direction) {  
-  const scrollWidth = calAndConvTotalWidthToEM(topSectionElement) / 2 - 2;
-  const topSectionWidth = calAndConvTotalWidthToEM(topSectionElement);  
-  const artistsContainerWidth = calAndConvTotalWidthToEM(artistsContainerElement);
+function slideCalculate (direction) {
+  const marginWidthPX = 48;
+  const artistCoverWidthEM = 22;
+  const topSectionWidthEM = calAndConvTotalWidthToEM(topSectionElement, -1 * marginWidthPX);  
+  const artistsContainerWidthEM = calAndConvTotalWidthToEM(artistsContainerElement);
+  const scrollWidthEM = topSectionWidthEM > 47 ? topSectionWidthEM / 2 : artistCoverWidthEM;
 
   if (direction === 'next') {
-    currentIndex -= scrollWidth;
-    currentIndex < (-1 * artistsContainerWidth + topSectionWidth) && 
-    (currentIndex = -1 * artistsContainerWidth + topSectionWidth - 4); 
-  } else {
-    currentIndex += scrollWidth;
+    currentIndex -= scrollWidthEM;
+    currentIndex < (-1 * artistsContainerWidthEM + topSectionWidthEM) && 
+    (currentIndex = -1 * artistsContainerWidthEM + topSectionWidthEM); 
+  } else { 
+    currentIndex += scrollWidthEM;
     currentIndex > 0 && (currentIndex = 0);
   }
 }

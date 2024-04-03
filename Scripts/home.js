@@ -100,28 +100,27 @@ function playNchillHTML () {
 }
 
 let currentIndex = 0;
-function slideCalculate (direction, element, i) {  
+function slideCalculate (direction) {
+  const twoSongsWidthEM = 35.2;
+  const scrollWidthEM = twoSongsWidthEM;
+  const topSectionWidthEM = calAndConvTotalWidthToEM(topSectionElement);  
+  const playNchillWidthEM = calAndConvTotalWidthToEM(playNchillElement);
+
   if (direction === 'next') {
-    i === 0 && (currentIndex -= 35.2);
-
-    currentIndex < 
-    (-1 * calAndConvTotalWidthToEM(playNchillElement) + 
-    calAndConvTotalWidthToEM(topSectionElement)) && 
-    (currentIndex = -1 * calAndConvTotalWidthToEM(playNchillElement) + 
-    calAndConvTotalWidthToEM(topSectionElement));
-
-    element.style.transform = `translateX(${currentIndex}em)`;
-  } else {
-    i === 0 && (currentIndex += 35.2);
+    currentIndex -= scrollWidthEM;
+    currentIndex < (-1 * playNchillWidthEM + topSectionWidthEM) && 
+    (currentIndex = -1 * playNchillWidthEM + topSectionWidthEM); 
+  } else { 
+    currentIndex += scrollWidthEM;
     currentIndex > 0 && (currentIndex = 0);
-    element.style.transform = `translateX(${currentIndex}em)`;
   }
 }
 
 export function playChillToggle (type, element) {
 
   if (type === 'next' || type === 'previous') {
-    playNchillLists.forEach((element, i) => slideCalculate(type, element, i));
+    slideCalculate(type);
+    playNchillLists.forEach(element => element.style.transform = `translateX(${currentIndex}em)`);
   }
 
   if (type ==='change icon') {

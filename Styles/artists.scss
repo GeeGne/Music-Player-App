@@ -12,7 +12,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  flex: 1;
+  // flex: 1;
   padding: 12px 24px;
 }
 
@@ -24,7 +24,7 @@ main section > h2 {
   position: relative;
   display: flex;
   flex-direction: row;
-  min-width: 100%;
+  // min-width: 100%;
   height: auto;
   background-color: #c3c7c897;
   transition: background-color 0.5s ease;
@@ -32,12 +32,12 @@ main section > h2 {
 
 .top-section > ul {
   display: flex;
-  flex: 1;
+  max-width: 100%;
   margin: 0 24px;
   overflow-x: scroll;
   -webkit-mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
-
+  align-self: stretch;
 }
 
 .top-section .artist-box {
@@ -90,7 +90,6 @@ main section > h2 {
   height: 22em;
   z-index: 10;
   border-radius: 100%;
-  // aspect-ratio: 1 / 3;
   box-shadow: 0 0 10px 5px rgba(58, 58, 58, 0.635) inset;
   background: linear-gradient(to bottom, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 0) 65%, rgba(80, 80, 80, 0.5) 75%, rgb(21, 21, 21) 100%);
   transition: opacity 0.5s ease;
@@ -404,31 +403,16 @@ main section > h2 {
     align-items: center;
   }
 
-  .right-side .top-section .right-box {
-    align-items: center;
-  }
-
-  .right-side .top-section.add .left-box {
-    align-items: end;
-    justify-content: center;
-    flex-shrink: 0;
-    height: 22em;
-    margin: 24px;
-  }
-
-  .right-side .top-section.add .left-box::before {
-    text-wrap: nowrap;
-    flex-shrink: 0;
-  }
-
-  .top-section .right-box > h2 {
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
-
-  .top-section.add .left-box img {
-    display: none;
-  }
+  // .top-section > ul {
+  //   display: flex;
+  //   max-width: 100%;
+    
+  //   // margin: 0 24px;
+  //   margin: 40px;
+  //   overflow-x: scroll;
+  //   -webkit-mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
+  //   mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
+  // }
 
   .top-section .shuffle-button {
     position: static;

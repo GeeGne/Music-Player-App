@@ -51,24 +51,24 @@ function updateChooseAPlaylistListeners () {
 }
 
 let currentIndex = 0;
-function slideCalculate (direction, element, i) {  
-  const width = document.body.scrollWidth;
-  
-  if (direction === 'next') {
-    i === 0 && (currentIndex -= width > 750 ? 25.5 : 18);
+function slideCalculate (direction) {  
+  const marginWidthPX = 48;
+  const twoSongsWidthEM = 18;
+  const threeSongsWidthEM = 25.5;
+  const viewPortWidthPX = document.body.scrollWidth;
+  const scrollWidthEM =  viewPortWidthPX > 750 ? threeSongsWidthEM : twoSongsWidthEM;
+  const newListBoxWidthEM = calAndConvTotalWidthToEM(newListBoxElement);
+  const selectedSamplesWidthEM = calAndConvTotalWidthToEM(selectedSamplesContainer[0], marginWidthPX);
 
-    currentIndex < 
-    (-1 * calAndConvTotalWidthToEM(selectedSamplesContainer[0]) + 
-    calAndConvTotalWidthToEM(newListBoxElement) - 3.5) && 
-    (currentIndex = -1 * calAndConvTotalWidthToEM(selectedSamplesContainer[0]) + 
-    calAndConvTotalWidthToEM(newListBoxElement) - 3.5);
-  } else {
-    i === 0 && (currentIndex += width > 750 ? 25.5 : 18);
+  if (direction === 'next') {
+    currentIndex -= scrollWidthEM;
+    currentIndex < (-1 * selectedSamplesWidthEM + newListBoxWidthEM) && 
+    (currentIndex = -1 * selectedSamplesWidthEM + newListBoxWidthEM); 
+  } else { 
+    currentIndex += scrollWidthEM;
     currentIndex > 0 && (currentIndex = 0);
   }
-
-  element.style.setProperty('--set-transform', `translateX(${currentIndex}em) scaleX(1)`);
-}
+} 
 
 let timerIds = [];
 let createListTimerId;
@@ -378,7 +378,8 @@ export function playlistAddNewToggle (action, element) {
     currentPage.includes('play-lists') && currentPlaylistToggle('update current playlist HTML');
   }
 
-  if (action === 'next' || action === 'previous') {
-    pickSonglistsElement && pickSonglistsElement.forEach((element, i) => slideCalculate(action, element, i));
+  if (action === 'next' || action === 'previous' ) {
+    pickSonglistsElement && slideCalculate(action);
+    pickSonglistsElement && pickSonglistsElement.forEach(element => element.style.setProperty('--set-transform', `translateX(${currentIndex}em) scaleX(1)`));
   }
 }

@@ -36,7 +36,7 @@ let sharedPlaylistStyle;
 let playListStyle;
 
 //  Playlist Elements Section
-let topSectionContainer;
+let topSectionElement;
 let addPlaylistButtonElement;
 let playListElement;
 let playListLists;
@@ -86,7 +86,7 @@ async function addStyleSheets() {
 }
 
 function updateSelectors() {
-  topSectionContainer = document.querySelector('.js-top-section');
+  topSectionElement = document.querySelector('.js-top-section');
   addPlaylistButtonElement = document.querySelector('.js-plus-icon');
   addPlaylistButtonElement.addEventListener('click', () => playlistAddNewToggle('open-new'));
   playListElement = document.querySelector('.js-music-list-container');
@@ -256,21 +256,19 @@ function cardSpread (list, playlistId, action) {
 }
 
 let currentIndex = 0;
-function slideCalulate (direction, element, i) {  
+function slideCalculate (direction) {
+  const twoSongsWidthEM = 37.2;
+  const scrollWidthEM = twoSongsWidthEM;
+  const topSectionWidthEM = calAndConvTotalWidthToEM(topSectionElement);  
+  const playListWidthEM = calAndConvTotalWidthToEM(playListElement);
+
   if (direction === 'next') {
-    i === 0 && (currentIndex -= 37.2);
-
-    currentIndex < 
-    (-1 * calAndConvTotalWidthToEM(playListElement) + 
-    calAndConvTotalWidthToEM(topSectionContainer)) && 
-    (currentIndex = -1 * calAndConvTotalWidthToEM(playListElement) + 
-    calAndConvTotalWidthToEM(topSectionContainer));
-
-    element.style.transform = `translateX(${currentIndex}em)`;
-  } else {
-    i === 0 && (currentIndex += 37.2);
+    currentIndex -= scrollWidthEM;
+    currentIndex < (-1 * playListWidthEM + topSectionWidthEM) && 
+    (currentIndex = -1 * playListWidthEM + topSectionWidthEM); 
+  } else { 
+    currentIndex += scrollWidthEM;
     currentIndex > 0 && (currentIndex = 0);
-    element.style.transform = `translateX(${currentIndex}em)`;
   }
 }
 
@@ -295,7 +293,8 @@ export function currentPlaylistToggle (action, element) {
   }
 
   if (action === 'next' || action === 'previous') {
-    playListLists.forEach((element, i) => slideCalulate(action, element, i));
+    slideCalculate(action);
+    playListLists.forEach(element => element.style.transform = `translateX(${currentIndex}em)`);
   }
 
   if (action === 'change icon') {
