@@ -16,7 +16,7 @@
 
 <h3>What's NOT working:</h3>
 <ol>
-  <li>Artist tab</li>
+  <li>Artist tab (currently working on it, Visuals at half top are almost finished)</li>
   <li>Album tab</li>
   <li>User Data will not store (everything Refresh when toggling between the screens)</li>
 </ol>
