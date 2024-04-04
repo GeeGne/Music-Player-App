@@ -1,3 +1,4 @@
+
 import samples from '../../Data/Samples.json';
 
 let timerId;

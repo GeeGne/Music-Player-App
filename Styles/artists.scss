@@ -34,7 +34,7 @@ main section > h2 {
   display: flex;
   max-width: 100%;
   margin: 0 24px;
-  overflow-x: scroll;
+  overflow: hidden;
   -webkit-mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
   align-self: stretch;
@@ -49,12 +49,12 @@ main section > h2 {
   transition: transform 0.5s ease-out;
 }
 
-.top-section .artist-box:nth-child(1) {
-  min-width: calc(50% - 11em);
+.top-section .artist-box.filler-start {
+  margin-left: calc(50% - 11em);
 }
 
-.top-section .artist-box:last-child {
-  min-width: calc(50% + 11em);
+.top-section .artist-box.filler-end {
+  margin-right: 11em;
 }
 
 .top-section .artist-box.selected {
@@ -66,15 +66,15 @@ main section > h2 {
   height: 22em;
   object-fit: cover;
   border-radius: 200px;
-  // transform: scale(0.7);
+  transform: scale(0.7);
   transform-origin: center;
-  filter: blur(4px);
+  filter: drop-shadow(0 0 5px rgba(41, 41, 41, 0.878)) blur(4px);
   cursor: pointer;
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition: transform 0.5s ease-out, filter 0.5s ease-in;
 }
 
 .top-section .artist-box.selected img {
-  filter: drop-shadow(8px 8px 5px rgba(41, 41, 41, 0.878));
+  filter: drop-shadow(8px 8px 5px rgba(41, 41, 41, 0.878)) blur(0);
   transform: scale(1);
 }
 
@@ -90,14 +90,15 @@ main section > h2 {
   height: 22em;
   z-index: 10;
   border-radius: 100%;
-  box-shadow: 0 0 10px 5px rgba(58, 58, 58, 0.635) inset;
+  box-shadow: 0 0 0 0 rgba(58, 58, 58, 0) inset;
   background: linear-gradient(to bottom, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 0) 65%, rgba(80, 80, 80, 0.5) 75%, rgb(21, 21, 21) 100%);
-  transition: opacity 0.5s ease;
+  transition: opacity 1s ease-out, box-shadow 1s ease-out;
 }
 
 .top-section .artist-box.selected .title-box {
   visibility: visible;
   opacity: 1;
+  box-shadow: 10px 10px 15px 1px rgba(255, 255, 255, 0.607) inset;
 }
 
 .top-section .artist-box .title-box h3 {

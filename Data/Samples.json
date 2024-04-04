@@ -26,19 +26,19 @@
   },{
     "id": 5,
     "sampleLocation": "../Audio/Clarx & Shiah Maisel - Give Up [NCS Release].mp3",
-    "artistName": "Clatx & Shiah Maisel",
+    "artistName": "Clarx & Shiah Maisel",
     "album": "Give Up",
     "cover": "/Img/Music Covers/Give Up.jpg"
   },{
     "id": 6,
     "sampleLocation": "../Audio/Clarx & Shiah Maisel - Pull Me In (feat. M.I.M.E) [NCS Release].mp3",
-    "artistName": "Clatx & Shiah Maisel",
+    "artistName": "Clarx & Shiah Maisel",
     "album": "Pull Me In (feat. M.I.ME)",
     "cover": "/Img/Music Covers/Pull Me In.jpg"
   },{
     "id": 7,
     "sampleLocation": "../Audio/Diamond Eyes - Everything [NCS Release].mp3",
-    "artistName": "Diamon Eyes",
+    "artistName": "Diamond Eyes",
     "album": "Everything",
     "cover": "/Img/Music Covers/Everything.jpg"
   },{
@@ -90,7 +90,7 @@
     "album": "When We Leavin",
     "cover": "/Img/Music Covers/When We Leavin.jpg"
   },{
-    "id": 16,
+    "id": 16, 
     "sampleLocation": "../Audio/JNATHYN x Bryan Andrew Medina - Clockwork [NCS Release].mp3",
     "artistName": "JNATHYN x Bryan Andrew Medina",
     "album": "Clockwork",

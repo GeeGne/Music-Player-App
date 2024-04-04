@@ -80,6 +80,7 @@ export let audioState = {
       playList: playNchillPlaylist
     }
   ],
+  artists: [],
   playListSettings: {
     repeat: false,
     shuffle: false

@@ -1,21 +1,47 @@
 [
   {
-    "artistName" : "name",
-    "artistCover": "cover"
+    "artistName" : "Barren Gates",
+    "artistCover": "/Img/Artist Covers/Barren Gates-pfp.png"
   },{
-    "artistName" : "name",
-    "artistCover": "cover"
+    "artistName" : "Bryan Andrew Medina",
+    "artistCover": "/Img/Artist Covers/Bryan Andrew Medina.jpg"
   },{
-    "artistName" : "name",
-    "artistCover": "cover"
+    "artistName" : "Diamond Eyes",
+    "artistCover": "/Img/Artist Covers/Diamond Eyes-pfp.png"
   },{
-    "artistName" : "name",
-    "artistCover": "cover"
+    "artistName" : "Egzod",
+    "artistCover": "/Img/Artist Covers/Egzod-pfp.jpg"
   },{
-    "artistName" : "name",
-    "artistCover": "cover"
+    "artistName" : "Hyri",
+    "artistCover": "/Img/Artist Covers/Hyri-pfp.png"
   },{
-    "artistName" : "name",
-    "artistCover": "cover"
+    "artistName" : "intoAlter",
+    "artistCover": "/Img/Artist Covers/intoAlter-pfp.jpg"
+  },{
+    "artistName" : "Jnathyn",
+    "artistCover": "/Img/Artist Covers/Jnathyn.jpeg"
+  },{
+    "artistName" : "Peter Piffen",
+    "artistCover": "/Img/Artist Covers/Peter Piffen-pfp.jpg"
+  },{
+    "artistName" : "Rameses B",
+    "artistCover": "/Img/Artist Covers/Rameses B-pfp.png"
+  },{
+    "artistName" : "RYVN",
+    "artistCover": "/Img/Artist Covers/RYVN-pfp.png"
+  },{
+    "artistName" : "Shiah Maisel",
+    "artistCover": "/Img/Artist Covers/Shiah Maisel-pfp.jpg"
+  },{
+    "artistName" : "Too Martian",
+    "artistCover": "/Img/Artist Covers/Too Martian-pfp.jpg"
+  },{
+    "artistName" : "Clarx",
+    "artistCover": "/Img/Artist Covers/Clarx-pfp.png"
+  },{
+    "artistName" : "Maestro Chives",
+    "artistCover": "/Img/Artist Covers/Maestro Chives-pfp.png"
+  },{
+    "artistName" : "TWISTED"
   }
 ]

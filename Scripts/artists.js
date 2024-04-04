@@ -1,6 +1,9 @@
 //  JSON DATA
 import samples from '../Data/Samples.json';
 
+//  ARISTS DATA
+import artistsData from '../Data/Artists.json';
+
 //  SUMMARY
 import generalSummary from './Shared/general.js';
 import navSummary from './Shared/nav.js';
@@ -86,9 +89,11 @@ async function addStyleSheets () {
 function updateSelectors () {
   topSectionElement = document.querySelector('.js-top-section');
   artistsContainerElement = document.querySelector('.js-artists-container');
-  artistsListsElements = document.querySelectorAll('.js-artist-box');
-  // favouritesImageElement = document.querySelector('.js-favourites-image');
   shuffleButtonElement = document.querySelector('.js-shuffle-button');
+}
+
+function updateArtistsSelector () {
+  artistsListsElements = document.querySelectorAll('.js-artist-box');
 }
 
 // function updateListeners () {
@@ -125,6 +130,31 @@ function slideCalculate (direction) {
     currentIndex > 0 && (currentIndex = 0);
   }
 }
+
+function artistsArray () {
+  let artistsNameReference = [];
+  samples.forEach(samples =>{
+    const {artistName} = samples;
+    const strLowerCase = artistName.toLowerCase();
+    const strLowerCaseArray = strLowerCase.split(strLowerCase.includes('&') ? ' & ' : ' x ');
+    const strLowerCaseNoSpaceArray = strLowerCaseArray.map(string => string.replace(/\s/g, ''));
+    artistsNameReference = [...artistsNameReference, strLowerCaseNoSpaceArray];
+  })
+
+  let repetetiveStrFilter = [];
+  artistsNameReference.forEach(array => {
+    array.forEach(artist => {
+      let matchedItem;
+      repetetiveStrFilter.forEach(str => str === artist && (matchedItem = artist))
+      matchedItem || (repetetiveStrFilter =[...repetetiveStrFilter, artist])
+    });
+  });
+
+  audioState.artists = artistsNameReference = repetetiveStrFilter;
+  console.log({artistsNameReference}, audioState.artists);
+}
+
+
 
 // function favouritesHTML () {
 //   const {list} = favouritesPlaylist;
@@ -208,8 +238,67 @@ function slideCalculate (direction) {
 //   totalSongs();
 // }
 
+function artistsHTML () {
+  const {artists} = audioState;
+  let html = ``;
+
+  artists.forEach((artist, i) => {
+    let matchedItem;
+    artistsData.forEach(artistData =>{
+      let {artistName} = artistData;
+      const strLowerCase = artistName.toLowerCase();
+      const strNoSpaceLowerCase = strLowerCase.replace(/\s/g, '');
+      artistName = strNoSpaceLowerCase;
+
+      artist === artistName && (matchedItem = artistData)
+    });
+
+    matchedItem && (
+      html +=
+      `
+        <li 
+          class="artist-box ${i === 0 && 'filler-start selected'} ${i === artists.length - 1 && 'filler-end'} js-artist-box"
+          data-artist-name="${artist}"
+        >
+          <div class="title-box">
+            <h3>${matchedItem.artistName}</h3>
+            <h3>Total songs</h3>
+          </div>
+          <img src="${matchedItem.artistCover || '/Img/Default/Artist-default.jpg'}">
+        </li>
+      `
+    )
+    console.log(matchedItem);
+  });
+
+  artistsContainerElement.innerHTML = html;
+
+}
+
 // let timerID;
 export function artistsToggle (action, element) {
+  const updateSelectedArtist = (direction) => {
+    let targetedIndex;
+    artistsListsElements.forEach((element, i) =>{
+      if (element.classList.contains('selected')) {
+        const lastIndex = artistsListsElements.length - 1;
+        
+        targetedIndex = i + (direction === 'next' ? 1 : -1);
+        targetedIndex < 0 && (targetedIndex = 0);
+        targetedIndex > lastIndex && (targetedIndex = lastIndex);
+      }
+
+      element.classList.remove('selected');
+    });
+
+    artistsListsElements.forEach((element, i) =>{
+      const artistName = element.dataset;
+      if (i === targetedIndex) {
+        audioState.selectedArtist = artistName;
+        element.classList.add('selected');
+      }
+    });
+  }
   // const styleWhenPause = () => {
   //   favouritesListsElements.forEach(sample => {
   //     sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0');
@@ -273,9 +362,9 @@ export function artistsToggle (action, element) {
   // }
 
   if (action === 'next' || action === 'previous') {
-    console.log('test');
     slideCalculate(action);
     artistsListsElements.forEach(element => element.style.transform = `translateX(${currentIndex}em)`);
+    updateSelectedArtist(action);
   }
 }
 
@@ -296,6 +385,9 @@ export function artistsToggle (action, element) {
 async function updateSummary() {
   updateSelectors();
   await addStyleSheets();
+  artistsArray();
+  artistsHTML();
+  updateArtistsSelector();
 //   favouritesSettings();
 //   updateListeners();
 //   favouritesHTML();
