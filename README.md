@@ -9,6 +9,7 @@
   <li>Home tab (50% finished)</li>
   <li>All Songs tab</li>
   <li>Favourites tab</li>
+  <li>Artists tab (80% finished, can't play any songs yet, the DOM updates and working)</li>
   <li>Playlists tab</li>
   <li>Audio tap with all the functionality (Heart, Shuffle, Repeat, Pause, Play, Play next, Play previous)</li>
   <li>Create a new playlist OR Add to a playlist</li>
@@ -16,7 +17,6 @@
 
 <h3>What's NOT working:</h3>
 <ol>
-  <li>Artist tab (currently working on it, Visuals at half top are almost finished)</li>
   <li>Album tab</li>
   <li>User Data will not store (everything Refresh when toggling between the screens)</li>
 </ol>
