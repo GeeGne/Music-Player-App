@@ -17,6 +17,7 @@ import {pageSelectUpdate, updateNavCover, updateTimer} from './Shared/nav.js';
 
 //  UTILS
 import calAndConvTotalWidthToEM from './Utils/lenghtCal.js';
+import strToLowerCaseAndNoSpace from './Utils/strToLowerCaseAndNoSpace.js';
 // import {getSampleID, getSample} from './Utils/sample.js';
 // import {favouritesPlaylist} from './Utils/playlists.js';
 
@@ -41,11 +42,11 @@ let artistsStyle;
 let topSectionElement;
 let artistsContainerElement;
 let artistsListsElements;
-// let favouritesImageElement;
 // let totalSongsElement;
 let shuffleButtonElement;
 // let addFavButtonElement;
-// let favouritesListsElements;
+let artistSongsContainerElement;
+let artistSongsElements;
 // let favouritesCoversElements;
 
 // function favouritesSettings () {
@@ -86,14 +87,14 @@ async function addStyleSheets () {
   artistsStyle = await import('../Styles/artists.scss');
 }
 
+
+
+
 function updateSelectors () {
   topSectionElement = document.querySelector('.js-top-section');
   artistsContainerElement = document.querySelector('.js-artists-container');
   shuffleButtonElement = document.querySelector('.js-shuffle-button');
-}
-
-function updateArtistsSelector () {
-  artistsListsElements = document.querySelectorAll('.js-artist-box');
+  artistSongsContainerElement = document.querySelector('.js-list-container');
 }
 
 // function updateListeners () {
@@ -103,8 +104,8 @@ function updateArtistsSelector () {
 // }
 
 // function addFavouritesSelectors() {
-//   favouritesListsElements = document.querySelectorAll('.js-list');
-//   favouritesListsElements.forEach(
+  // artistSongsElements = document.querySelectorAll('.js-list');
+  // artistSongsElements.forEach(
 //     sample => sample.addEventListener(
 //       'click', () => listType(sample)
 //     )
@@ -113,7 +114,7 @@ function updateArtistsSelector () {
 //   favouritesCoversElements = document.querySelectorAll('.js-cover-container');
 // }
 
-let currentIndex = 0;
+let currentTranslateX = 0;
 function slideCalculate (direction) {
   const marginWidthPX = 48;
   const artistCoverWidthEM = 22;
@@ -122,23 +123,38 @@ function slideCalculate (direction) {
   const scrollWidthEM = topSectionWidthEM > 47 ? topSectionWidthEM / 2 : artistCoverWidthEM;
 
   if (direction === 'next') {
-    currentIndex -= scrollWidthEM;
-    currentIndex < (-1 * artistsContainerWidthEM + topSectionWidthEM) && 
-    (currentIndex = -1 * artistsContainerWidthEM + topSectionWidthEM); 
+    currentTranslateX -= scrollWidthEM;
+    currentTranslateX < (-1 * artistsContainerWidthEM + topSectionWidthEM) && 
+    (currentTranslateX += scrollWidthEM); 
+    // (currentTranslateX = -1 * artistsContainerWidthEM + topSectionWidthEM ); 
   } else { 
-    currentIndex += scrollWidthEM;
-    currentIndex > 0 && (currentIndex = 0);
+    currentTranslateX += scrollWidthEM;
+    currentTranslateX > 0 && (currentTranslateX = 0);
   }
+}
+
+let observerTimerID;
+function renderArtistsWhenWidthChanges () {
+  const observer = new ResizeObserver(entries => {
+    for (let entry of entries) {
+      // console.log('Element width changed:', entry.contentRect.width);
+      clearTimeout(observerTimerID);
+      setTimeout(() => artistsToggle('re toggle to the selected artist'), 300);
+    }
+  });
+  observer.observe(topSectionElement);
 }
 
 function artistsArray () {
   let artistsNameReference = [];
   samples.forEach(samples =>{
-    const {artistName} = samples;
+    let {artistName} = samples;
     const strLowerCase = artistName.toLowerCase();
     const strLowerCaseArray = strLowerCase.split(strLowerCase.includes('&') ? ' & ' : ' x ');
     const strLowerCaseNoSpaceArray = strLowerCaseArray.map(string => string.replace(/\s/g, ''));
-    artistsNameReference = [...artistsNameReference, strLowerCaseNoSpaceArray];
+
+    artistName = strLowerCaseNoSpaceArray;
+    artistsNameReference = [...artistsNameReference, artistName];
   })
 
   let repetetiveStrFilter = [];
@@ -151,7 +167,6 @@ function artistsArray () {
   });
 
   audioState.artists = artistsNameReference = repetetiveStrFilter;
-  console.log({artistsNameReference}, audioState.artists);
 }
 
 
@@ -239,16 +254,29 @@ function artistsArray () {
 // }
 
 function artistsHTML () {
+
+  const updateArtistsSelector = () => {
+    artistsListsElements = document.querySelectorAll('.js-artist-box');
+  }
+
+  const updateSelectedArtist = () => {
+    artistsListsElements.forEach(element => {
+      const {artistName} = element.dataset;
+      element.classList.contains('selected') && (audioState.selectedArtist = artistName);
+    })
+  }
+
   const {artists} = audioState;
   let html = ``;
 
   artists.forEach((artist, i) => {
     let matchedItem;
     artistsData.forEach(artistData =>{
-      let {artistName} = artistData;
-      const strLowerCase = artistName.toLowerCase();
-      const strNoSpaceLowerCase = strLowerCase.replace(/\s/g, '');
-      artistName = strNoSpaceLowerCase;
+      let artistName = strToLowerCaseAndNoSpace(artistData.artistName);
+      // const strLowerCase = artistName.toLowerCase();
+      // const strNoSpaceLowerCase = strLowerCase.replace(/\s/g, '');
+      // artistName = strNoSpaceLowerCase;
+      console.log(artistName, '1')
 
       artist === artistName && (matchedItem = artistData)
     });
@@ -268,21 +296,67 @@ function artistsHTML () {
         </li>
       `
     )
-    console.log(matchedItem);
+    artistsContainerElement.innerHTML = html;
   });
 
-  artistsContainerElement.innerHTML = html;
-
+  updateArtistsSelector();
+  updateSelectedArtist();
 }
 
-// let timerID;
+function artistSongsHTML () {
+
+  const updateArtistSongsSelectors = () => {
+    artistSongsElements = document.querySelectorAll('.js-list');
+  }
+
+  const {selectedArtist} = audioState;
+  let html = '';
+
+  samples.forEach(sample => {
+    let artistName = strToLowerCaseAndNoSpace(sample.artistName);
+    // const strLowerCase = artistName.toLowerCase();
+    // const strLowerCaseNoSpace = strLowerCase.replace(/\s/g, '');
+    // artistName = strLowerCaseNoSpace;
+    console.log(artistName, '2')
+    
+    let matchedItem;
+    
+    artistName.includes(selectedArtist) && (matchedItem = sample)
+
+    matchedItem && (
+      html += 
+      `
+        <li 
+          class="list js-list animate fadeIn"
+          data-list-type="play"
+          data-sample-id="${matchedItem.id}"
+          >
+          <div 
+            class="cover-container js-cover-container" 
+            data-sample-id="${matchedItem.id}"
+          >
+            <img src="${matchedItem.cover}">
+          </div>
+          <h3>${matchedItem.artistName} - ${matchedItem.album}</h3>
+        </li>
+      `
+    );
+
+    artistSongsContainerElement.innerHTML = html;
+    updateArtistSongsSelectors();
+  })
+}
+
 export function artistsToggle (action, element) {
+
   const updateSelectedArtist = (direction) => {
+    let sameArtist;
     let targetedIndex;
+
     artistsListsElements.forEach((element, i) =>{
       if (element.classList.contains('selected')) {
         const lastIndex = artistsListsElements.length - 1;
-        
+
         targetedIndex = i + (direction === 'next' ? 1 : -1);
         targetedIndex < 0 && (targetedIndex = 0);
         targetedIndex > lastIndex && (targetedIndex = lastIndex);
@@ -292,15 +366,41 @@ export function artistsToggle (action, element) {
     });
 
     artistsListsElements.forEach((element, i) =>{
-      const artistName = element.dataset;
+      const {artistName} = element.dataset;
       if (i === targetedIndex) {
-        audioState.selectedArtist = artistName;
         element.classList.add('selected');
+        audioState.selectedArtist === artistName ? (sameArtist = true) : (audioState.selectedArtist = artistName);
       }
     });
+
+    return sameArtist;
   }
+
+  const toggleBackToArtist = () => {
+    currentTranslateX = 0;
+    let artistFinderArray = []; 
+    
+    artistsListsElements.forEach(element => {
+      const {artistName} = element.dataset;
+      const {selectedArtist} = audioState;
+
+      artistFinderArray = [...artistFinderArray, artistName === selectedArtist];
+    })
+
+    let selectedArtist;
+    artistFinderArray.forEach(choosed => {
+      choosed && (selectedArtist = true);
+
+      if (selectedArtist) {
+        return
+      } else if (!selectedArtist) {
+        slideCalculate('next');
+      }
+    })
+  }
+
   // const styleWhenPause = () => {
-  //   favouritesListsElements.forEach(sample => {
+    // artistSongsElements.forEach(sample => {
   //     sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0');
   //     sample.style.setProperty('--text-color', 'black');
   //   });
@@ -313,7 +413,7 @@ export function artistsToggle (action, element) {
   // }
 
   // const styleWhenPlay = () => {
-  //   favouritesListsElements.forEach(sample => {
+    // artistSongsElements.forEach(sample => {
   //     if (getSampleID('element', sample) === audioState.sampleId) {
   //       sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0.6');
   //       sample.style.setProperty('--text-color', 'white');
@@ -363,8 +463,14 @@ export function artistsToggle (action, element) {
 
   if (action === 'next' || action === 'previous') {
     slideCalculate(action);
-    artistsListsElements.forEach(element => element.style.transform = `translateX(${currentIndex}em)`);
-    updateSelectedArtist(action);
+    artistsListsElements.forEach(element => element.style.transform = `translateX(${currentTranslateX}em)`);
+    const sameArtist = updateSelectedArtist(action);
+    sameArtist || artistSongsHTML();
+  }
+
+  if (action === 're toggle to the selected artist') {
+    toggleBackToArtist();
+    artistsListsElements.forEach(element => element.style.transform = `translateX(${currentTranslateX}em)`);
   }
 }
 
@@ -387,7 +493,7 @@ async function updateSummary() {
   await addStyleSheets();
   artistsArray();
   artistsHTML();
-  updateArtistsSelector();
+  artistSongsHTML();
 //   favouritesSettings();
 //   updateListeners();
 //   favouritesHTML();
@@ -397,6 +503,7 @@ async function updateSummary() {
   pageSelectUpdate();
   playerTapeSummary();
   playlistAddNewSummary();
+  renderArtistsWhenWidthChanges();
 }
 
 currentPage.includes('artists') && updateSummary();

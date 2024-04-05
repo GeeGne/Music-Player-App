@@ -24,7 +24,6 @@ main section > h2 {
   position: relative;
   display: flex;
   flex-direction: row;
-  // min-width: 100%;
   height: auto;
   background-color: #c3c7c897;
   transition: background-color 0.5s ease;
@@ -37,7 +36,7 @@ main section > h2 {
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
-  align-self: stretch;
+  // align-self: stretch;
 }
 
 .top-section .artist-box {
@@ -273,6 +272,12 @@ main section > h2 {
   color: var(--text-color, rgb(0, 0, 0));
   transition: background-color 0.15s ease, color 0.15s ease;
   cursor: pointer;
+  border: solid black;
+  border-width: 0 0 1px 0;
+}
+
+.bottom-section .list-container .list:last-child {
+  border: none;
 }
 
 .bottom-section .list-container.add .list {
@@ -280,18 +285,8 @@ main section > h2 {
   color: var(--text-color, rgb(255, 255, 255));
 }
 
-.bottom-section .list-container .list::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  border: solid 1px black;
-  transition: border 0.5s ease;
-}
-
-.bottom-section .list-container.add .list::before {
-  border: solid 1px rgb(255, 255, 255);
+.bottom-section .list-container.add .list {
+  border-color: rgb(255, 255, 255);
 }
 
 .bottom-section .list-container.add .list::after {
