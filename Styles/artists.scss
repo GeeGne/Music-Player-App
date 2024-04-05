@@ -103,15 +103,18 @@ main section > h2 {
 .top-section .artist-box .title-box h3 {
   text-align: center;
   color: rgb(219, 219, 219);
-  font-size: 1.3em;
   margin: 3px 0;
   font-weight: 500;
+}
+
+.top-section .artist-box .title-box h3:last-child {
+  font-size: 1.2em;
 }
 
 .top-section .artist-box .title-box h3:first-child {
   margin-top: 73%;
   color: white;
-  font-size: 1.5em;
+  font-size: 1.7em;
   font-weight: bold;
 }
 

@@ -87,9 +87,6 @@ async function addStyleSheets () {
   artistsStyle = await import('../Styles/artists.scss');
 }
 
-
-
-
 function updateSelectors () {
   topSectionElement = document.querySelector('.js-top-section');
   artistsContainerElement = document.querySelector('.js-artists-container');
@@ -134,7 +131,7 @@ function slideCalculate (direction) {
 }
 
 let observerTimerID;
-function renderArtistsWhenWidthChanges () {
+function renderArtistsWhenWidthChanges () {     
   const observer = new ResizeObserver(entries => {
     for (let entry of entries) {
       // console.log('Element width changed:', entry.contentRect.width);
@@ -145,29 +142,29 @@ function renderArtistsWhenWidthChanges () {
   observer.observe(topSectionElement);
 }
 
-function artistsArray () {
-  let artistsNameReference = [];
-  samples.forEach(samples =>{
-    let {artistName} = samples;
-    const strLowerCase = artistName.toLowerCase();
-    const strLowerCaseArray = strLowerCase.split(strLowerCase.includes('&') ? ' & ' : ' x ');
-    const strLowerCaseNoSpaceArray = strLowerCaseArray.map(string => string.replace(/\s/g, ''));
+// function artistsArray () {
+//   let artistsNameReference = [];
+//   samples.forEach(samples =>{
+//     let {artistName} = samples;
+//     const strLowerCase = artistName.toLowerCase();
+//     const strLowerCaseArray = strLowerCase.split(strLowerCase.includes('&') ? ' & ' : ' x ');
+//     const strLowerCaseNoSpaceArray = strLowerCaseArray.map(string => string.replace(/\s/g, ''));
 
-    artistName = strLowerCaseNoSpaceArray;
-    artistsNameReference = [...artistsNameReference, artistName];
-  })
+//     artistName = strLowerCaseNoSpaceArray;
+//     artistsNameReference = [...artistsNameReference, artistName];
+//   })
 
-  let repetetiveStrFilter = [];
-  artistsNameReference.forEach(array => {
-    array.forEach(artist => {
-      let matchedItem;
-      repetetiveStrFilter.forEach(str => str === artist && (matchedItem = artist))
-      matchedItem || (repetetiveStrFilter =[...repetetiveStrFilter, artist])
-    });
-  });
+//   let repetetiveStrFilter = [];
+//   artistsNameReference.forEach(array => {
+//     array.forEach(artist => {
+//       let matchedItem;
+//       repetetiveStrFilter.forEach(str => str === artist && (matchedItem = artist))
+//       matchedItem || (repetetiveStrFilter =[...repetetiveStrFilter, artist])
+//     });
+//   });
 
-  audioState.artists = artistsNameReference = repetetiveStrFilter;
-}
+//   audioState.artists = artistsNameReference = repetetiveStrFilter;
+// }
 
 
 
@@ -270,38 +267,74 @@ function artistsHTML () {
   let html = ``;
 
   artists.forEach((artist, i) => {
-    let matchedItem;
-    artistsData.forEach(artistData =>{
-      let artistName = strToLowerCaseAndNoSpace(artistData.artistName);
-      // const strLowerCase = artistName.toLowerCase();
-      // const strNoSpaceLowerCase = strLowerCase.replace(/\s/g, '');
-      // artistName = strNoSpaceLowerCase;
-      console.log(artistName, '1')
+    const {artistData} = artist;
+    const {nameReference} = artist;
+    const {totalTracks} = artist;
 
-      artist === artistName && (matchedItem = artistData)
-    });
-
-    matchedItem && (
-      html +=
-      `
-        <li 
-          class="artist-box ${i === 0 && 'filler-start selected'} ${i === artists.length - 1 && 'filler-end'} js-artist-box"
-          data-artist-name="${artist}"
-        >
-          <div class="title-box">
-            <h3>${matchedItem.artistName}</h3>
-            <h3>Total songs</h3>
-          </div>
-          <img src="${matchedItem.artistCover || '/Img/Default/Artist-default.jpg'}">
-        </li>
-      `
-    )
-    artistsContainerElement.innerHTML = html;
+    html +=
+    `
+      <li 
+        class="artist-box ${i === 0 && 'filler-start selected'} ${i === artists.length - 1 && 'filler-end'} js-artist-box"
+        data-artist-name="${nameReference}"
+      >
+        <div class="title-box">
+          <h3>${artistData.artistName}</h3>
+          <h3>Total Songs ${totalTracks}</h3>
+        </div>
+        <img src="${artistData.artistCover || '/Img/Default/Artist-default.jpg'}">
+      </li>
+    `
   });
-
+  
+  artistsContainerElement.innerHTML = html;
   updateArtistsSelector();
   updateSelectedArtist();
 }
+// function artistsHTML () {
+
+//   const updateArtistsSelector = () => {
+//     artistsListsElements = document.querySelectorAll('.js-artist-box');
+//   }
+
+//   const updateSelectedArtist = () => {
+//     artistsListsElements.forEach(element => {
+//       const {artistName} = element.dataset;
+//       element.classList.contains('selected') && (audioState.selectedArtist = artistName);
+//     })
+//   }
+
+//   const {artists} = audioState;
+//   let html = ``;
+
+//   artists.forEach((artist, i) => {
+//     let matchedItem;
+//     artistsData.forEach(artistData =>{
+//       let artistName = strToLowerCaseAndNoSpace(artistData.artistName);
+
+//       artist === artistName && (matchedItem = artistData)
+//     });
+
+//     matchedItem && (
+//       html +=
+//       `
+//         <li 
+//           class="artist-box ${i === 0 && 'filler-start selected'} ${i === artists.length - 1 && 'filler-end'} js-artist-box"
+//           data-artist-name="${artist}"
+//         >
+//           <div class="title-box">
+//             <h3>${matchedItem.artistName}</h3>
+//             <h3>Total songs</h3>
+//           </div>
+//           <img src="${matchedItem.artistCover || '/Img/Default/Artist-default.jpg'}">
+//         </li>
+//       `
+//     )
+//     artistsContainerElement.innerHTML = html;
+//   });
+
+//   updateArtistsSelector();
+//   updateSelectedArtist();
+// }
 
 function artistSongsHTML () {
 
@@ -309,19 +342,23 @@ function artistSongsHTML () {
     artistSongsElements = document.querySelectorAll('.js-list');
   }
 
+  const {artists} = audioState;
   const {selectedArtist} = audioState;
-  let html = '';
 
-  samples.forEach(sample => {
-    let artistName = strToLowerCaseAndNoSpace(sample.artistName);
-    // const strLowerCase = artistName.toLowerCase();
-    // const strLowerCaseNoSpace = strLowerCase.replace(/\s/g, '');
-    // artistName = strLowerCaseNoSpace;
-    console.log(artistName, '2')
-    
+  let matchedList;
+  artists.forEach(artist => {
+    const {nameReference} = artist
+    const {list} = artist
+
+    nameReference.includes(selectedArtist) && (matchedList = list)
+  })
+  
+  let html = '';
+  matchedList.forEach(artistList => {
     let matchedItem;
+
+    samples.forEach(sample => artistList === sample.id && (matchedItem = sample))
     
-    artistName.includes(selectedArtist) && (matchedItem = sample)
 
     matchedItem && (
       html += 
@@ -342,10 +379,49 @@ function artistSongsHTML () {
       `
     );
 
-    artistSongsContainerElement.innerHTML = html;
-    updateArtistSongsSelectors();
   })
+  artistSongsContainerElement.innerHTML = html;
+  updateArtistSongsSelectors();
 }
+// function artistSongsHTML () {
+
+//   const updateArtistSongsSelectors = () => {
+//     artistSongsElements = document.querySelectorAll('.js-list');
+//   }
+
+//   const {selectedArtist} = audioState;
+//   let html = '';
+
+//   samples.forEach(sample => {
+//     let artistName = strToLowerCaseAndNoSpace(sample.artistName);
+    
+//     let matchedItem;
+    
+//     artistName.includes(selectedArtist) && (matchedItem = sample)
+
+//     matchedItem && (
+//       html += 
+//       `
+//         <li 
+//           class="list js-list animate fadeIn"
+//           data-list-type="play"
+//           data-sample-id="${matchedItem.id}"
+//           >
+//           <div 
+//             class="cover-container js-cover-container" 
+//             data-sample-id="${matchedItem.id}"
+//           >
+//             <img src="${matchedItem.cover}">
+//           </div>
+//           <h3>${matchedItem.artistName} - ${matchedItem.album}</h3>
+//         </li>
+//       `
+//     );
+
+//   })
+//   artistSongsContainerElement.innerHTML = html;
+//   updateArtistSongsSelectors();
+// }
 
 export function artistsToggle (action, element) {
 
@@ -491,7 +567,7 @@ export function artistsToggle (action, element) {
 async function updateSummary() {
   updateSelectors();
   await addStyleSheets();
-  artistsArray();
+  // artistsArray();
   artistsHTML();
   artistSongsHTML();
 //   favouritesSettings();
@@ -507,4 +583,3 @@ async function updateSummary() {
 }
 
 currentPage.includes('artists') && updateSummary();
-

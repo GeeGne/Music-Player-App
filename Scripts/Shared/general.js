@@ -17,6 +17,7 @@ import {playlistAddNewToggle} from './playlist-add-new.js';
 import {currentTime} from '../Utils/timer.js';
 import {getSample, getSampleID} from '../Utils/sample.js';
 import {playNchillPlaylist, favouritesPlaylist, allSongsPlaylist} from '../Utils/playlists.js';
+import artistsArray from '../Utils/artistsArray.js';
 
 //  Nav Elements
 export const navContainerElement = document.querySelector('.js-nav-container');
@@ -80,7 +81,8 @@ export let audioState = {
       playList: playNchillPlaylist
     }
   ],
-  artists: [],
+  artists: artistsArray(),
+  selectedArtist: '',
   playListSettings: {
     repeat: false,
     shuffle: false
