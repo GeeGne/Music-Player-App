@@ -43,12 +43,14 @@ export function updatePlayerTape (type, other) {
     }
   }
 
-  if (type === 'pause') {
+  if (type === 'pause' && pausePlayElement.src.includes('pause')) {
     pausePlayElement.style.opacity = '0';
     setTimeout(() => {
       pausePlayElement.style.opacity = '1';
       pausePlayElement.src = '/Img/Icons/play_arrow.svg';
     }, 200);
+  } else if (type === 'pause') {
+    pausePlayElement.src = '/Img/Icons/play_arrow.svg';
   } else if (type === 'play' && pausePlayElement.src.includes('play')) {
     pausePlayElement.style.opacity = '0';
     setTimeout(() => {
