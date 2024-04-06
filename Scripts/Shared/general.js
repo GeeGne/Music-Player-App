@@ -161,10 +161,13 @@ export function userAction(action, element, other) {
   }
 
   const updateIcon = type => {
-    audioState.screen === 'Home' && playChillToggle (type);  
-    audioState.screen === 'Playlists' && currentPlaylistToggle(type);
-    audioState.screen === 'All Songs' && allSongsToggle(type);
-    audioState.screen === 'Favourites' && favouritesToggle(type);
+    const {screen} = audioState;
+    
+    screen === 'Home' && playChillToggle (type);  
+    screen === 'Playlists' && currentPlaylistToggle(type);
+    screen === 'All Songs' && allSongsToggle(type);
+    screen === 'Favourites' && favouritesToggle(type);
+    screen === 'Artists' && artistsToggle(type);
   }
 
   if (action === 'switch playlist') {
@@ -183,7 +186,6 @@ export function userAction(action, element, other) {
     
     if (audioState.playList !== matchedPlaylist) {
       audioState.playList = matchedPlaylist
-  
       audioState.screen === 'Playlists' && currentPlaylistToggle('update current playlist HTML');
     }
     audioState.playList.list.length !== 0 && playFromBeginning();
@@ -278,8 +280,13 @@ function arrowToggle (direction, element) {
 }
 
 export function updateAudioState (type, action, element) {
-
-  if (type === 'new playlist') {
+  if (type === 'artist') {
+    const {artists} = audioState;
+    const {selectedArtist} = audioState;
+    
+    artists.forEach(artist => artist.nameReference === selectedArtist && (audioState.playList = artist));
+    console.log(audioState)
+  } else if (type === 'new playlist') {
     const playList = action;
     const {length} = audioState.playLists;
     const id = length + 1;

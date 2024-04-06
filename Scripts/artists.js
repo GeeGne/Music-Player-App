@@ -11,14 +11,14 @@ import playerTapeSummary from './Shared/player-tape.js';
 import playlistAddNewSummary from './Shared/playlist-add-new.js';
 
 //  SHARED
-import {audioState, userAction} from './Shared/general.js';
-// import {updatePlayerTape} from './Shared/player-tape.js';
+import {audioState, userAction, updateAudioState} from './Shared/general.js';
+import {updatePlayerTape} from './Shared/player-tape.js';
 import {pageSelectUpdate, updateNavCover, updateTimer} from './Shared/nav.js';
 
 //  UTILS
 import calAndConvTotalWidthToEM from './Utils/lenghtCal.js';
 import strToLowerCaseAndNoSpace from './Utils/strToLowerCaseAndNoSpace.js';
-// import {getSampleID, getSample} from './Utils/sample.js';
+import {getSampleID, getSample} from './Utils/sample.js';
 // import {favouritesPlaylist} from './Utils/playlists.js';
 
 //  Current Screen
@@ -47,33 +47,30 @@ let shuffleButtonElement;
 // let addFavButtonElement;
 let artistSongsContainerElement;
 let artistSongsElements;
-// let favouritesCoversElements;
+let artistSongsCoverElements;
 
-// function favouritesSettings () {
-//   audioState.screen = 'Favourites';
-//   audioState.section === "" && (audioState.section = 'favourites');
-//   // favouritesPlaylist.updatePlaylist('list', 20);
-//   // favouritesPlaylist.updatePlaylist('list', 7);
-//   // favouritesPlaylist.updatePlaylist('list', 14);
-//   audioState.playList = favouritesPlaylist;
-//   if (audioState.playList.list.length !== 0) {
-//     audioState.sampleId = getSampleID();
-//     audioState.state = 'pause';
-//     audioState.audio = new Audio(getSample().sampleLocation);
-//     updateTimer('new audio');
-//     updateNavCover();
-//     updatePlayerTape('songTitle');
-//     updatePlayerTape('expand');
-//     updatePlayerTape('pause');
-//     updatePlayerTape('favourite');
-//   } else {
-//     audioState.state = 'pause';
-//     updatePlayerTape('expand');
-//     updateTimer('list empty');
-//     updateNavCover('list empty');
-//     updatePlayerTape('list empty');
-//   }
-// }
+function artistsSettings () {
+  audioState.screen = 'Artists';
+  audioState.section === "" && (audioState.section = 'Artists');
+
+  if (audioState.playList.list.length !== 0) {
+    audioState.sampleId = getSampleID();
+    audioState.state = 'pause';
+    audioState.audio = new Audio(getSample().sampleLocation);
+    updateTimer('new audio');
+    updateNavCover();
+    updatePlayerTape('songTitle');
+    updatePlayerTape('expand');
+    updatePlayerTape('pause');
+    updatePlayerTape('favourite');
+  } else {
+    audioState.state = 'pause';
+    updatePlayerTape('expand');
+    updateTimer('list empty');
+    updateNavCover('list empty');
+    updatePlayerTape('list empty');
+  }
+}
 
 async function addStyleSheets () {
   generalSyle = await import('../Styles/Shared/general.scss');
@@ -108,7 +105,7 @@ function updateSelectors () {
 //     )
 //   );
 
-//   favouritesCoversElements = document.querySelectorAll('.js-cover-container');
+//   artistSongsCoverElements = document.querySelectorAll('.js-cover-container');
 // }
 
 let currentTranslateX = 0;
@@ -141,32 +138,6 @@ function renderArtistsWhenWidthChanges () {
   });
   observer.observe(topSectionElement);
 }
-
-// function artistsArray () {
-//   let artistsNameReference = [];
-//   samples.forEach(samples =>{
-//     let {artistName} = samples;
-//     const strLowerCase = artistName.toLowerCase();
-//     const strLowerCaseArray = strLowerCase.split(strLowerCase.includes('&') ? ' & ' : ' x ');
-//     const strLowerCaseNoSpaceArray = strLowerCaseArray.map(string => string.replace(/\s/g, ''));
-
-//     artistName = strLowerCaseNoSpaceArray;
-//     artistsNameReference = [...artistsNameReference, artistName];
-//   })
-
-//   let repetetiveStrFilter = [];
-//   artistsNameReference.forEach(array => {
-//     array.forEach(artist => {
-//       let matchedItem;
-//       repetetiveStrFilter.forEach(str => str === artist && (matchedItem = artist))
-//       matchedItem || (repetetiveStrFilter =[...repetetiveStrFilter, artist])
-//     });
-//   });
-
-//   audioState.artists = artistsNameReference = repetetiveStrFilter;
-// }
-
-
 
 // function favouritesHTML () {
 //   const {list} = favouritesPlaylist;
@@ -289,57 +260,21 @@ function artistsHTML () {
   artistsContainerElement.innerHTML = html;
   updateArtistsSelector();
   updateSelectedArtist();
+  updateAudioState('artist');
 }
-// function artistsHTML () {
-
-//   const updateArtistsSelector = () => {
-//     artistsListsElements = document.querySelectorAll('.js-artist-box');
-//   }
-
-//   const updateSelectedArtist = () => {
-//     artistsListsElements.forEach(element => {
-//       const {artistName} = element.dataset;
-//       element.classList.contains('selected') && (audioState.selectedArtist = artistName);
-//     })
-//   }
-
-//   const {artists} = audioState;
-//   let html = ``;
-
-//   artists.forEach((artist, i) => {
-//     let matchedItem;
-//     artistsData.forEach(artistData =>{
-//       let artistName = strToLowerCaseAndNoSpace(artistData.artistName);
-
-//       artist === artistName && (matchedItem = artistData)
-//     });
-
-//     matchedItem && (
-//       html +=
-//       `
-//         <li 
-//           class="artist-box ${i === 0 && 'filler-start selected'} ${i === artists.length - 1 && 'filler-end'} js-artist-box"
-//           data-artist-name="${artist}"
-//         >
-//           <div class="title-box">
-//             <h3>${matchedItem.artistName}</h3>
-//             <h3>Total songs</h3>
-//           </div>
-//           <img src="${matchedItem.artistCover || '/Img/Default/Artist-default.jpg'}">
-//         </li>
-//       `
-//     )
-//     artistsContainerElement.innerHTML = html;
-//   });
-
-//   updateArtistsSelector();
-//   updateSelectedArtist();
-// }
 
 function artistSongsHTML () {
 
-  const updateArtistSongsSelectors = () => {
+  const updateArtistSongsSelectorsAndListeners = () => {
     artistSongsElements = document.querySelectorAll('.js-list');
+    artistSongsElements.forEach(
+      sample => sample.addEventListener(
+        'click', () => listType(sample)
+      )
+    );
+  
+    artistSongsCoverElements = document.querySelectorAll('.js-cover-container');
+
   }
 
   const {artists} = audioState;
@@ -358,8 +293,7 @@ function artistSongsHTML () {
     let matchedItem;
 
     samples.forEach(sample => artistList === sample.id && (matchedItem = sample))
-    
-
+  
     matchedItem && (
       html += 
       `
@@ -381,47 +315,8 @@ function artistSongsHTML () {
 
   })
   artistSongsContainerElement.innerHTML = html;
-  updateArtistSongsSelectors();
+  updateArtistSongsSelectorsAndListeners();
 }
-// function artistSongsHTML () {
-
-//   const updateArtistSongsSelectors = () => {
-//     artistSongsElements = document.querySelectorAll('.js-list');
-//   }
-
-//   const {selectedArtist} = audioState;
-//   let html = '';
-
-//   samples.forEach(sample => {
-//     let artistName = strToLowerCaseAndNoSpace(sample.artistName);
-    
-//     let matchedItem;
-    
-//     artistName.includes(selectedArtist) && (matchedItem = sample)
-
-//     matchedItem && (
-//       html += 
-//       `
-//         <li 
-//           class="list js-list animate fadeIn"
-//           data-list-type="play"
-//           data-sample-id="${matchedItem.id}"
-//           >
-//           <div 
-//             class="cover-container js-cover-container" 
-//             data-sample-id="${matchedItem.id}"
-//           >
-//             <img src="${matchedItem.cover}">
-//           </div>
-//           <h3>${matchedItem.artistName} - ${matchedItem.album}</h3>
-//         </li>
-//       `
-//     );
-
-//   })
-//   artistSongsContainerElement.innerHTML = html;
-//   updateArtistSongsSelectors();
-// }
 
 export function artistsToggle (action, element) {
 
@@ -475,44 +370,40 @@ export function artistsToggle (action, element) {
     })
   }
 
-  // const styleWhenPause = () => {
-    // artistSongsElements.forEach(sample => {
-  //     sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0');
-  //     sample.style.setProperty('--text-color', 'black');
-  //   });
+  const styleWhenPause = () => {
+    artistSongsElements.forEach(sample => {
+      sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0');
+      sample.style.setProperty('--text-color', 'black');
+    });
 
-  //   favouritesCoversElements.forEach(sample => 
-  //     sample.style.setProperty('--before-opacity', '0')
-  //   );
+    artistSongsCoverElements.forEach(sample => 
+      sample.style.setProperty('--before-opacity', '0')
+    );
+  }
 
-  //   favouritesImageElement.classList.add('paused');
-  // }
+  const styleWhenPlay = () => {
+    artistSongsElements.forEach(sample => {
+      if (getSampleID('element', sample) === audioState.sampleId) {
+        sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0.6');
+        sample.style.setProperty('--text-color', 'white');
+      } 
+    });
 
-  // const styleWhenPlay = () => {
-    // artistSongsElements.forEach(sample => {
-  //     if (getSampleID('element', sample) === audioState.sampleId) {
-  //       sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0.6');
-  //       sample.style.setProperty('--text-color', 'white');
-  //     } 
-  //   });
+    artistSongsCoverElements.forEach(cover =>
+      getSampleID('element', cover) === audioState.sampleId && 
+      cover.style.setProperty('--before-opacity', '1')
+    );
+  }
 
-  //   favouritesCoversElements.forEach(cover =>
-  //     getSampleID('element', cover) === audioState.sampleId && 
-  //     cover.style.setProperty('--before-opacity', '1')
-  //   );
+  if (action === 'change icon') {
 
-  //   favouritesImageElement.classList.remove('paused');
-  // }
-
-  // if (action === 'change icon') {
-
-  //   if (audioState.state === 'pause') {
-  //     styleWhenPause();
-  //   } else if (audioState.state === 'play') {   
-  //     styleWhenPause();
-  //     styleWhenPlay()
-  //   }  
-  // }
+    if (audioState.state === 'pause') {
+      styleWhenPause();
+    } else if (audioState.state === 'play') {   
+      styleWhenPause();
+      styleWhenPlay()
+    }  
+  }
 
   // if (action === 'list empty') {
   //   favouritesImageElement.classList.add('paused');
@@ -541,6 +432,7 @@ export function artistsToggle (action, element) {
     slideCalculate(action);
     artistsListsElements.forEach(element => element.style.transform = `translateX(${currentTranslateX}em)`);
     const sameArtist = updateSelectedArtist(action);
+    sameArtist || updateAudioState('artist');
     sameArtist || artistSongsHTML();
   }
 
@@ -550,30 +442,26 @@ export function artistsToggle (action, element) {
   }
 }
 
-// function listType(list) {
-//   const {listType} = list.dataset;
-//   const sampleId = Number(list.dataset.sampleId);
+function listType(list) {
+  const {listType} = list.dataset;
+  const sampleId = Number(list.dataset.sampleId);
 
-//   if (listType === 'play') {
-//     userAction('play', list);
-//   } else if (listType === 'add') {
-//     favouritesPlaylist.updatePlaylist('list',sampleId);
-//     list.classList.toggle('checked');
-//   } else if (listType === 'empty') {
-//     favouritesToggle('add')
-//   }
-// }
+  if (listType === 'play') {
+    userAction('play', list);
+  } else if (listType === 'add') {
+    favouritesPlaylist.updatePlaylist('list',sampleId);
+    list.classList.toggle('checked');
+  } else if (listType === 'empty') {
+    favouritesToggle('add')
+  }
+}
       
 async function updateSummary() {
   updateSelectors();
   await addStyleSheets();
-  // artistsArray();
   artistsHTML();
   artistSongsHTML();
-//   favouritesSettings();
-//   updateListeners();
-//   favouritesHTML();
-//   addFavouritesSelectors();;
+  artistsSettings();
   generalSummary();
   navSummary();
   pageSelectUpdate();
