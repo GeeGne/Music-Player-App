@@ -370,6 +370,18 @@ export function artistsToggle (action, element) {
     })
   }
 
+  const pauseFromTheBegenning = () => {
+    audioState.audio.pause();
+    audioState.state = 'pause';
+    audioState.sampleId = getSampleID();
+    audioState.audio = new Audio(getSample().sampleLocation);
+    updateTimer('new audio');
+    updateNavCover();
+    updatePlayerTape('songTitle');
+    updatePlayerTape('pause');
+    updatePlayerTape('favourite');
+  }
+
   const styleWhenPause = () => {
     artistSongsElements.forEach(sample => {
       sample.style.setProperty('--background-change', 'rgba(0, 0, 0, 0');
@@ -431,9 +443,13 @@ export function artistsToggle (action, element) {
   if (action === 'next' || action === 'previous') {
     slideCalculate(action);
     artistsListsElements.forEach(element => element.style.transform = `translateX(${currentTranslateX}em)`);
+    
     const sameArtist = updateSelectedArtist(action);
-    sameArtist || updateAudioState('artist');
-    sameArtist || artistSongsHTML();
+    if (!sameArtist) {
+      updateAudioState('artist');
+      artistSongsHTML();
+      pauseFromTheBegenning();
+    }
   }
 
   if (action === 're toggle to the selected artist') {
