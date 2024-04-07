@@ -17,6 +17,7 @@
 
 <h3>What's NOT working:</h3>
 <ol>
+  <li>Settings Button and Search input</li>
   <li>Album tab</li>
   <li>User Data will not store (everything Refresh when toggling between the screens)</li>
 </ol>
