@@ -29,14 +29,34 @@ main section > h2 {
   transition: background-color 0.5s ease;
 }
 
+.right-side .top-section.add {
+  background-color: #2a2b2b97;
+}
+
+.right-side .top-section.add::before {
+  content: 'Pick an Artist';
+  color: white;
+  margin: 24px;
+  font-size: 2.7em;
+  font-weight: bold;
+  text-wrap: nowrap;
+}
+
 .top-section > ul {
-  display: flex;
+  display: var(--set-display, flex);
+  // display: flex;
   max-width: 100%;
   margin: 0 24px;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to left, rgb(0, 0, 0, 0) 0%, rgb(0, 0, 0, 1) 5%, rgb(0, 0, 0, 1) 95%, rgb(0, 0, 0, 0) 100%);
   // align-self: stretch;
+  transition: height 0.5s ease;
+}
+
+.top-section.add > ul {
+  visibility: hidden;
+  opacity: 0;
 }
 
 .top-section .artist-box {
@@ -69,6 +89,12 @@ main section > h2 {
   transform-origin: center;
   filter: drop-shadow(0 0 5px rgba(41, 41, 41, 0.878)) blur(4px);
   transition: transform 0.5s ease-out, filter 0.5s ease-in;
+}
+
+.top-section.add .artist-box img {
+  visibility: hidden;
+  height: 0;
+  transition: height 0.8s ease-out;
 }
 
 .top-section .artist-box.selected img {
@@ -126,6 +152,11 @@ main section > h2 {
   transform: translateX(-50%);
 }
 
+.top-section.add .arrow-section {
+  visibility: hidden;
+  opacity: 0;
+}
+
 .top-section .arrow-section .left-arrow,
 .top-section .arrow-section .right-arrow {
   display: inline-block;
@@ -153,32 +184,31 @@ main section > h2 {
   margin-left: 8em;
 }
 
-.top-section .add-fav-button {
+.top-section .pick-artist-button {
   position: absolute;
   top: 24px;
   right: 24px;
   width: 3em;
   height: 3em;
   background-color: rgba(255, 255, 255, 0.6);
-  background-image: url('/Img/Icons/artist.svg');
-  background-size: 75%;
+  background-image: url('/Img/Icons/artist_list.svg');
+  background-size: 65%;
   background-repeat: no-repeat;
   background-position: center;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   z-index: 20;
-  transition: transform 0.5s ease-in, box-shadow 0.5s ease-in, border 0.5s ease-in;
+  transition: box-shadow 0.5s ease-in, border 0.5s ease-in;
 }
 
-.top-section.add .add-fav-button {
+.top-section.add .pick-artist-button {
   filter: invert(100%);
   box-shadow: 0px 0px 5px rgb(0, 0, 0);
   border: solid 1px black;
-  transform: rotate(45deg);
 }
 
-.top-section .add-fav-button::before {
+.top-section .pick-artist-button::before {
   position: absolute;
   display: var(--set-display, initial);
   visibility: hidden;
@@ -197,18 +227,15 @@ main section > h2 {
   transition: opacity 0.25s ease-in;
 }
 
-.top-section.add .add-fav-button::before {
-  content: "Exit Add Mode";
-  transform: rotate(-45deg);
-  top: 65px;
-  right: 25px;
+.top-section.add .pick-artist-button::before {
+  content: "Exit";
 }
 
-.top-section .add-fav-button:hover {
+.top-section .pick-artist-button:hover {
   filter: invert(100%);
 }
 
-.top-section .add-fav-button:hover::before {
+.top-section .pick-artist-button:hover::before {
   visibility: visible;
   opacity: 1;
 }
@@ -297,32 +324,13 @@ main section > h2 {
   top: 50%;
   transform: translateY(-50%);
   right: 24px;
-  background-image: url('/Img/Icons/playlist-add-icon.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-  width: 3em;
-  height: 3em;
-
-}
-
-.bottom-section .list-container .list.empty::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 24px;
-  background-image: url('/Img/Icons/playlist-add-icon.svg');
+  background-image: url('/Img/Icons/artist.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
   width: 3em;
   height: 3em;
   filter: invert(100%);
-}
-
-.bottom-section .list-container .list.empty:hover:after {
-  filter: invert(0%);
 }
 
 .bottom-section .list-container .list.checked::after {
@@ -336,14 +344,9 @@ main section > h2 {
 }
 
 .bottom-section .list-container.add .list:hover {
-  background-color: rgba(255, 57, 57, 0.6);
+  background-color: rgba(140, 255, 253, 0.6);
   transition: background-color 0.5s ease;
 }
-
-.bottom-section .list-container .list.checked:hover {
-  background-color: rgba(59, 255, 42, 0.6);
-}
-
 
 .bottom-section .list-container .list .cover-container {
   position: relative;
@@ -397,8 +400,22 @@ main section > h2 {
 @media (max-width: 545px) {
 
   .right-side .top-section {
+    position: relative;
     flex-direction: column;
     align-items: center;
+  }
+
+  .right-side .top-section.add::before {
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
+
+  .top-section.add .artist-box img {
+    height: 22em;
   }
 
   // .top-section > ul {
@@ -417,17 +434,17 @@ main section > h2 {
     margin-bottom: 18px;
   }
 
-  .top-section .add-fav-button {
+  .top-section .pick-artist-button {
     position: static;
     margin-bottom: 18px;
   }
 
-  .top-section .add-fav-button::before {
+  .top-section .pick-artist-button::before {
     top: -50%;
     text-wrap: wrap;
   }
 
-  .top-section.add .add-fav-button::before {
+  .top-section.add .pick-artist-button::before {
     top: 20px;
   }
 }

@@ -162,7 +162,7 @@ export function userAction(action, element, other) {
 
   const updateIcon = type => {
     const {screen} = audioState;
-    
+
     screen === 'Home' && playChillToggle (type);  
     screen === 'Playlists' && currentPlaylistToggle(type);
     screen === 'All Songs' && allSongsToggle(type);
@@ -285,7 +285,6 @@ export function updateAudioState (type, action, element) {
     const {selectedArtist} = audioState;
     
     artists.forEach(artist => artist.nameReference === selectedArtist && (audioState.playList = artist));
-    console.log(audioState)
   } else if (type === 'new playlist') {
     const playList = action;
     const {length} = audioState.playLists;

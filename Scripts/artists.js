@@ -24,8 +24,8 @@ import {getSampleID, getSample} from './Utils/sample.js';
 //  Current Screen
 const currentPage = window.location.href;
 
-// //  Add to Fav Button
-// let addButton;
+//  Pick Artist Button
+let pickArtistButton;
 
 //  CSS Styles
 let generalSyle;
@@ -44,7 +44,7 @@ let artistsContainerElement;
 let artistsListsElements;
 // let totalSongsElement;
 let shuffleButtonElement;
-// let addFavButtonElement;
+let pickArtistButtonElement;
 let artistSongsContainerElement;
 let artistSongsElements;
 let artistSongsCoverElements;
@@ -87,15 +87,15 @@ async function addStyleSheets () {
 function updateSelectors () {
   topSectionElement = document.querySelector('.js-top-section');
   artistsContainerElement = document.querySelector('.js-artists-container');
+  pickArtistButtonElement = document.querySelector('.js-pick-artist-button')
   shuffleButtonElement = document.querySelector('.js-shuffle-button');
   artistSongsContainerElement = document.querySelector('.js-list-container');
 }
 
-// function updateListeners () {
-//   shuffleButtonElement.addEventListener('click', () => userAction('shuffle', shuffleButtonElement, 'button'));
-//   addFavButtonElement.addEventListener('click', () => favouritesToggle('add'));
-//   favouritesImageElement.addEventListener('click', () => userAction('play', 'pause play button'));
-// }
+function updateListeners () {
+  // shuffleButtonElement.addEventListener('click', () => userAction('shuffle', shuffleButtonElement, 'button'));
+  pickArtistButtonElement.addEventListener('click', () => artistsToggle('pick artist'));
+}
 
 // function addFavouritesSelectors() {
   // artistSongsElements = document.querySelectorAll('.js-list');
@@ -144,7 +144,7 @@ function renderArtistsWhenWidthChanges () {
 //   const {length} = list;
 //   let html = '';
 
-//   if (addButton) {
+  // if (pickArtistButton) {
 //     samples.forEach(sample => {
 //       let matchedID;
 //       list.forEach((id) => 
@@ -169,7 +169,7 @@ function renderArtistsWhenWidthChanges () {
 //       `
 //     });
 
-//     playListElement.innerHTML = html;
+//     artistSongsContainerElement.innerHTML = html;
 //     return;
 //   }
 
@@ -217,7 +217,7 @@ function renderArtistsWhenWidthChanges () {
 //     `
 //   );
   
-//   playListElement.innerHTML = html;
+//   artistSongsContainerElement.innerHTML = html;
 //   totalSongs();
 // }
 
@@ -263,7 +263,7 @@ function artistsHTML () {
   updateAudioState('artist');
 }
 
-function artistSongsHTML () {
+function artistSongsHTML (animation) {
 
   const updateArtistSongsSelectorsAndListeners = () => {
     artistSongsElements = document.querySelectorAll('.js-list');
@@ -277,7 +277,8 @@ function artistSongsHTML () {
 
   }
 
-  const {artists} = audioState;
+  const songsHTML = () => {
+    const {artists} = audioState;
   const {selectedArtist} = audioState;
 
   let matchedList;
@@ -298,7 +299,7 @@ function artistSongsHTML () {
       html += 
       `
         <li 
-          class="list js-list animate fadeIn"
+          class="list js-list animate ${animation === 'slide down' ? 'slideDown' : 'fadeIn'}"
           data-list-type="play"
           data-sample-id="${matchedItem.id}"
           >
@@ -316,33 +317,81 @@ function artistSongsHTML () {
   })
   artistSongsContainerElement.innerHTML = html;
   updateArtistSongsSelectorsAndListeners();
+  }
+
+  const artistsHTML = () => {
+    const {artists} = audioState;
+  
+    let html = '';
+    artists.forEach(artist => {
+      const {artistName} = artist.artistData;
+      const {artistCover} = artist.artistData;
+      const {nameReference} = artist;
+
+      html += 
+      `
+        <li 
+          class="list js-list"
+          data-list-type="pick"
+          data-name-reference="${nameReference}"
+          >
+          <div 
+            class="cover-container js-cover-container" 
+          >
+            <img src="${artistCover || '/Img/Default/Artist-default.jpg'}">
+          </div>
+          <h3>${artistName}</h3>
+        </li>
+      `;
+    })
+    artistSongsContainerElement.innerHTML = html;
+    updateArtistSongsSelectorsAndListeners();
+  }
+
+  pickArtistButton ? artistsHTML() : songsHTML();
 }
 
-export function artistsToggle (action, element) {
+let pickArtistTimerID;
+export function artistsToggle (action, element, other) {
 
-  const updateSelectedArtist = (direction) => {
+  const updateSelectedArtist = (type) => {
     let sameArtist;
     let targetedIndex;
 
-    artistsListsElements.forEach((element, i) =>{
-      if (element.classList.contains('selected')) {
-        const lastIndex = artistsListsElements.length - 1;
+    if (type === 'next' || type === 'previous') {
+      const direction = type;
 
-        targetedIndex = i + (direction === 'next' ? 1 : -1);
-        targetedIndex < 0 && (targetedIndex = 0);
-        targetedIndex > lastIndex && (targetedIndex = lastIndex);
-      }
+      artistsListsElements.forEach((element, i) =>{
+        if (element.classList.contains('selected')) {
+          const lastIndex = artistsListsElements.length - 1;
 
-      element.classList.remove('selected');
-    });
+          targetedIndex = i + (direction === 'next' ? 1 : -1);
+          targetedIndex < 0 && (targetedIndex = 0);
+          targetedIndex > lastIndex && (targetedIndex = lastIndex);
+        }
 
-    artistsListsElements.forEach((element, i) =>{
-      const {artistName} = element.dataset;
-      if (i === targetedIndex) {
-        element.classList.add('selected');
-        audioState.selectedArtist === artistName ? (sameArtist = true) : (audioState.selectedArtist = artistName);
-      }
-    });
+        element.classList.remove('selected');
+      });
+
+      artistsListsElements.forEach((element, i) =>{
+        const {artistName} = element.dataset;
+        if (i === targetedIndex) {
+          element.classList.add('selected');
+          audioState.selectedArtist === artistName ? (sameArtist = true) : (audioState.selectedArtist = artistName);
+        }
+      });
+    } else {
+      const pickedArtist = type;
+      artistsListsElements.forEach(element => element.classList.remove('selected'));
+      artistsListsElements.forEach(element =>{
+        const {artistName} = element.dataset;
+
+        if (artistName === pickedArtist) {
+          element.classList.add('selected');
+          audioState.selectedArtist === artistName ? (sameArtist = true) : (audioState.selectedArtist = artistName);
+        }
+      });
+    }
 
     return sameArtist;
   }
@@ -417,23 +466,30 @@ export function artistsToggle (action, element) {
     }  
   }
 
-  // if (action === 'list empty') {
-  //   favouritesImageElement.classList.add('paused');
-  // }
+  if (action === 'pick artist') {
+    pickArtistButton = !pickArtistButton;
 
-  // if (action === 'add') {
-  //   addButton = !addButton;
+    topSectionElement.classList.toggle('add');
+    artistSongsContainerElement.classList.toggle('add');
 
-  //   topSectionElement.classList.toggle('add');
-  //   playListElement.classList.toggle('add');
+    clearTimeout(pickArtistTimerID);
+    pickArtistButtonElement.style.setProperty('--set-display', 'none');
+    pickArtistTimerID = setTimeout(() => pickArtistButtonElement.style.setProperty('--set-display', 'initial'), 500);
 
-  //   clearTimeout(timerID);
-  //   addFavButtonElement.style.setProperty('--set-display', 'none');
-  //   timerID = setTimeout(() => addFavButtonElement.style.setProperty('--set-display', 'initial'), 500);
-
-  //   favouritesHTML();
-  //   addFavouritesSelectors();
-  // }
+    if (other) {
+      const nameReference = other;
+      const {selectedArtist} = audioState;
+      
+      if (selectedArtist !== nameReference) {
+        updateSelectedArtist(nameReference);
+        updateAudioState('artist');
+        pauseFromTheBegenning();
+        toggleBackToArtist();
+        artistsListsElements.forEach(element => element.style.transform = `translateX(${currentTranslateX}em)`);
+      }
+    }
+    artistSongsHTML(other && 'slide down');
+  }
 
   // if (action === 'update favourite list') {
   //   favouritesHTML();
@@ -443,7 +499,6 @@ export function artistsToggle (action, element) {
   if (action === 'next' || action === 'previous') {
     slideCalculate(action);
     artistsListsElements.forEach(element => element.style.transform = `translateX(${currentTranslateX}em)`);
-    
     const sameArtist = updateSelectedArtist(action);
     if (!sameArtist) {
       updateAudioState('artist');
@@ -460,20 +515,18 @@ export function artistsToggle (action, element) {
 
 function listType(list) {
   const {listType} = list.dataset;
-  const sampleId = Number(list.dataset.sampleId);
+  const {nameReference} = list.dataset;
 
   if (listType === 'play') {
     userAction('play', list);
-  } else if (listType === 'add') {
-    favouritesPlaylist.updatePlaylist('list',sampleId);
-    list.classList.toggle('checked');
-  } else if (listType === 'empty') {
-    favouritesToggle('add')
+  } else if (listType === 'pick') {
+    artistsToggle('pick artist', undefined, nameReference);
   }
 }
       
 async function updateSummary() {
   updateSelectors();
+  updateListeners();
   await addStyleSheets();
   artistsHTML();
   artistSongsHTML();
