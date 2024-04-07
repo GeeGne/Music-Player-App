@@ -2,14 +2,14 @@
 <img src="https://github.com/GeeGne/Music-Player-App-Vanilla-JS/assets/153669435/30370ab1-d2af-4b6a-9c8a-578b22acba3c">
 <h2>About</h2>
 <p>Project goal is to have a fully working music app.</p>
-<p>This project is yet unfinished.</p>
+<p>This project is semi-finished.</p>
 <p>This Project is created with Pure Vinalla JS! Large project no problem! Vanilla JS Can handle anything <33</p>
 <h3>What's working:</h3>
 <ol>
   <li>Home tab (50% finished)</li>
   <li>All Songs tab</li>
   <li>Favourites tab</li>
-  <li>Artists tab (80% finished, can't play any songs yet, the DOM updates and working)</li>
+  <li>Artists tab (currently shuffle songs doesn't work)</li>
   <li>Playlists tab</li>
   <li>Audio tap with all the functionality (Heart, Shuffle, Repeat, Pause, Play, Play next, Play previous)</li>
   <li>Create a new playlist OR Add to a playlist</li>
