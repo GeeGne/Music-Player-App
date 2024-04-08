@@ -271,7 +271,6 @@ export function userAction(action, element, other) {
   }
 
   if (action === 'add song to playlist') {
-    console.log('clicked');
     playlistAddNewToggle(action, element);
   }
 }

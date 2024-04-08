@@ -100,11 +100,13 @@ function updateListeners () {
 
 let currentTranslateX = 0;
 function slideCalculate (direction) {
+  const bodyWidthPX = document.body.scrollWidth;
   const marginWidthPX = 48;
   const artistCoverWidthEM = 22;
-  const topSectionWidthEM = calAndConvTotalWidthToEM(topSectionElement, -1 * marginWidthPX);  
+  const topSectionWidthEM = calAndConvTotalWidthToEM(topSectionElement, bodyWidthPX > 665 && -1 * marginWidthPX);  
   const artistsContainerWidthEM = calAndConvTotalWidthToEM(artistsContainerElement);
-  const scrollWidthEM = topSectionWidthEM > 47 ? topSectionWidthEM / 2 : artistCoverWidthEM;
+  const scrollWidthEM = topSectionWidthEM > 44 ? topSectionWidthEM / 2 : artistCoverWidthEM;
+  // console.log(BodyWidthPX)
 
   if (direction === 'next') {
     currentTranslateX -= scrollWidthEM;

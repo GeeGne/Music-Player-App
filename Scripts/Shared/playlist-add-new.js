@@ -393,6 +393,5 @@ export function playlistAddNewToggle (action, element) {
     selectedSamplesId = [sampleId];
 
     openAddNewPlaylistWindow('open-add');
-    renderPlaylistsHTML();
   }
 }
