@@ -42,6 +42,7 @@ let addFavButtonElement;
 let playListElement;
 let favouritesListsElements;
 let favouritesCoversElements;
+let addToPlaylistButtonElements;
 
 
 function favouritesSettings () {
@@ -106,6 +107,13 @@ function addFavouritesSelectors() {
   );
 
   favouritesCoversElements = document.querySelectorAll('.js-cover-container');
+  addToPlaylistButtonElements = document.querySelectorAll('.js-add-to-playlist-button');
+  addToPlaylistButtonElements.forEach(element => {
+    element.addEventListener('click', (event) => {
+      event.stopPropagation();
+      userAction('add song to playlist', element)
+    });
+  });
 }
 
 function favouritesHTML () {
@@ -166,6 +174,10 @@ function favouritesHTML () {
             <img src="${matchedSample.cover}">
           </div>
           <h3>${matchedSample.artistName} - ${matchedSample.album}</h3>
+          <button 
+            class="add-to-playlist-button js-add-to-playlist-button"
+            data-sample-id="${matchedSample.id}"
+          />
         </li>
       `
     );  
@@ -275,7 +287,7 @@ async function updateSummary() {
   favouritesSettings();
   updateListeners();
   favouritesHTML();
-  addFavouritesSelectors();;
+  addFavouritesSelectors();
   generalSummary();
   navSummary();
   pageSelectUpdate();

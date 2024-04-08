@@ -3,7 +3,7 @@
   flex-direction: column;
   flex: 1;
   background-color: rgba(173, 216, 230, 0);
-  overflow-x: hidden;
+  overflow: hidden scroll;
   font-size: inherit;
   transition: padding ease-out 0.5s;
 }
@@ -395,6 +395,24 @@ main section > h2 {
 .bottom-section .list-container .list h3 {
   margin-left: 12px;
   font-size: 1.5em;
+}
+
+.bottom-section .list-container .list .add-to-playlist-button {
+  font-size: inherit;
+  width: 3em;
+  height: 3em;
+  border: none;
+  margin-left: auto;
+  background-image: url('/Img/Icons/playlist-add-icon-black.svg');
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+  filter: drop-shadow(0 0 2px white);
+  transform: filter 0.15s ease;
+}
+
+.bottom-section .list-container .list .add-to-playlist-button:hover {
+  filter: invert(100%);
 }
 
 @media (max-width: 545px) {

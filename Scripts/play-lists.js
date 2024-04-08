@@ -48,6 +48,7 @@ let currentPlaylistListsTitle;
 let favouritesListElement;
 let favouritesCoverElement;
 let favouritesTitleElement;
+let addToPlaylistButtonElements;
 
 
 function playListSettings () {
@@ -142,6 +143,13 @@ function addCurrentListsSelectors() {
       'click', () => userAction('play', sample)
     )
   );
+  addToPlaylistButtonElements = document.querySelectorAll('.js-add-to-playlist-button');
+  addToPlaylistButtonElements.forEach(element => {
+    element.addEventListener('click', (event) => {
+      event.stopPropagation();
+      userAction('add song to playlist', element)
+    });
+  });
 }
 
 function playListsHTML () {
@@ -215,6 +223,10 @@ function currentListHTML () {
           <h3 class="title js-current-section-audio-title">
             ${matchedSample.artistName} - ${matchedSample.album}
           </h3>
+          <button 
+            class="add-to-playlist-button js-add-to-playlist-button"
+            data-sample-id="${matchedSample.id}"
+          />
         </li>
       `
     );  

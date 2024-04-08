@@ -269,6 +269,11 @@ export function userAction(action, element, other) {
       updatePlayerTape(action, shuffle);
     }
   }
+
+  if (action === 'add song to playlist') {
+    console.log('clicked');
+    playlistAddNewToggle(action, element);
+  }
 }
 
 function arrowToggle (direction, element) {

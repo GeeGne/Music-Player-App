@@ -38,6 +38,7 @@ let shuffleButton;
 let playListElement;
 let allSongsListsElements;
 let AllSongsCoversElements;
+let addToPlaylistButtonElements;
 
 
 function allSongsSettings () {
@@ -89,6 +90,13 @@ function addAllSongsSelectors() {
   );
 
   AllSongsCoversElements = document.querySelectorAll('.js-cover-container');
+  addToPlaylistButtonElements = document.querySelectorAll('.js-add-to-playlist-button');
+  addToPlaylistButtonElements.forEach(element => {
+    element.addEventListener('click', (event) => {
+      event.stopPropagation();
+      userAction('add song to playlist', element)
+    });
+  });
 }
 
 function allSongsHTML () {
@@ -116,6 +124,10 @@ function allSongsHTML () {
             <img src="${matchedSample.cover}">
           </div>
           <h3>${matchedSample.artistName} - ${matchedSample.album}</h3>
+          <button 
+            class="add-to-playlist-button js-add-to-playlist-button"
+            data-sample-id="${matchedSample.id}"
+          />
         </li>
       `
     );  

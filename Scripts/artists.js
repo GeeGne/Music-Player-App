@@ -17,7 +17,6 @@ import {pageSelectUpdate, updateNavCover, updateTimer} from './Shared/nav.js';
 
 //  UTILS
 import calAndConvTotalWidthToEM from './Utils/lenghtCal.js';
-import strToLowerCaseAndNoSpace from './Utils/strToLowerCaseAndNoSpace.js';
 import {getSampleID, getSample} from './Utils/sample.js';
 // import {favouritesPlaylist} from './Utils/playlists.js';
 
@@ -39,15 +38,16 @@ let sharedPlaylistStyle;
 let artistsStyle;
 
 //  Artists Elements Section
+let rightSideElement;
 let topSectionElement;
 let artistsContainerElement;
 let artistsListsElements;
-// let totalSongsElement;
 let shuffleButtonElement;
 let pickArtistButtonElement;
 let artistSongsContainerElement;
 let artistSongsElements;
 let artistSongsCoverElements;
+let addToPlaylistButtonElements;
 
 function artistsSettings () {
   audioState.screen = 'Artists';
@@ -85,6 +85,7 @@ async function addStyleSheets () {
 }
 
 function updateSelectors () {
+  rightSideElement = document.querySelector('.js-right-side');
   topSectionElement = document.querySelector('.js-top-section');
   artistsContainerElement = document.querySelector('.js-artists-container');
   pickArtistButtonElement = document.querySelector('.js-pick-artist-button')
@@ -96,17 +97,6 @@ function updateListeners () {
   // shuffleButtonElement.addEventListener('click', () => userAction('shuffle', shuffleButtonElement, 'button'));
   pickArtistButtonElement.addEventListener('click', () => artistsToggle('pick artist'));
 }
-
-// function addFavouritesSelectors() {
-  // artistSongsElements = document.querySelectorAll('.js-list');
-  // artistSongsElements.forEach(
-//     sample => sample.addEventListener(
-//       'click', () => listType(sample)
-//     )
-//   );
-
-//   artistSongsCoverElements = document.querySelectorAll('.js-cover-container');
-// }
 
 let currentTranslateX = 0;
 function slideCalculate (direction) {
@@ -120,7 +110,6 @@ function slideCalculate (direction) {
     currentTranslateX -= scrollWidthEM;
     currentTranslateX < (-1 * artistsContainerWidthEM + topSectionWidthEM) && 
     (currentTranslateX += scrollWidthEM); 
-    // (currentTranslateX = -1 * artistsContainerWidthEM + topSectionWidthEM ); 
   } else { 
     currentTranslateX += scrollWidthEM;
     currentTranslateX > 0 && (currentTranslateX = 0);
@@ -138,88 +127,6 @@ function renderArtistsWhenWidthChanges () {
   });
   observer.observe(topSectionElement);
 }
-
-// function favouritesHTML () {
-//   const {list} = favouritesPlaylist;
-//   const {length} = list;
-//   let html = '';
-
-  // if (pickArtistButton) {
-//     samples.forEach(sample => {
-//       let matchedID;
-//       list.forEach((id) => 
-//         id === sample.id && (matchedID = true)
-//       )
-      
-//       html +=
-//       `
-//         <li 
-//           class="list ${matchedID && 'checked'} js-list"
-//           data-list-type="add"
-//           data-sample-id="${sample.id}"
-//         >
-//           <div 
-//             class="cover-container js-cover-container" 
-//             data-sample-id="${sample.id}"
-//           >
-//             <img src="${sample.cover}">
-//           </div>
-//           <h3>${sample.artistName} - ${sample.album}</h3>
-//         </li>
-//       `
-//     });
-
-//     artistSongsContainerElement.innerHTML = html;
-//     return;
-//   }
-
-//   const totalSongs = () => {
-//     totalSongsElement.textContent = `${favouritesPlaylist.totalTracks} Songs`;
-//   }
-
-//   list.forEach(sampleID => {
-//     let matchedSample;
-    
-//     samples.forEach(sample => sample.id === sampleID && (matchedSample = sample));
-
-//     matchedSample && (
-//       html += 
-//       `
-//         <li 
-//           class="list js-list animate slideDown"
-//           data-list-type="play"
-//           data-sample-id="${matchedSample.id}"
-//           >
-//           <div 
-//             class="cover-container js-cover-container" 
-//             data-sample-id="${matchedSample.id}"
-//           >
-//             <img src="${matchedSample.cover}">
-//           </div>
-//           <h3>${matchedSample.artistName} - ${matchedSample.album}</h3>
-//         </li>
-//       `
-//     );  
-//   });
-  
-//   length === 0 && (
-//     html =
-//     `
-//       <li 
-//         class="list js-list empty animate slideUp"
-//         data-list-type="empty"
-//       >
-//         <div class="cover-container">
-//           <img src="/Img/Default/Playlist-emtpy-default.jpg">
-//         </div>
-//         <h3>No Songs are currently added</h3>
-//       </li>
-//     `
-//   );
-  
-//   artistSongsContainerElement.innerHTML = html;
-//   totalSongs();
-// }
 
 function artistsHTML () {
 
@@ -274,7 +181,13 @@ function artistSongsHTML (animation) {
     );
   
     artistSongsCoverElements = document.querySelectorAll('.js-cover-container');
-
+    addToPlaylistButtonElements = document.querySelectorAll('.js-add-to-playlist-button');
+    addToPlaylistButtonElements.forEach(element => {
+      element.addEventListener('click', (event) => {
+        event.stopPropagation();
+        userAction('add song to playlist', element)
+      });
+    });
   }
 
   const songsHTML = () => {
@@ -310,10 +223,13 @@ function artistSongsHTML (animation) {
             <img src="${matchedItem.cover}">
           </div>
           <h3>${matchedItem.artistName} - ${matchedItem.album}</h3>
+          <button 
+            class="add-to-playlist-button js-add-to-playlist-button"
+            data-sample-id="${matchedItem.id}"
+          />
         </li>
       `
     );
-
   })
   artistSongsContainerElement.innerHTML = html;
   updateArtistSongsSelectorsAndListeners();
@@ -456,6 +372,13 @@ export function artistsToggle (action, element, other) {
     );
   }
 
+  const scrollUP = () => {
+    rightSideElement.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
   if (action === 'change icon') {
 
     if (audioState.state === 'pause') {
@@ -489,12 +412,8 @@ export function artistsToggle (action, element, other) {
       }
     }
     artistSongsHTML(other && 'slide down');
+    scrollUP();
   }
-
-  // if (action === 'update favourite list') {
-  //   favouritesHTML();
-  //   addFavouritesSelectors();
-  // }
 
   if (action === 'next' || action === 'previous') {
     slideCalculate(action);

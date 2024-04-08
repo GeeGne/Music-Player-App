@@ -190,6 +190,24 @@ main section > h2 {
   font-size: 1.5em;
 }
 
+.bottom-section .list-container .list .add-to-playlist-button {
+  font-size: inherit;
+  width: 3em;
+  height: 3em;
+  border: none;
+  margin-left: auto;
+  background-image: url('/Img/Icons/playlist-add-icon-black.svg');
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+  filter: drop-shadow(0 0 2px white);
+  transform: filter 0.15s ease;
+}
+
+.bottom-section .list-container .list .add-to-playlist-button:hover {
+  filter: invert(100%);
+}
+
 @media (max-width: 545px) {
   .right-side .top-section {
     flex-direction: column;

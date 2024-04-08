@@ -119,7 +119,7 @@ export function playlistAddNewToggle (action, element) {
             </li>
           `
         )
-      })
+      });
 
       selectedSamplesId.length === 0 && (html = emptySamplesHTML(type));
       selectedSamplesContainer.forEach(element => (element.innerHTML = html));
@@ -215,6 +215,16 @@ export function playlistAddNewToggle (action, element) {
     }
   }
 
+  const openAddNewPlaylistWindow = (action) => {
+    currentIndex = 0;
+    renderSongsHTML('selected');
+    action.includes('new') && addNewPlaylistContainerElement.classList.add('new-clicked');
+    action.includes('add') && addNewPlaylistContainerElement.classList.add('add-clicked');
+    action.includes('add') && renderPlaylistsHTML();
+    newListBoxElement.style.transform = 'translateX(-50%) scale(1)';
+    addListBoxElement.style.transform = 'translateX(-50%) scale(1)';
+  }
+
   if (action === 'add to playlist toggle') {
     currentIndex = 0;
     selectedSamplesSection.forEach(element => 
@@ -247,12 +257,7 @@ export function playlistAddNewToggle (action, element) {
   }
 
   if (action === 'open-new' || action === 'open-add') {
-    currentIndex = 0;
-    renderSongsHTML('selected');
-    action.includes('new') && addNewPlaylistContainerElement.classList.add('new-clicked')
-    action.includes('add') && addNewPlaylistContainerElement.classList.add('add-clicked')
-    newListBoxElement.style.transform = 'translateX(-50%) scale(1)';
-    addListBoxElement.style.transform = 'translateX(-50%) scale(1)';
+    openAddNewPlaylistWindow(action);
   }
 
   if (action === 'toggle to pick a song') {
@@ -381,5 +386,13 @@ export function playlistAddNewToggle (action, element) {
   if (action === 'next' || action === 'previous' ) {
     pickSonglistsElement && slideCalculate(action);
     pickSonglistsElement && pickSonglistsElement.forEach(element => element.style.setProperty('--set-transform', `translateX(${currentIndex}em) scaleX(1)`));
+  }
+
+  if (action === 'add song to playlist') {
+    const sampleId = Number(element.dataset.sampleId);
+    selectedSamplesId = [sampleId];
+
+    openAddNewPlaylistWindow('open-add');
+    renderPlaylistsHTML();
   }
 }

@@ -319,14 +319,12 @@
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  // background-color: #76fd37ec;
 }
 .right-side .bottom-section .name-section {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   white-space: nowrap;
-  // background-color: #99cb82ec;
 }
 
 .right-side .bottom-section .name-section h2:last-child {
@@ -344,19 +342,17 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding-top: 0.5em;
+  margin-top: 0.5em;
 }
 
 .right-side .bottom-section .list-section li {
   position: relative;
   display: flex;
-  max-height: 8em;
-  min-height: 8em;
+  align-items: center;
   flex: 1;
-  // background-color: #f4f4f4;
   background: var(--background-change, linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(191, 191, 191) 50%, rgba(255, 255, 255, 0) 100%));
   color: var(--text-color, black);
-  // margin-top: 2em;
+  // padding: 0 12px;
   cursor: pointer;
   transition: color ease-out 0.20s;
 }
@@ -387,9 +383,8 @@
 }
 
 .right-side .bottom-section .list-section li .cover img {
-  height: 100%;
-  width: auto;
-  padding: 0.5em;
+  height: 7em;
+  margin: 0.5em;
 }
 
 .right-side .bottom-section .list-section li .pause-icon::before {
@@ -399,7 +394,7 @@
   right: 0.5em;
   width: calc(100% - 1em);
   height: calc(100% - 1em);
-  padding: 1em;
+  // padding: 1em;
   background-color: rgba(196, 196, 196, 0.378);
   background-image: url('/Img/Icons/pause.svg');
   background-repeat: no-repeat;
@@ -420,14 +415,30 @@
 
 .right-side .bottom-section .list-section li .title {
   display: flex;
-  flex: 1;
-  align-items: center;
-  padding-left: 1em;
+  margin-left: 1em;
   font-size: 1.5em;
 }
 
 main section h2 {
   font-weight: 500;
+}
+
+.bottom-section .list-section li .add-to-playlist-button {
+  font-size: inherit;
+  width: 3em;
+  height: 3em;
+  border: none;
+  margin-left: auto;
+  background-image: url('/Img/Icons/playlist-add-icon-black.svg');
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+  filter: drop-shadow(0 0 2px white);
+  transform: filter 0.15s ease;
+}
+
+.bottom-section .list-section li .add-to-playlist-button:hover {
+  filter: invert(100%);
 }
 
 // @media (max-width: 899px) {
