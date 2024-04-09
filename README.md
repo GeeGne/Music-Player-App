@@ -27,3 +27,10 @@
 <p>cd ==> to the Music app file location</p>
 <p>npm install</p>
 <p>npm run dev</p>
+
+<h2>add your own Music</h2>
+<p>open music player app folder => then open Data folder => there are two JSON files:</p>
+<ul>
+  <li>samples.JSON: here you can add more music by copying the object of each sample and fill it with the details of the music you want to add, make sure to put Audio, Cover in the right directory</li>
+  <li>Artists.JSON: here you can add the details about the artist information of the music, artist Cover(optional) and the artist name(needed)</li>
+</ul>
