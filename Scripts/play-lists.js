@@ -135,7 +135,7 @@ function addPlayListsCovers () {
   })
 }
 
-function addCurrentListsSelectors() {
+function addCurrentListsSelectors () {
   currentPlaylistListsTitle = document.querySelectorAll('.js-current-section-audio-title');
   currentPlaylistLists = document.querySelectorAll('.js-playlist-samples');
   currentPlaylistLists.forEach(

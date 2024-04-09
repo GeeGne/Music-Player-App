@@ -94,7 +94,7 @@ function updateSelectors () {
 }
 
 function updateListeners () {
-  // shuffleButtonElement.addEventListener('click', () => userAction('shuffle', shuffleButtonElement, 'button'));
+  shuffleButtonElement.addEventListener('click', () => userAction('shuffle', shuffleButtonElement, 'button'));
   pickArtistButtonElement.addEventListener('click', () => artistsToggle('pick artist'));
 }
 
@@ -106,7 +106,6 @@ function slideCalculate (direction) {
   const topSectionWidthEM = calAndConvTotalWidthToEM(topSectionElement, bodyWidthPX > 665 && -1 * marginWidthPX);  
   const artistsContainerWidthEM = calAndConvTotalWidthToEM(artistsContainerElement);
   const scrollWidthEM = topSectionWidthEM > 44 ? topSectionWidthEM / 2 : artistCoverWidthEM;
-  // console.log(BodyWidthPX)
 
   if (direction === 'next') {
     currentTranslateX -= scrollWidthEM;
@@ -148,14 +147,14 @@ function artistsHTML () {
 
   artists.forEach((artist, i) => {
     const {artistData} = artist;
-    const {nameReference} = artist;
+    const {name} = artist;
     const {totalTracks} = artist;
 
     html +=
     `
       <li 
         class="artist-box ${i === 0 && 'filler-start selected'} ${i === artists.length - 1 && 'filler-end'} js-artist-box"
-        data-artist-name="${nameReference}"
+        data-artist-name="${name}"
       >
         <div class="title-box">
           <h3>${artistData.artistName}</h3>
@@ -194,47 +193,47 @@ function artistSongsHTML (animation) {
 
   const songsHTML = () => {
     const {artists} = audioState;
-  const {selectedArtist} = audioState;
+    const {selectedArtist} = audioState;
 
-  let matchedList;
-  artists.forEach(artist => {
-    const {nameReference} = artist
-    const {list} = artist
+    let matchedList;
+    artists.forEach(artist => {
+      const {name} = artist
+      const {list} = artist
 
-    nameReference.includes(selectedArtist) && (matchedList = list)
-  })
+      name.includes(selectedArtist) && (matchedList = list)
+    })
   
-  let html = '';
-  matchedList.forEach(artistList => {
-    let matchedItem;
+    let html = '';
+    matchedList.forEach(artistList => {
+      let matchedItem;
 
-    samples.forEach(sample => artistList === sample.id && (matchedItem = sample))
+      samples.forEach(sample => artistList === sample.id && (matchedItem = sample))
   
-    matchedItem && (
-      html += 
-      `
-        <li 
-          class="list js-list animate ${animation === 'slide down' ? 'slideDown' : 'fadeIn'}"
-          data-list-type="play"
-          data-sample-id="${matchedItem.id}"
-          >
-          <div 
-            class="cover-container js-cover-container" 
+      matchedItem && (
+        html += 
+        `
+          <li 
+            class="list js-list animate ${animation === 'slide down' ? 'slideDown' : 'fadeIn'}"
+            data-list-type="play"
             data-sample-id="${matchedItem.id}"
-          >
-            <img src="${matchedItem.cover}">
-          </div>
-          <h3>${matchedItem.artistName} - ${matchedItem.album}</h3>
-          <button 
-            class="add-to-playlist-button js-add-to-playlist-button"
-            data-sample-id="${matchedItem.id}"
-          />
-        </li>
-      `
-    );
-  })
-  artistSongsContainerElement.innerHTML = html;
-  updateArtistSongsSelectorsAndListeners();
+            >
+            <div 
+              class="cover-container js-cover-container" 
+              data-sample-id="${matchedItem.id}"
+            >
+              <img src="${matchedItem.cover}">
+            </div>
+            <h3>${matchedItem.artistName} - ${matchedItem.album}</h3>
+            <button 
+              class="add-to-playlist-button js-add-to-playlist-button"
+              data-sample-id="${matchedItem.id}"
+            />
+          </li>
+        `
+      );
+    })
+    artistSongsContainerElement.innerHTML = html;
+    updateArtistSongsSelectorsAndListeners();
   }
 
   const artistsHTML = () => {
@@ -244,14 +243,14 @@ function artistSongsHTML (animation) {
     artists.forEach(artist => {
       const {artistName} = artist.artistData;
       const {artistCover} = artist.artistData;
-      const {nameReference} = artist;
+      const {name} = artist;
 
       html += 
       `
         <li 
           class="list js-list"
           data-list-type="pick"
-          data-name-reference="${nameReference}"
+          data-name-reference="${name}"
           >
           <div 
             class="cover-container js-cover-container" 
@@ -418,6 +417,7 @@ export function artistsToggle (action, element, other) {
   }
 
   if (action === 'next' || action === 'previous') {
+    userAction('switch playlist');
     slideCalculate(action);
     artistsListsElements.forEach(element => element.style.transform = `translateX(${currentTranslateX}em)`);
     const sameArtist = updateSelectedArtist(action);

@@ -102,7 +102,6 @@ export default generalSummary;
 
 
 export function userAction(action, element, other) {
-
   const pauseOrPlay = () => {
     updateAudioState();
     updateTimer();
@@ -173,6 +172,7 @@ export function userAction(action, element, other) {
   if (action === 'switch playlist') {
     let {shuffle} = audioState.playListSettings;
     let {playList} = audioState;
+    let {screen} = audioState;
     const playListId = other;
     let matchedPlaylist;
 
@@ -182,6 +182,9 @@ export function userAction(action, element, other) {
       updatePlayerTape('shuffle', shuffle);
     }
 
+    if (screen === 'Artists') {
+      return;
+    }
     audioState.playLists.forEach(list => list.id === playListId && (matchedPlaylist = list.playList))
     
     if (audioState.playList !== matchedPlaylist) {
@@ -288,7 +291,7 @@ export function updateAudioState (type, action, element) {
     const {artists} = audioState;
     const {selectedArtist} = audioState;
     
-    artists.forEach(artist => artist.nameReference === selectedArtist && (audioState.playList = artist));
+    artists.forEach(artist => artist.name === selectedArtist && (audioState.playList = artist));
   } else if (type === 'new playlist') {
     const playList = action;
     const {length} = audioState.playLists;

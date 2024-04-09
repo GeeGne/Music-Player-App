@@ -4,7 +4,17 @@ import samples from '../../Data/Samples.json';
 //  ARISTS DATA
 import artistsData from '../../Data/Artists.json';
 
+import {Playlist} from './playlists.js';
+
 import strToLowerCaseAndNoSpace from './strToLowerCaseAndNoSpace.js';
+
+
+class ArtistPlaylist extends Playlist{
+  constructor(name, type, list, totalTracks, artistData) {
+    super(name, type, list, totalTracks);
+    this.artistData = artistData;
+  }
+}
 
 function artistsArray () {
   let artists = [];
@@ -43,10 +53,12 @@ function artistsArray () {
         
         artistName.includes(nameReference) && ( list = [...list, sample.id]);
       });
-
-      artists = [...artists, {list, nameReference, totalTracks: list.length}]
+      const totalTracks = list.length;
+      const type = 'system';
+      const playlist = new ArtistPlaylist(nameReference, type, list, totalTracks);
+      
+      artists = [...artists, playlist];
     });
-
   }
 
   const artistNameAndPfp = () => {
@@ -54,17 +66,16 @@ function artistsArray () {
       let matchedItem;
       artistsData.forEach(artistData =>{
         let artistName = strToLowerCaseAndNoSpace(artistData.artistName);
-  
-        artist.nameReference === artistName && (matchedItem = artistData)
+        
+        artist.name === artistName && (matchedItem = artistData);
       });
 
-      artists[i] = {...artists[i], artistData: matchedItem}
+      artists[i].artistData = matchedItem;
     });
   };
 
   artistSongsListAndTotal();
   artistNameAndPfp();
-  
   return artists
 }
 
