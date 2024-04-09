@@ -9,7 +9,7 @@
   <li>Home tab (50% finished)</li>
   <li>All Songs tab</li>
   <li>Favourites tab</li>
-  <li>Artists tab (currently shuffle songs doesn't work)</li>
+  <li>Artists tab</li>
   <li>Playlists tab</li>
   <li>Audio tap with all the functionality (Heart, Shuffle, Repeat, Pause, Play, Play next, Play previous)</li>
   <li>Create a new playlist OR Add to a playlist</li>
